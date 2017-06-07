@@ -28,3 +28,31 @@ React主要用于构建UI，很多人认为 React 是 MVC 中的 V（视图）�
 > - [常见问题](#常见问题)
 
 ## 安装
+- React有两种使用方式：`CDN`或`通过npm安装使用`
+1. CDN方式：
+```html
+<!DOCTYPE html><html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello React!</title>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="example"></div>
+    <script type="text/babel">
+      ReactDOM.render(<h1>Hello, world!</h1>,
+        document.getElementById('example')
+      );    </script>
+  </body></html>
+```
+2. NPM安装
+- 通过`create-react-app`脚手架可以快速构建react开发环境，并通过修改`App.js`入门
+```bash
+$ npm install react react-dom
+# 快速构建React开发环境
+$ npm install create-react-app
+$ create-react-app my-app
+$ cd my-app && npm start
+```

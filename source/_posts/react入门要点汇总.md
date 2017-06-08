@@ -151,5 +151,16 @@ function UserInfo(props) {
 - 在React中跟数据有关的三个属性是：`state`,`props`,`context`
 
 ```js
+// 子组件 item.js 。通过this.props拿值
+export default class Item extends React.Component{
+    render(){
+        return (<li>{this.props.data}</li>)
+    }
+}
+// 父组件
+import Item from './item.js'
+export default class Lists extends React.Component{
+    
+}
 
 ```

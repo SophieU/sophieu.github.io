@@ -18,7 +18,7 @@ React主要用于构建UI，很多人认为 React 是 MVC 中的 V（视图）�
 
 ## 目录
 > - [安装](#安装)
-> - [HelloWorld](#HelloWorld)
+> - [JSX语法](#JSX语法)
 > - [Express应用生成器](#Express应用生成器)
 > - [Router路由](#Router路由)
 > - [静态文件](#静态文件)
@@ -55,4 +55,30 @@ $ npm install react react-dom
 $ npm install create-react-app
 $ create-react-app my-app
 $ cd my-app && npm start
+```
+
+## JSX语法
+- JSX是一种JS的语法糖，它执行更快，类型安装。编写React可以不用JSX，但官方推荐使用。
+- 编译之后，JSX 表达式就变成了常规的 JavaScript 对象。因此可以在`if`或`for`中使用JSX,用它给变量赋值，或者将它作为函数的返回值。
+```js
+// JSX表达式
+function sayHello(user){
+    if(user){
+        return <h1>hello,{user}!</h1>
+    }else{
+        return <h1>hello,stranger.</h1>
+    }
+}
+```
+
+#### JSX属性
+- 属性值可以是`字符串`，也可以是`对象`
+- 属性名应该使用`驼峰命名法`，`class-->className`。【因为JSX比HTML更接近JS】
+
+```js
+// 1. 属性值-对象
+const elm=<img className="avatar" src={user.avatarUrl} />
+// 2. 属性值-字符串
+const elm2=<div tabIndex="0"></div>
+
 ```

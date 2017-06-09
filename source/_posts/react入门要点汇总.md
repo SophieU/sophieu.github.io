@@ -82,3 +82,8 @@ const elm=<img className="avatar" src={user.avatarUrl} />
 const elm2=<div tabIndex="0"></div>
 
 ```
+
+### JSX样式
+```js
+const elm = <div style={{width:'100px',color:'#fff'}}>红色字体</div>
+```

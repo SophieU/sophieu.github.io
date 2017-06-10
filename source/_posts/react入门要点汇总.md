@@ -146,3 +146,10 @@ function UserInfo(props) {
 ```
 
 ## Props属性
+- `Props`是不可变的，只能读取，不能修改，可以理解为`props是从外部传入组件的数据`
+- 由于React是`单向数据流`，所以props基本上也就是从服父级组件向子组件传递的数据。
+- 在React中跟数据有关的三个属性是：`state`,`props`,`context`
+
+```js
+
+```

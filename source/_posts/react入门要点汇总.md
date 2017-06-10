@@ -60,6 +60,7 @@ $ cd my-app && npm start
 ## JSX语法
 - JSX是一种JS的语法糖，它执行更快，类型安装。编写React可以不用JSX，但官方推荐使用。
 - 编译之后，JSX 表达式就变成了常规的 JavaScript 对象。因此可以在`if`或`for`中使用JSX,用它给变量赋值，或者将它作为函数的返回值。
+- 在JSX内部不能使用`if else`语句，但可以使用`三元运算`
 ```js
 // JSX表达式
 function sayHello(user){
@@ -69,6 +70,13 @@ function sayHello(user){
         return <h1>hello,stranger.</h1>
     }
 }
+// 三元运算
+ReactDOM.render(
+    <div>
+      <h1>{i == 1 ? 'True!' : 'False'}</h1>
+    </div>
+    ,    document.getElementById('example')
+);
 ```
 
 #### JSX属性
@@ -84,6 +92,13 @@ const elm2=<div tabIndex="0"></div>
 ```
 
 ### JSX样式
+- React 推荐使用内联样式。
+- React 会在指定元素数字后自动添加 px 
+- 注意：样式名用`驼峰写法`
 ```js
+// 行内直接写
 const elm = <div style={{width:'100px',color:'#fff'}}>红色字体</div>
+// 样式对象- 
+const styleElm = {fontSize:100,color:'#ff0'};
+ReactDOM.render(<h1 style={styleElm}></h1>,document.getElementById('app'))
 ```

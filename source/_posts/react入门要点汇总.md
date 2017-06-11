@@ -19,7 +19,7 @@ React主要用于构建UI，很多人认为 React 是 MVC 中的 V（视图）�
 ## 目录
 > - [安装](#安装)
 > - [JSX语法](#JSX语法)
-> - [Express应用生成器](#Express应用生成器)
+> - [React组件](#React组件)
 > - [Router路由](#Router路由)
 > - [静态文件](#静态文件)
 > - [中间件](#中间件)
@@ -91,7 +91,7 @@ const elm2=<div tabIndex="0"></div>
 
 ```
 
-### JSX样式
+#### JSX样式
 - React 推荐使用内联样式。
 - React 会在指定元素数字后自动添加 px 
 - 注意：样式名用`驼峰写法`
@@ -101,4 +101,23 @@ const elm = <div style={{width:'100px',color:'#fff'}}>红色字体</div>
 // 样式对象- 
 const styleElm = {fontSize:100,color:'#ff0'};
 ReactDOM.render(<h1 style={styleElm}></h1>,document.getElementById('app'))
+```
+
+## React组件
+- 组件(Components) 让你可以将用户界面分成独立的，可复用的小部件，并可以对每个部件进行单独的设计。
+- 从定义上来说， 组件就像JavaScript的函数。组件可以接收任意输入(称为”props”)， 并返回 React 元素，用以描述屏幕显示内容。
+- 组件可分为：`函数式组件`和`类组件`两种
+
+```js
+// 函数式组件 - 创建简单，功能单一，常用作一些不变内容的渲染
+function Welcome(props){
+    return <h1>Hello,{props.name}</h1>
+}
+
+// 类组件
+class Welcome extends React.Component {
+    render (){
+        return <h1>Hello,{this.props.name}</h1>
+    }
+}
 ```

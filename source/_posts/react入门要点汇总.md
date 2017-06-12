@@ -109,15 +109,40 @@ ReactDOM.render(<h1 style={styleElm}></h1>,document.getElementById('app'))
 - 组件可分为：`函数式组件`和`类组件`两种
 
 ```js
-// 函数式组件 - 创建简单，功能单一，常用作一些不变内容的渲染
+// 函数式组件 - 创建简单，功能单一，常用作一些不变内容的渲染，又称为无状态组件
 function Welcome(props){
     return <h1>Hello,{props.name}</h1>
 }
 
-// 类组件
+// 类组件- 类组件有状态，生命周期等更多特性
 class Welcome extends React.Component {
     render (){
         return <h1>Hello,{this.props.name}</h1>
     }
 }
 ```
+- 注意：组件名称总是以`大写字母`开始
+
+#### 复合组件
+- 使用组件的一大优势在于其可利用性高
+- `复合组件`：在一个React组件内部引用了其他组件，从而构成了复合组件
+
+```js
+// 子组件
+function Avatar(props){
+    return <img src={props.user.avatarUrl} alt={props.user.name}/>
+}
+// 父组件
+function UserInfo(props) {
+  return (
+    <div className="UserInfo">
+      <Avatar user={props.user} />
+      <div className="UserInfo-name">
+        {props.user.name}
+      </div>
+    </div>
+  );
+}
+```
+
+## Props属性

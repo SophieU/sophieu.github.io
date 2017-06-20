@@ -1,0 +1,160 @@
+# Version of the Icarus theme that is currently used
+version: 2.0.0
+# Path or URL to the website's icon
+# favicon: /images/favicon.ico
+favicon: /user/favicon.ico
+# Path or URL to RSS atom.xml
+rss: 
+# Path or URL to the website's logo to be shown on the left of the navigation bar or footer
+# logo: /images/logo.svg
+logo: /user/logo.svg
+
+# Open Graph metadata (https://hexo.io/docs/helpers.html#open-graph)
+open_graph:
+    # Facebook App ID
+    fb_app_id: 
+    # Facebook Admin ID
+    fb_admins: 
+    # Twitter ID
+    twitter_id: 
+    # Twitter site
+    twitter_site: 
+    # Google+ profile link
+    google_plus: 
+# Navigation bar link settings
+navbar:
+    # Navigation bar menu links
+    menu:
+        首页: /
+        归档: /archives
+        分类: /categories
+        标签: /tags
+        About: /about
+    # Navigation bar links to be shown on the right
+    links:
+        Download on GitHub:
+            icon: fab fa-github
+            url: 'https://github.com/SophieU'
+# Footer section link settings
+footer:
+    # Links to be shown on the right of the footer section
+    links:
+        Creative Commons:
+            icon: fab fa-creative-commons
+            url: 'https://creativecommons.org/'
+        Attribution 4.0 International:
+            icon: fab fa-creative-commons-by
+            url: 'https://creativecommons.org/licenses/by/4.0/'
+        Download on GitHub:
+            icon: fab fa-github
+            url: 'http://github.com/ppoffice/hexo-theme-icarus'
+# Article display settings
+article:
+    # Code highlight theme (https://github.com/highlightjs/highlight.js/tree/master/src/styles)
+    highlight: atom-one-dark
+    # Whether to show article thumbnail images
+    thumbnail: true
+    # Whether to show estimate article reading time
+    readtime: true
+# Search plugin settings (http://ppoffice.github.io/hexo-theme-icarus/categories/Configuration/Search-Plugins)
+search:
+    # Name of the search plugin
+    type: insight
+# Comment plugin settings (http://ppoffice.github.io/hexo-theme-icarus/categories/Configuration/Comment-Plugins)
+comment:
+    # Name of the comment plugin
+    type: gitment
+    owner: SophieU
+    repo: SophieU
+    client_id: d128c819d932a031c164  
+    client_secret: 245678eb7968836a8e0e775d504f28f9bf879dbc 
+
+# Share plugin settings (http://ppoffice.github.io/hexo-theme-icarus/categories/Configuration/Share-Plugins)
+share:
+    # Share plugin name
+    type: 
+# Sidebar widget settings (http://ppoffice.github.io/hexo-theme-icarus/categories/Widgets/)
+widgets:
+    -
+        type: profile
+        position: left
+        author: SophieU
+        author_title: Web Developer
+        location: 中国,成都
+        avatar: https://avatars1.githubusercontent.com/u/22374177?s=460&v=4
+        gravatar: 
+        follow_link: 'https://github.com/SophieU'
+        social_links:
+            Github:
+                icon: fab fa-github
+                url: 'https://github.com/SophieU'
+            Facebook:
+                icon: fab fa-facebook
+                url: 'http://facebook.com'
+            Twitter:
+                icon: fab fa-twitter
+                url: 'http://twitter.com'
+            Dribbble:
+                icon: fab fa-dribbble
+                url: 'http://dribbble.com'
+            RSS:
+                icon: fas fa-rss
+                url: /
+    -
+        type: toc
+        position: left
+    -
+        type: links
+        position: left
+        links:
+            CSDN: 'https://me.csdn.net/Sophie_U'
+            SophieU: 'https://github.com/SophieU'
+    -
+        type: category
+        position: left
+    -
+        type: tagcloud
+        position: left
+    -
+        type: recent_posts
+        position: right
+    -
+        type: archive
+        position: right
+    -
+        type: tag
+        position: right
+# Other plugin settings
+plugins:
+    # Enable the lightGallery and Justified Gallery plugins (http://ppoffice.github.io/hexo-theme-icarus/2016/07/08/plugin/Gallery/)
+    gallery: true
+    # Enable the Outdated Browser plugin (http://outdatedbrowser.com/)
+    outdated-browser: true
+    # Enable page animations (http://animejs.com/)
+    animejs: true
+    # Enable the MathJax plugin (http://ppoffice.github.io/hexo-theme-icarus/2018/01/01/plugin/MathJax/)
+    mathjax: true
+    # Show the back to top button on mobile devices
+    back-to-top: true
+    # Google Analytics plugin settings (http://ppoffice.github.io/hexo-theme-icarus/2018/01/01/plugin/Analytics/#Google-Analytics)
+    google-analytics:
+        # Google Analytics tracking id
+        tracking_id: 
+    # Baidu Analytics plugin settings (http://ppoffice.github.io/hexo-theme-icarus/2018/01/01/plugin/Analytics/#Baidu-Analytics)
+    baidu-analytics:
+        # Baidu Analytics tracking id
+        tracking_id: 
+    # Hotjar user feedback plugin (http://ppoffice.github.io/hexo-theme-icarus/2018/01/01/plugin/Analytics/#Hotjar)
+    hotjar:
+        # Hotjar site id
+        site_id: 
+    # Show a loading progress bar at top of the page
+    progressbar: true
+# CDN provider settings
+providers:
+    # Name or URL of the JavaScript and/or stylesheet CDN provider
+    cdn: jsdelivr
+    # Name or URL of the webfont CDN provider
+    fontcdn: https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css
+    # Name or URL of the webfont Icon CDN provider
+    iconcdn: fontawesome

@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>Node Web开发框架-Express - Sophie&#39;s World</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta name="description" content="Express是基于Node.js平台的极简的经典Web开发框架。中文官网">
+<meta name="keywords" content="Node">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Node Web开发框架-Express">
+<meta property="og:url" content="https://blog.kingdou.fun/2016/10/25/Express/index.html">
+<meta property="og:site_name" content="Sophie&#39;s World">
+<meta property="og:description" content="Express是基于Node.js平台的极简的经典Web开发框架。中文官网">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-11-21T07:25:29.075Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Node Web开发框架-Express">
+<meta name="twitter:description" content="Express是基于Node.js平台的极简的经典Web开发框架。中文官网">
+
+
+
+
+
+<link rel="icon" href="/user/favicon.ico">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-dark.css">
+
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    <style>body>.navbar,body>.section,body>.footer{opacity: 0}</style>
+    
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/user/logo.svg" alt="Node Web开发框架-Express" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">首页</a>
+                
+                <a class="navbar-item" href="/archives">归档</a>
+                
+                <a class="navbar-item" href="/categories">分类</a>
+                
+                <a class="navbar-item" href="/tags">标签</a>
+                
+                <a class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://github.com/SophieU">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-image">
+        <span class="image is-7by1">
+            <img class="thumbnail" src="/images/deer.jpg" alt="Node Web开发框架-Express">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2016-10-24T16:00:00.000Z">2016-10-25</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/后端学习/">后端学习</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    12 分钟 读完 (大约 1835 个字)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                Node Web开发框架-Express
+            
+        </h1>
+        <div class="content">
+            <p>Express是基于<code>Node.js</code>平台的极简的经典Web开发框架。<a href="http://www.expressjs.com.cn/" target="_blank" rel="noopener">中文官网</a></p>
+<a id="more"></a>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><blockquote>
+<ul>
+<li><a href="#安装">安装</a></li>
+<li><a href="#HelloWorld">HelloWorld</a></li>
+<li><a href="#Express应用生成器">Express应用生成器</a></li>
+<li><a href="#Router路由">Router路由</a></li>
+<li><a href="#静态文件">静态文件</a></li>
+<li><a href="#中间件">中间件</a></li>
+<li><a href="#模板引擎">模板引擎</a></li>
+<li><a href="#Express设置代理">Express设置代理</a></li>
+<li><a href="#常见问题">常见问题</a></li>
+</ul>
+</blockquote>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ul>
+<li>前提：已安装<code>Node.js</code></li>
+</ul>
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir myapp</span><br><span class="line">$ <span class="hljs-built_in">cd</span> myapp</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment"># 初始化文件[中间会出现一些询问命令按需进行]</span></span><br><span class="line">$ npm init</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment"># 安装</span></span><br><span class="line">$ npm install express -S</span><br></pre></td></tr></table></figure>
+<h2 id="HelloWorld"><a href="#HelloWorld" class="headerlink" title="HelloWorld"></a>HelloWorld</h2><ul>
+<li><code>myapp</code>目录下，新建<code>app.js</code>作为入口文件</li>
+<li>示例：用express创建一个简单的web服务<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>)</span><br><span class="line"><span class="hljs-keyword">const</span> app = express()</span><br><span class="line"></span><br><span class="line">app.get(<span class="hljs-string">'/'</span>, (req, res) =&gt; res.send(<span class="hljs-string">'Hello World!'</span>))</span><br><span class="line"></span><br><span class="line">app.listen(<span class="hljs-number">3000</span>, () =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Example app listening on port 3000!'</span>))</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node app.js</span><br></pre></td></tr></table></figure>
+<ul>
+<li>访问<code>localhost:3000</code>可以看到页面显示了<code>Hello World</code>，访问其他页面会出现404，这就是一个简单的web应用服务</li>
+</ul>
+<h2 id="Express应用生成器"><a href="#Express应用生成器" class="headerlink" title="Express应用生成器"></a>Express应用生成器</h2><ul>
+<li>express提供了用于快速生成一个web应用程序的工具<code>express-generator</code>，它可以快速创建项目骨架，并包含多个基本应用模块</li>
+</ul>
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># 安装</span></span><br><span class="line">$ npm install express-generator -g</span><br><span class="line"><span class="hljs-comment"># 查看express指令</span></span><br><span class="line">$ express -h</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment"># 创建一个以ejs为模板引擎的应用</span></span><br><span class="line">$ express --view=ejs myapp</span><br><span class="line"><span class="hljs-comment"># 启动应用[默认是在3000端口启动]</span></span><br><span class="line">$ npm start</span><br></pre></td></tr></table></figure>
+<ul>
+<li>通过生成器创建的应用一般都有如下目录结构：</li>
+</ul>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── app.js</span><br><span class="line">├── bin</span><br><span class="line">│   └── www</span><br><span class="line">├── package.json</span><br><span class="line">├── public</span><br><span class="line">│   ├── images</span><br><span class="line">│   ├── javascripts</span><br><span class="line">│   └── stylesheets</span><br><span class="line">│       └── style.css</span><br><span class="line">├── routes</span><br><span class="line">│   ├── index.js</span><br><span class="line">│   └── users.js</span><br><span class="line">└── views</span><br><span class="line">    ├── error.pug</span><br><span class="line">    ├── index.pug</span><br><span class="line">    └── layout.pug</span><br></pre></td></tr></table></figure>
+<h2 id="Router路由"><a href="#Router路由" class="headerlink" title="Router路由"></a>Router路由</h2><p><strong>路由</strong>：决定了应用如何响应客户端请求，针对请求不同的URI或Path，以及不同的请求方式（get/post），会作出不同的响应</p>
+<ul>
+<li><code>app</code>是express的实例，<code>METHOD</code>对应前端请求方式，<code>PATH</code>对应前端请求路径，<code>HANDLER</code>对应当匹配路由时的响应函数</li>
+</ul>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//get请求</span></span><br><span class="line">app.get(<span class="hljs-string">'/next'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req,res,next</span>)</span>&#123;</span><br><span class="line">    res.send(<span class="hljs-string">'针对next的请求'</span>);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="hljs-comment">// post请求</span></span><br><span class="line">app.post(<span class="hljs-string">'/set'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req,res,next</span>)</span>&#123;</span><br><span class="line">    res.send(<span class="hljs-string">'这是一个post请求'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="hljs-comment">//所有请求</span></span><br><span class="line">app.all(<span class="hljs-string">'/all'</span>,functino(req,res,next)&#123;</span><br><span class="line">    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'进到了/all'</span>)</span><br><span class="line">    next();</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>app.all()</code>比较特殊，主要用于对所有请求都加载中间件函数</li>
+<li>在项目中，路由都是分模块的，如上，<code>index</code>则代表主要首页模块，在<code>routes/index</code>文件中，又有多个路由可参考写法。</li>
+</ul>
+<h4 id="路由参数（parameters）"><a href="#路由参数（parameters）" class="headerlink" title="路由参数（parameters）"></a>路由参数（parameters）</h4><ul>
+<li><a href="http://www.expressjs.com.cn/guide/routing.html" target="_blank" rel="noopener">参考文档</a></li>
+<li>路由路径中，<code>?, +, *, ()</code>可以正则的方式来匹配路径</li>
+<li><code>req.params</code>中可以获取到通过请求<code>url/:param</code>下的参数<code>param</code></li>
+</ul>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 1、正则匹配[示例匹配abe或abcde]</span></span><br><span class="line">app.get(<span class="hljs-string">'/ab(cd)?e'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req,res</span>)</span>&#123;</span><br><span class="line">  res.send(<span class="hljs-string">'ab(cd)?e'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 2、req.params的使用</span></span><br><span class="line">Route path: <span class="hljs-regexp">/users/</span>:userId/books/:bookId</span><br><span class="line">Request URL: http:<span class="hljs-comment">//localhost:3000/users/34/books/8989</span></span><br><span class="line">req.params: &#123; <span class="hljs-string">"userId"</span>: <span class="hljs-string">"34"</span>, <span class="hljs-string">"bookId"</span>: <span class="hljs-string">"8989"</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 3、params的扩展使用，()匹配</span></span><br><span class="line">Route path: <span class="hljs-regexp">/user/</span>:userId(\d+)</span><br><span class="line">Request URL: http:<span class="hljs-comment">//localhost:3000/user/42</span></span><br><span class="line">req.params: &#123;<span class="hljs-string">"userId"</span>: <span class="hljs-string">"42"</span>&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="路由回调"><a href="#路由回调" class="headerlink" title="路由回调"></a>路由回调</h4><ul>
+<li><code>app.get(&#39;url&#39;,callback)</code>：其中callback回调可以是一个函数，也可以是一个<code>函数构成的数组</code>，也可以是<code>数组加函数</code>，详见文档</li>
+<li>route支持链式调用<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">app.route(&apos;/book&apos;)</span><br><span class="line">  .get(function (req, res) &#123;</span><br><span class="line">    res.send(&apos;Get a random book&apos;)</span><br><span class="line">  &#125;)</span><br><span class="line">  .post(function (req, res) &#123;</span><br><span class="line">    res.send(&apos;Add a book&apos;)</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="Response方法"><a href="#Response方法" class="headerlink" title="Response方法"></a>Response方法</h4><table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>res.download()</td>
+<td>提供一个文件下载</td>
+</tr>
+<tr>
+<td>res.end()</td>
+<td>终止响应进程</td>
+</tr>
+<tr>
+<td>res.json()</td>
+<td>返回json对向响应</td>
+</tr>
+<tr>
+<td>res.jsonp()</td>
+<td>响应一个jsonp格式的json对向</td>
+</tr>
+<tr>
+<td>res.redirect()</td>
+<td>重定向</td>
+</tr>
+<tr>
+<td>res.render()</td>
+<td>向前端渲染一个模板</td>
+</tr>
+<tr>
+<td>res.send()</td>
+<td>发送通用类型的响应</td>
+</tr>
+<tr>
+<td>res.sendFile()</td>
+<td>以文件流方式发送文件</td>
+</tr>
+<tr>
+<td>res.sendStatus()</td>
+<td>设置响应code，并发送响应</td>
+</tr>
+</tbody>
+</table>
+<h4 id="express-Router-路由模块"><a href="#express-Router-路由模块" class="headerlink" title="express.Router 路由模块"></a>express.Router 路由模块</h4><ul>
+<li>项目中，通常路由是按模块来区分的，而不是全部写在app.js中，如下：<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// index.js</span></span><br><span class="line"><span class="hljs-keyword">var</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);</span><br><span class="line"><span class="hljs-keyword">var</span> router = express.Router();</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 使用中间件</span></span><br><span class="line">router.use(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">timelog</span>(<span class="hljs-params">req,res,next</span>)</span>&#123;</span><br><span class="line">    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Time: '</span>, <span class="hljs-built_in">Date</span>.now())</span><br><span class="line">  next()</span><br><span class="line">&#125;)</span><br><span class="line"><span class="hljs-comment">// 路由</span></span><br><span class="line">router.get(<span class="hljs-string">'/'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res</span>) </span>&#123;</span><br><span class="line">  res.send(<span class="hljs-string">'Birds home page'</span>)</span><br><span class="line">&#125;)</span><br><span class="line">router.get(<span class="hljs-string">'/about'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res</span>) </span>&#123;</span><br><span class="line">  res.send(<span class="hljs-string">'About birds'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// app.js中</span></span><br><span class="line"><span class="hljs-keyword">var</span> index = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./router/index.js'</span>)</span><br><span class="line">app.use(<span class="hljs-string">'/'</span>,index);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="静态文件"><a href="#静态文件" class="headerlink" title="静态文件"></a>静态文件</h2><ul>
+<li><p>为了提供诸如图像、CSS 文件和 JavaScript 文件之类的静态文件，可以使用 Express 中的<code>express.static</code>内置中间件函数。</p>
+</li>
+<li><p>示例：访问<code>public</code>目录下的所有文件</p>
+</li>
+</ul>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">app.use(epxress.static(<span class="hljs-string">'public'</span>))</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 若要使用多个静态资源目录，则多次调用express.static中间件函数</span></span><br><span class="line"><span class="hljs-comment">// '/static'设置前缀地址来访问资源</span></span><br><span class="line">app.use(<span class="hljs-string">'/static'</span>,express.static(<span class="hljs-string">'public'</span>))</span><br><span class="line">app.use(express.static(<span class="hljs-string">'files'</span>))</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 通常的做法</span></span><br><span class="line">app.use(<span class="hljs-string">'/static'</span>, express.static(path.join(__dirname, <span class="hljs-string">'public'</span>)))</span><br></pre></td></tr></table></figure>
+<h2 id="中间件"><a href="#中间件" class="headerlink" title="中间件"></a>中间件</h2><ul>
+<li><strong>中间件函数</strong>可以处理<code>请求对象(req)</code>，<code>响应对象(res)</code>，以及<code>next</code>函数。通常中间件是用来对请求或响应进行包装和处理。</li>
+<li>示例– 添加一个 <code>myLogger</code>中间件（用于打印日志）和一个<code>requestTime</code>中间件用于展示请求时间</li>
+</ul>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// web应用</span></span><br><span class="line"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);</span><br><span class="line"><span class="hljs-keyword">const</span> app = <span class="hljs-keyword">new</span> express();</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// myLogger中间件</span></span><br><span class="line"><span class="hljs-keyword">var</span> myLogger = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req,res,next</span>)</span>&#123;</span><br><span class="line">    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'LOGGER'</span>)</span><br><span class="line">    next();</span><br><span class="line">&#125;</span><br><span class="line">app.use(myLogger); <span class="hljs-comment">//使用中间件</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// requestTime中间件</span></span><br><span class="line"><span class="hljs-keyword">var</span> requestTime = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req,res,next</span>)</span>&#123;</span><br><span class="line">    req.requestTime = <span class="hljs-built_in">Date</span>.now();</span><br><span class="line">    next();</span><br><span class="line">&#125;</span><br><span class="line">app.use(requestTime); <span class="hljs-comment">//使用中间件</span></span><br><span class="line"></span><br><span class="line">app.get(<span class="hljs-string">'/'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req,res</span>)</span>&#123;</span><br><span class="line">    res.send(<span class="hljs-string">'Hello U'</span>)</span><br><span class="line">&#125;)</span><br><span class="line">app.listen(<span class="hljs-number">3000</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="可配置的中间件"><a href="#可配置的中间件" class="headerlink" title="可配置的中间件"></a>可配置的中间件</h3><ul>
+<li>例如express的<code>cookieSession</code>中间件，可用于处理用户session<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// my-middleware.js</span></span><br><span class="line"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res, next</span>) </span>&#123;</span><br><span class="line">    <span class="hljs-comment">// 基于options选项来执行逻辑</span></span><br><span class="line">    next()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">//使用</span></span><br><span class="line"><span class="hljs-keyword">var</span> mw= requrie(<span class="hljs-string">'./my-middleware.js'</span>);</span><br><span class="line">app.use(mw(option1:<span class="hljs-string">'1'</span>,<span class="hljs-attr">option2</span>:<span class="hljs-string">'2'</span>))</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="第三方中间件"><a href="#第三方中间件" class="headerlink" title="第三方中间件"></a>第三方中间件</h4><ul>
+<li><code>cookie-parser</code>：用于处理<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var express = require(&apos;express&apos;)</span><br><span class="line">var app = express()</span><br><span class="line">var cookieParser = require(&apos;cookie-parser&apos;)</span><br><span class="line"></span><br><span class="line">// load the cookie-parsing middleware</span><br><span class="line">app.use(cookieParser())</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="模板引擎"><a href="#模板引擎" class="headerlink" title="模板引擎"></a>模板引擎</h2><ul>
+<li>通过<code>app.set(&#39;view engine&#39;, &#39;ejs&#39;)</code>可设置模板引擎</li>
+<li>通过<code>app.set(&#39;views&#39;,&#39;./views&#39;)</code>可设置渲染模板</li>
+</ul>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 设置模板</span></span><br><span class="line">app.get(<span class="hljs-string">'/'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res</span>) </span>&#123;</span><br><span class="line">  res.render(<span class="hljs-string">'index'</span>, &#123; <span class="hljs-attr">title</span>: <span class="hljs-string">'Hey'</span>, <span class="hljs-attr">message</span>: <span class="hljs-string">'Hello there!'</span> &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="Express设置代理"><a href="#Express设置代理" class="headerlink" title="Express设置代理"></a>Express设置代理</h2><ul>
+<li><a href="http://www.expressjs.com.cn/guide/behind-proxies.html" target="_blank" rel="noopener">文档</a></li>
+<li>通过<code>app.set(&#39;trust proxy&#39;,params)</code>来设置代理，params有多种可能，如下：<ul>
+<li>Boolean值：为<code>true</code>时，激活反向代理，默认未激活状态<code>false</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="数据库集成"><a href="#数据库集成" class="headerlink" title="数据库集成"></a>数据库集成</h2><ul>
+<li><a href="http://www.expressjs.com.cn/guide/database-integration.html" target="_blank" rel="noopener">详见文档</a></li>
+</ul>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h4 id="1-如何处理404响应"><a href="#1-如何处理404响应" class="headerlink" title="1. 如何处理404响应"></a>1. 如何处理404响应</h4><ul>
+<li>在Express中，404响应不是错误，所以需要一个针对404的中间件来捕获它</li>
+</ul>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">app.use(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res, next</span>) </span>&#123;</span><br><span class="line">  res.status(<span class="hljs-number">404</span>).send(<span class="hljs-string">"Sorry can't find that!"</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>当然，也可以用设置好的404页面通过<code>res.render</code>的方式渲染到客户端</li>
+</ul>
+<h4 id="2-设置一个错误处理器"><a href="#2-设置一个错误处理器" class="headerlink" title="2. 设置一个错误处理器"></a>2. 设置一个错误处理器</h4><ul>
+<li>express生成的项目中，默认是有捕获错误的中间件的，当然也可以自己写，如下示例：</li>
+<li>在异步函数中，必须要使用<code>next()</code>来传递错误给express并捕获相应错误</li>
+</ul>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 简单的错误处理中间件</span></span><br><span class="line">app.use(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, req, res, next</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-built_in">console</span>.error(err.stack)</span><br><span class="line">  res.status(<span class="hljs-number">500</span>).send(<span class="hljs-string">'Something broke!'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 异步函数中的错误处理</span></span><br><span class="line">app.get(<span class="hljs-string">"/"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res, next</span>) </span>&#123;</span><br><span class="line">  fs.readFile(<span class="hljs-string">"/file-does-not-exist"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, data</span>) </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">if</span> (err) &#123;</span><br><span class="line">      next(err); <span class="hljs-comment">// 将错误传递给express</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">else</span> &#123;</span><br><span class="line">      res.send(data);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// express生成项目中，默认的处理器</span></span><br><span class="line">app.use(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, req, res, next</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-comment">// set locals, only providing error in development</span></span><br><span class="line">  res.locals.message = err.message;</span><br><span class="line">  res.locals.error = req.app.get(<span class="hljs-string">'env'</span>) === <span class="hljs-string">'development'</span> ? err : &#123;&#125;;</span><br><span class="line"></span><br><span class="line">  <span class="hljs-comment">// render the error page</span></span><br><span class="line">  res.status(err.status || <span class="hljs-number">500</span>);</span><br><span class="line">  res.render(<span class="hljs-string">'error'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/Node/">Node</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2017/10/25/nodemon/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">nodemon-解决开发时无限npm start的痛点</span>
+            </a>
+        </div>
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+	var gitment = new Gitment({
+		id: '2016/10/25/Express/',
+		owner: 'SophieU',
+		repo: 'SophieU',
+		oauth: {
+			client_id: 'd128c819d932a031c164',
+			client_secret: '245678eb7968836a8e0e775d504f28f9bf879dbc',
+		},
+	})
+	gitment.render('comment-container')
+</script>
+
+    </div>
+</div>
+</div>
+                
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    <img class="image is-128x128 has-mb-6" src="https://avatars1.githubusercontent.com/u/22374177?s=460&amp;v=4" alt="SophieU">
+                    
+                    <p class="is-size-4 is-block">
+                        SophieU
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Web Developer
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>中国,成都</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        5
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        4
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        4
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/SophieU">
+                关注我</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="https://github.com/SophieU">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="http://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="http://twitter.com">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="http://dribbble.com">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://me.csdn.net/Sophie_U" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">CSDN</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">https://me.csdn.net/Sophie_U</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/SophieU" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">SophieU</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">https://github.com/SophieU</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/前端开发/">
+            <span class="level-start">
+                <span class="level-item">前端开发</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/后端学习/">
+            <span class="level-start">
+                <span class="level-item">后端学习</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/读书笔记/">
+            <span class="level-start">
+                <span class="level-item">读书笔记</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/随笔/">
+            <span class="level-start">
+                <span class="level-item">随笔</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/Node/" style="font-size: 20px;">Node</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a>
+    </div>
+</div>
+
+    
+    
+        <div class="card card-transparent is-hidden-widescreen">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2018/09/25/站点简介/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/deer.jpg" alt="MarkDown语法汇总">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-09-24T16:00:00.000Z">2018-09-25</time></div>
+                    <a href="/2018/09/25/站点简介/" class="has-link-black-ter is-size-6">MarkDown语法汇总</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/02/10/JS模式/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/sleep.jpg" alt="JavaScript模式【O&#39;Reilly出版】·附网盘链接">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-02-09T16:00:00.000Z">2018-02-10</time></div>
+                    <a href="/2018/02/10/JS模式/" class="has-link-black-ter is-size-6">JavaScript模式【O&#39;Reilly出版】·附网盘链接</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/读书笔记/">读书笔记</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/01/10/vue打包优化/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="vue打包优化">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-01-09T16:00:00.000Z">2018-01-10</time></div>
+                    <a href="/2018/01/10/vue打包优化/" class="has-link-black-ter is-size-6">vue打包优化</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端开发/">前端开发</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2017/10/25/nodemon/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="nodemon-解决开发时无限npm start的痛点">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2017-10-24T16:00:00.000Z">2017-10-25</time></div>
+                    <a href="/2017/10/25/nodemon/" class="has-link-black-ter is-size-6">nodemon-解决开发时无限npm start的痛点</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/后端学习/">后端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2016/10/25/Express/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/deer.jpg" alt="Node Web开发框架-Express">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2016-10-24T16:00:00.000Z">2016-10-25</time></div>
+                    <a href="/2016/10/25/Express/" class="has-link-black-ter is-size-6">Node Web开发框架-Express</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/后端学习/">后端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/JavaScript/">
+                        <span class="level-start">
+                            <span class="level-item">JavaScript</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Node/">
+                        <span class="level-start">
+                            <span class="level-item">Node</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/markdown/">
+                        <span class="level-start">
+                            <span class="level-item">markdown</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/vue/">
+                        <span class="level-start">
+                            <span class="level-item">vue</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2018/09/25/站点简介/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/deer.jpg" alt="MarkDown语法汇总">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-09-24T16:00:00.000Z">2018-09-25</time></div>
+                    <a href="/2018/09/25/站点简介/" class="has-link-black-ter is-size-6">MarkDown语法汇总</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/02/10/JS模式/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/sleep.jpg" alt="JavaScript模式【O&#39;Reilly出版】·附网盘链接">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-02-09T16:00:00.000Z">2018-02-10</time></div>
+                    <a href="/2018/02/10/JS模式/" class="has-link-black-ter is-size-6">JavaScript模式【O&#39;Reilly出版】·附网盘链接</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/读书笔记/">读书笔记</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/01/10/vue打包优化/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="vue打包优化">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-01-09T16:00:00.000Z">2018-01-10</time></div>
+                    <a href="/2018/01/10/vue打包优化/" class="has-link-black-ter is-size-6">vue打包优化</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端开发/">前端开发</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2017/10/25/nodemon/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="nodemon-解决开发时无限npm start的痛点">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2017-10-24T16:00:00.000Z">2017-10-25</time></div>
+                    <a href="/2017/10/25/nodemon/" class="has-link-black-ter is-size-6">nodemon-解决开发时无限npm start的痛点</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/后端学习/">后端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2016/10/25/Express/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/deer.jpg" alt="Node Web开发框架-Express">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2016-10-24T16:00:00.000Z">2016-10-25</time></div>
+                    <a href="/2016/10/25/Express/" class="has-link-black-ter is-size-6">Node Web开发框架-Express</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/后端学习/">后端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/JavaScript/">
+                        <span class="level-start">
+                            <span class="level-item">JavaScript</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Node/">
+                        <span class="level-start">
+                            <span class="level-item">Node</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/markdown/">
+                        <span class="level-start">
+                            <span class="level-item">markdown</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/vue/">
+                        <span class="level-start">
+                            <span class="level-item">vue</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/user/logo.svg" alt="Node Web开发框架-Express" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2018 Sophie Wu&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-icarus">Icarus</a>
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" async></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/animejs@2.2.0/anime.js" defer></script>
+    <script src="/js/animation.js" defer></script>
+    
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

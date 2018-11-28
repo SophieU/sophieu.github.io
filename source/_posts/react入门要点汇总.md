@@ -22,6 +22,8 @@ React主要用于构建UI，很多人认为 React 是 MVC 中的 V（视图）�
 > - [React组件](#React组件)
 > - [Props属性](#Props属性)
 > - [State状态](#State状态)
+> - [表单与事件](#表单与事件)
+> - [占位子组件Slot](#占位子组件Slot)
 
 ## 安装
 - React有两种使用方式：`CDN`或`通过npm安装使用`
@@ -144,6 +146,48 @@ function UserInfo(props) {
 ```
 - 注意：JSX最外层只能由一个元素包裹，即return后只能是单个子元素
 
+#### 组件渲染
+- 以下示例介绍几种组件渲染方式，写法：
+```js
+// 示例1：使用&&操作符-条件渲染
+// 如果条件为 true ，则 && 后面的元素将显示在输出中。 如果是 false，React 将会忽略并跳过它。
+render(){
+    return (
+        {true&&<h1>true就显示</h1>}
+    )
+}
+// 示例2：三元运算-条件渲染
+render(){
+    return (<div>
+      {isLoggedIn ? (
+        <LogoutButton onClick={this.handleLogoutClick} />
+      ) : (
+        <LoginButton onClick={this.handleLoginClick} />
+      )}
+    </div>)
+}
+// 示例3：阻止组件渲染
+// 通过返回null可以防止组件渲染。从组件的 render 方法返回 null 不会影响组件生命周期方法的触发。
+function WarningBanner(props){
+    if(!props.warn){
+        return null;
+    }
+    return (<div>Warning!</div>)
+}
+// 示例4：列表渲染-JSX中使用map
+render(){
+     return (
+        <ul>
+        {numbers.map((number) =>
+            <ListItem key={number.toString()}
+                    value={number} />
+
+        )}
+        </ul>
+    );
+}
+```
+
 ## Props属性
 - `Props`是不可变的，只能读取，不能修改，可以理解为`props是从外部传入组件的数据`
 - 由于React是`单向数据流`，所以props基本上也就是从服父级组件向子组件传递的数据。
@@ -261,15 +305,115 @@ this.setState((state,props)=>{
 > 3. 没有state的叫做无状态组件，有state的叫做有状态组件；
 > 4. 多用props，少用state。也就是多写无状态组件。
 
-## React组件API
-- 常用React的组件API有以下几个：
-    - 设置状态：`setState`
-    - 替换状态：`replaceState`
-    - 设置属性：`setProps`
-    - 替换属性：`replaceProps`
-    - 强制更新：`forceUpdate`
-    - 获取DOM节点：`findDOMNode`
-    - 判断组件挂载状态：`isMounted`
+## 表单与事件
+- React表单中，最重要的一个概念就是：`受控组件`。
+- **受控组件**：`<input>`或`<select>`都要绑定一个change事件;每当表单的状态发生变化,都会被写入组件的state中,这种组件在React中被称为`受控组件`
+    - 使用受控组件需要为每一个组件绑定一个change事件,并且定义一个事件处理器来同步表单值和组件的状态,这是一个必要条件
+- **非受控组件**：一个表单组件没有`value`或`checked`属性即非受组件。
+    - 通过`defaultValue`和`defaultChecked`来表示组件的默认状态，它仅会被渲染一次,在后续的渲染时并不起作用
 
-#### 替换状态：replaceState
-- `replaceState()`方法与`setState()`类似，但是方法只会保留nextState中状态，原state不在nextState中的状态`都会被删除`
+```js
+// 受控组件
+class EasyForm extends React.Component{
+    constructor(){
+    super();
+    this.state={
+      name:'hello',
+        desc:'',
+        job:''
+    };
+    this.handleChange=this.handleChange.bind(this);
+    this.submit=this.submit.bind(this);
+  }
+  handleChange(event){
+    const target = event.target;
+    const value = target.type==='checkbox'?target.checked:target.value;
+    const name = target.name;
+
+    this.setState({
+        [name]:value
+    })
+    console.log(this.state)
+  }
+  submit(){
+    console.log(this.state)
+  }
+  render() {
+    return (
+        <form>
+            <label>
+                Name:<input type="text" name="name" value={this.state.name} onChange={this.handleChange}/>
+            </label>
+            <label>
+              Desc:<textarea name="desc" value={this.state.desc} onChange={this.handleChange}></textarea>
+            </label>
+            <label >
+              Job:<select name="job" value={this.state.job} onChange={this.handleChange}>
+                <option value="FE">Front End</option>
+                <option value="editor">Editor</option>
+                <option value="worker">Worker</option>
+            </select>
+            </label>
+          <button type="button" onClick={this.submit}>提交</button>
+        </form>
+    );
+  }
+}
+// 非受控组件
+handleSubmit=(e)=>{
+    e.preventDefault();
+    console.log(this.refs.nocontrol.value)
+}
+render() {
+        return (
+            <form onSubmit={this.handleSubmit}>
+                <input type="text" ref="nocontrol" defaultValue="BeiJing" />
+                <button type="submit">Submit</button>
+            </form>
+        );
+    }
+```
+- 如上，通过`event.target.name`来处理多个多个输入元素
+
+#### 受控组件与非受控组件对比
+1. `性能上`，由于受控组件值的每次变化都会调用一次onChange事件处理器，会带来性能上的消耗，但这个问题可以通过Flux/Redux应用架构等方式来达到统一组件状态的目的
+2. `事件绑定是必要的`：使用受控组件需要为每一个组件绑定一个change事件,并且定义一个事件处理器来同步表单值和组件的状态,这是一个必要条件
+
+## 占位组件Slot
+- 一些组件在设计前无法获知自己要使用什么子组件。这时可以通过`children props`来直接传递子元素到他们的输出中
+- 也可以通过自定义占位属性来自定义显示组件
+
+```js
+// 示例1：使用props.children显示占位子元素
+function Wrapper(props){
+    return (
+        <div>
+            <h1>哈哈哈哈哈，这是Wrapper的标题</h1>
+            {props.children}
+        </div>
+    )
+}
+function Print(props){
+    return (
+        <Wrapper>
+            <p>这是内部内容。。</p>
+        </Wrapper>
+    )
+}
+// 示例2：自定义点位属性
+function Wrapper(props){
+    return (<div>
+        <h3>这是标签啦。</h3>
+        <div style={{float:'left'}}>{props.left}</div>
+        <div style={{float:'right'}}>{props.right}</div>
+    </div>)
+}
+class Slot extends React.Component {
+    render() {
+        return (
+            <div>
+                <Wrapper left={<Left />} right={<Right />}></Wrapper>
+            </div>)
+    }
+}
+```

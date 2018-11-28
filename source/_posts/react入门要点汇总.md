@@ -154,13 +154,18 @@ function UserInfo(props) {
 // 子组件 item.js 。通过this.props拿值
 export default class Item extends React.Component{
     render(){
-        return (<li>{this.props.data}</li>)
+        return (<li>{this.props.dataItem}</li>)
     }
 }
 // 父组件
 import Item from './item.js'
 export default class Lists extends React.Component{
-    
+    render(){
+        const itemLists = data.map(item=><Item dataItem={item}/>)
+        return ({itemLists})
+    }
 }
-
 ```
+- 如上：数据`data`在通过遍历后，将属性值`dataItem`传入到子组件中，子组件通过`this.props.dataItem`接收数据
+
+>**只读性**:props经常被用作渲染组件和初始化状态，当一个组件被实例化之后，它的props是只读的，不可改变的。如果props在渲染过程中可以被改变，会导致这个组件显示的形态变得不可预测。只有通过父组件重新渲染的方式才可以把新的props传入组件中。

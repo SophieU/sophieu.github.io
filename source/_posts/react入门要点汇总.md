@@ -169,3 +169,29 @@ export default class Lists extends React.Component{
 - 如上：数据`data`在通过遍历后，将属性值`dataItem`传入到子组件中，子组件通过`this.props.dataItem`接收数据
 
 >**只读性**:props经常被用作渲染组件和初始化状态，当一个组件被实例化之后，它的props是只读的，不可改变的。如果props在渲染过程中可以被改变，会导致这个组件显示的形态变得不可预测。只有通过父组件重新渲染的方式才可以把新的props传入组件中。
+
+#### 默认参数
+在组件中，我们最好为props中的参数设置一个defaultProps，并且制定它的类型。比如，这样：
+
+```
+Item.defaultProps = {
+  item: 'Hello Props',
+};
+
+Item.propTypes = {
+  item: PropTypes.string,
+};
+```
+- 关于`propsTypes`,可以声明为以下几种类型：
+```
+optionalArray: PropTypes.array,
+optionalBool: PropTypes.bool,
+optionalFunc: PropTypes.func,
+optionalNumber: PropTypes.number,
+optionalObject: PropTypes.object,
+optionalString: PropTypes.string,
+optionalSymbol: PropTypes.symbol,
+```
+
+#### 总结Props
+> `props`是一个从外部传进组件的参数，主要作为就是从父组件向子组件传递数据，它具有`可读性`和`不变性`，只能通过外部组件主动传入新的props来重新渲染子组件，否则子组件的`props`以及展现形式不会改变。

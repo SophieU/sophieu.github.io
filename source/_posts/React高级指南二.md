@@ -58,4 +58,28 @@ React.createElement(
 - JSX表达式中，标签内的元素可以通过`props.children`获取到，即内容插槽。`props.children`可以是字符串内容，也可以是DOM标签或者React组件实例
 - `Boolean`，`Null`,`Undefined`会被忽略。false，null，undefined，和 true 都是有效的的 children(子元素) 。但是并不会被渲染。这在`条件渲染`React元素时非常有用。
 
-## 性能优化
+## 插槽Portals
+> Portals 提供了一种很好的方法，将子节点渲染到父组件 DOM 层次结构之外的 DOM 节点。
+> Portals看似跟`{ptops.children}`功能类似，但其主要功能是，它可以将子元素插入到`任意的DOM节点`位置
+> 详细解读：[官方文档--插槽Portals](https://react.css88.com/docs/portals.html)
+```js
+// props.children展示子元素
+render() {
+  // React 装载一个新的 div，并将 children 渲染到这个 div 中
+  return (
+    <div>
+      {this.props.children}
+    </div>
+  );
+}
+//将子元素插入到任意DOM节点
+render() {
+  // React *不* 会创建一个新的 div。 它把 children 渲染到 `domNode` 中。
+  // `domNode` 可以是任何有效的 DOM 节点，不管它在 DOM 中的位置。
+  return ReactDOM.createPortal(
+    this.props.children,
+    domNode,
+  );
+}
+```
+- 通过`react.createPortal`可以实现如`Modal`，`对话框`等特定组件功能

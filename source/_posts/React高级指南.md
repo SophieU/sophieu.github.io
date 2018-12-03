@@ -247,6 +247,7 @@ export default Context;
 - `Refs`提供了一个对真实DOM（组件）的引用，我们可以通过这个引用直接操作DOM（跟vue的refs类似） 
 - **什么时候用??** 当需要处理元素的focus,文本的选择或者媒体的播放等，以及触发强制动画或者同第三方库集成的时候。
 - **如何用？**：在`V16`版本后，官方提供了`React.createRef()`这个API用于创建Ref变量，然后再将这个变量赋值给组件声明中ref属性就好了。
+- 参考详情：[Refs和DOM元素](https://react.css88.com/docs/refs-and-the-dom.html)、[转发Refs](https://react.css88.com/docs/forwarding-refs.html)
 ```js
 class fancy extends React.Component {
     constructor(props) {
@@ -277,6 +278,7 @@ class fancy extends React.Component {
 - 在`v16`版本后，通过`createRef()`来生成`ref`并赋值给`对应组件`或`DOM元素`。之前是通过在元素上`ele=>this.refName=ele`完成赋值
 - 在`v16`版本后，通过`this.refName.current`来获取`refName`对应`对应组件`或`DOM元素`。之前是直接通过`this.refName`获取
 - 当`ref`属性赋在DOM元素上时，`this.refName.current`返回的就是DOM元素，当赋给React组件时，`this.refName.current`返回的就是React组件
+- 不能在函数式组件上使用ref属性，但可以在函数式组件内部的子组件中使用ref属性
 
 #### 传递Refs
 - 当父组件需要拿到子组件的`ref`时，在v16版本后可以通过`React.forwardRef()`实现

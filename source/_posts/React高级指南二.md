@@ -1,0 +1,61 @@
+---
+title: React高级指南二
+date: 2017-07-26 14:11:40
+tags: React
+categories: 前端学习
+---
+- 入门React后，基本上可以写一个小型项目了，但React还有很多高级功能及API可以上手方便开发。以下便是React进阶教程说明。[参考文档-react中文文档](https://react.css88.com/docs/higher-order-components.html)
+<!--more-->
+## 目录
+
+- [高阶组件HOC](#高阶组件HOC)
+- [深入JSX](#深入JSX)
+
+## 高阶组件HOC
+> 高阶组件（HOC-Higher-Order-Components）是 React 中用于重用组件逻辑的高级技术。**高阶组件是一个函数，能够接受一个组件并返回一个新的组件**。简单来说，高阶组件将一个组价转化（包装）成另外一个组件。
+> 在第三方组件库中，HOC非常常见。如例如Redux的[connect](https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options) 和 [Relay’s createFragmentContainer](http://facebook.github.io/relay/docs/en/fragment-container.html)。
+- 高级组件是纯函数，没有副作用。
+```js
+// 示例1：创建一个高阶组件，使每个组件在更新时，打印其新旧prop值
+// hocWrapper.js
+export default function logProps(WrappedComponent){
+    return class extends React.Component{
+        componentDidUpdate(prevProps){
+              console.log('old props',preProps);
+            console.log('new props',this.props)
+        }
+        render(){
+            return <WrappedComponent {...this.props}/>
+        }
+    }
+}
+// componentOne.js
+import logProps from './hocWrapper';
+class More extends React.Component{....}
+export default logProps(More)
+```
+- 如上，每当传入More组件的props发生变化时，都会打印其prop修改状况
+- **注意**：不要改变原始组件原型，推荐用容器组件组合包裹组件且不修改包裹组件【如示例】。
+- **注意**：不要在`render`函数中使用高阶组件
+- **注意**：Refs不会被传递，若向一个高阶组件赋值`ref`，那么通过这个ref拿到的是最外层的窗口组件。解决这个问题可以使用`React.forwardRef`API
+- **注意**：高阶组件的静态方法需要从原组件进行复制，即`HOCComponet.staticMethod = WrappedComponent.staticMethod`;
+
+## 深入JSX
+> 从本质上讲，JSX只是为`React.createElement(component, props, ...children)`函数提供的语法糖。
+```js
+// JSX代码
+<MyButton color="blue" shadowSize={2}>Click Me</MyButton>
+// 编译为【类似于Vue的render方法】
+React.createElement(
+    MyButton,
+    {color:'blue',shadowSize:2},
+    'Click Me'
+)  
+```
+- 用户定义组件必须以`大写字母`开头
+- JSX可以使用`.`语法。如：`<React.Fragment></React.Fragment>`
+- 若没给prop属性传值，那么他默认为`true`。如：`<MyTextBox autocomplete />`中autocomplete默认为true
+- JSX表达式中，标签内的元素可以通过`props.children`获取到，即内容插槽。`props.children`可以是字符串内容，也可以是DOM标签或者React组件实例
+- `Boolean`，`Null`,`Undefined`会被忽略。false，null，undefined，和 true 都是有效的的 children(子元素) 。但是并不会被渲染。这在`条件渲染`React元素时非常有用。
+
+## 性能优化

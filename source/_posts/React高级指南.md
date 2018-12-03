@@ -10,7 +10,10 @@ categories: 前端学习
 ## 目录
 
 - [代码拆分](#代码拆分)
+- [错误处理ErrorBoundaries](#错误处理ErrorBoundaries)
 - [上下文Context](#上下文Context)
+- [Refs](#Refs)
+- [片段Fragment](#片段Fragment)
 
 ## 代码拆分
 - 类似于vue中的组件引用时加载，react也可以在引用时再加载到组件中，从而使打包的app.js被拆分为多个组件。
@@ -83,7 +86,8 @@ function MyComponent(){
 }
 ```
 - `fallback prop（属性）` 接受在等待加载组件时要渲染的任何 React 元素
-#### 错误处理
+
+## 错误处理ErrorBoundaries
 - 当其他模块无法加载（如：网络故障时），则会触发错误，这时可以使用React拿出的[错误边界处理Error Boundary](https://react.css88.com/docs/error-boundaries.html)。
 > 如果一个类组件定义了生命周期方法中的任何一个（或两个）`static getDerivedStateFromError()` 或` componentDidCatch()`，那么它就成了一个错误边界。 使用`static getDerivedStateFromError()`在抛出错误后渲染回退UI。 使用 `componentDidCatch()` 来记录错误信息。
 - 注意 **错误边界(Error Boundaries) 仅可以捕获其子组件的错误。**
@@ -238,5 +242,105 @@ class Context extends React.Component {
 export default Context;
 ```
 - 更多示例参考：[context上下文](https://react.css88.com/docs/context.html)
+
+## Refs
+- `Refs`提供了一个对真实DOM（组件）的引用，我们可以通过这个引用直接操作DOM（跟vue的refs类似） 
+- **什么时候用??** 当需要处理元素的focus,文本的选择或者媒体的播放等，以及触发强制动画或者同第三方库集成的时候。
+- **如何用？**：在`V16`版本后，官方提供了`React.createRef()`这个API用于创建Ref变量，然后再将这个变量赋值给组件声明中ref属性就好了。
+```js
+class fancy extends React.Component {
+    constructor(props) {
+        super(props);
+        this.textInput=React.createRef();
+        this.focusInput=this.focusInput.bind(this);
+    }
+    focusInput(){
+        // 通过this.xxx.current获取组件
+        this.textInput.current.focus();
+    }
+    render() {
+        return (<div>
+            <h3>这将有一个button</h3>
+            <div>
+                <input ref={this.textInput} type="text" />
+                <button onClick={this.focusInput}>按钮呀</button>
+            </div>
+        </div>)
+    }
+}
+// 在v16版本之前
+// 元素上ref属性定义
+ <input ref={ele=>{this.textInput=ele}} type="text" />
+ // 获取ref值
+ this.textInput.focus();
+```
+- 在`v16`版本后，通过`createRef()`来生成`ref`并赋值给`对应组件`或`DOM元素`。之前是通过在元素上`ele=>this.refName=ele`完成赋值
+- 在`v16`版本后，通过`this.refName.current`来获取`refName`对应`对应组件`或`DOM元素`。之前是直接通过`this.refName`获取
+- 当`ref`属性赋在DOM元素上时，`this.refName.current`返回的就是DOM元素，当赋给React组件时，`this.refName.current`返回的就是React组件
+
+#### 传递Refs
+- 当父组件需要拿到子组件的`ref`时，在v16版本后可以通过`React.forwardRef()`实现
+- 思路：通过父组件向子组件传递`ref`属性，在子组件中获取到父组件赋值的`ref`值后，对应的赋给相应元素实现ref的传递
+```js
+// 示例1：简单函数式组件中传递ref。如下，通过this.refFan.current可以直接获取到button
+const FancyButton = React.forwardRef((props,ref)=>(
+    <div>
+        <h3>子组件</h3>
+        <button ref={ref}>{props.children}</button>
+    </div>
+));
+const refFan = React.createRef();
+<FancyButton ref={refFan}>我是按钮</FancyButton>
+// 示例2：在类组件中传递Ref
+// child.js
+import React from 'react';
+class Child extends React.Component {
+    render() {
+        const {forwardedRef,...rest} = this.props;
+        return(
+            <div>
+                <h3>这是子组件的另一个按钮</h3>
+                <button ref={forwardedRef}>另一个按钮</button>
+            </div>
+        )
+    }
+}
+export default React.forwardRef((props,ref)=>(<Child forwardedRef={ref}/>));
+// parent.js
+this.childRef= React.createRef();
+<Child ref={this.childRef}>
+```
+- 通过`React.forwardRef`包裹组件用于传递父组件赋值的`ref`
+- 在`类组件`中，通过属性`forwardedRef`来获取父组件赋值的`ref`,并赋给对应的元素或组件实例
+
+## 片段Fragment
+> React中一种常见模式是为一个组件同时返回多个并列元素。而render只接受一个子组件，所以通过`片段（Fragment）`可以将子元素列表添加到一个分组中，**且不会在DOM中增加多余的节点**。[应用场景](https://react.css88.com/docs/fragments.html)
+> - 通过`<React.Fragment>`来表示这是一个代码片段。（类似于Vue的`<template>`标签）
+> - `<React.Fragment>`支持`key`属性，即当使用`data.map`返回列表时，可以直接在`<React.Fragment>`标签上设置`key={xxx}`
+```js
+// table.js
+class Table extends React.Component {
+  render() {
+    return (
+      <table>
+        <tr>
+          <Columns />
+        </tr>
+      </table>
+    );
+  }
+}
+// column.js
+class Columns extends React.Component {
+  render() {
+    return (
+      <React.Fragment>
+        <td>Hello</td>
+        <td>World</td>
+      </React.Fragment>
+    );
+  }
+}
+```
 
 

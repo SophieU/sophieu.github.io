@@ -9,6 +9,8 @@ categories: 前端学习
 
 ## 目录
 - [Vue与React](#Vue与React)
+    - [介绍](#介绍)
+    - [区别](#区别)
 - [VueRouter与ReactRouter](#VueRouter与ReactRouter)
 - [Vuex与Redux](#Vuex与Redux)
 - [Vue与React服务端渲染](#Vuex与Redux)
@@ -120,3 +122,38 @@ methods:{
 ## VueRouter与ReactRouter
 - [VueRouter文档](https://router.vuejs.org/zh/)
 - [ReactRouter文档V4.3.x](https://reacttraining.com/react-router/web/guides/quick-start)
+
+- 示例：React简单使用
+```js
+// react-router
+import {BrowserRouter as Router,Switch, Route, Link} from 'react-router-dom';
+const Index = () => <h2>Home</h2>;
+const AppRouter=()=>(
+    <Router>
+        <ul>
+            <li><Link to="/">Home</Link></li>
+        </ul>
+        <Switch>
+            <Route path="/" exact component={Index}/>
+        </Switch>
+    </Router>
+)
+
+// vue
+const Home = { template: '<p>home page</p>' }
+const About = { template: '<p>about page</p>' }
+// 创建路由对象
+const routes = {
+  '/': Home,
+  '/about': About
+}
+const router = new VueRouter({
+  routes
+})
+// 引入到实例中
+const app = new Vue({
+  router
+}).$mount('#app')
+// 跳转链接
+ <router-link to="/foo">Go to Foo</router-link>
+```

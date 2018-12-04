@@ -11,6 +11,13 @@ categories: 前端学习
 - [高阶组件HOC](#高阶组件HOC)
 - [深入JSX](#深入JSX)
 - [渲染属性](#渲染属性)
+- [PropTypes类型检查](#PropTypes类型检查)
+- [不受控组件](#不受控组件)
+- [ReactDOM的API](#ReactDOM的API)
+- [常见问题](#常见问题)
+  - [事件处理函数](#事件处理函数)
+  - [State和Props](#State和Props)
+  - [项目文件结构](#项目文件结构)
 
 ## 高阶组件HOC
 > 高阶组件（HOC-Higher-Order-Components）是 React 中用于重用组件逻辑的高级技术。**高阶组件是一个函数，能够接受一个组件并返回一个新的组件**。简单来说，高阶组件将一个组价转化（包装）成另外一个组件。
@@ -142,3 +149,84 @@ class MouseTracker extends React.Component {
 }
 ```
 - 这里的render属性不一定非要用`render`表示，只是方便解读，它可以是任意命名的属性，只是一个返回值是组件的渲染函数
+
+## PropTypes类型检查
+> **注意**：从v15.5开始，React.PropTypes助手函数已被弃用，需要单独引入`prop-types`库来定义contextTypes
+```js
+import PropTypes from 'prop-types';
+class Hello extends React.Component{
+  render(){
+    return(<h1>Hello,{this.props.name}</h1>)
+  }
+}
+Hello.propTypes={
+  name:PropTypes.string
+}
+```
+- 更多prop-types对应的类型：[使用PropTypes进行类型检查](https://react.css88.com/docs/typechecking-with-proptypes.html)
+
+#### 默认Prop值
+> 通过`defaultProps`属性可以设置组件的默认属性值：
+```js
+MyComponent.defaultProps={
+  name:'haha'
+}
+```
+## 不受控组件
+> 在处理表单的时候，推荐使用受控组件。当然，也可以使用不受控组件来处理。相对于为每个状态更新编写一个事件处理程序，不受控组件的值可能通过使用一个`ref`来从DOM获得表单值。
+- **默认值**：通过`defaultValue`来表示不受控组件的默认值。对于checkbox则使用`defaultChecked`来设置默认值
+- **file Input** : 在React中`file Input`永远是一个不受控制的组件，因为它的值只能由用户设置，而不是以编程方式设置。`通过给file input添加ref属性来获取到file input对应的files文件`
+```js
+class Form extends React.Component{
+  constructor(){
+    super();
+    this.textInput = React.createRef();
+    this.fileInput = React.createRef();
+    this.submitForm=this.submitForm.bind(this);
+  }
+  submitForm(e){
+    e.preventDefault();
+    const userName = this.textInput.current.value;
+    const fileName = this.fileInput.current.files[0].name
+    console.log(userName,fileName)
+  }
+  render(){
+    return (
+      <div>
+        <input defaultValue="lala" name="username" type="text" ref={this.textInput}/>
+        <input name="file" type="file" ref={this.fileInput}/>
+        <button onClick={this.submitForm}>点我</button>
+      </div>
+    )
+
+  }
+}
+```
+## ReactDOM的API
+
+## 常见问题
+#### 事件处理函数
+- **如何绑定？**：`onClick={this.handleClick}`用于绑定
+- **如何确保处理函数在组件实例作用域内？**:
+  1. 在`constructor`中，通过`this.handleClick=this.handleClick.bind(this)`绑定作用域
+  2. 使用箭头函数来声明处理函数，`handleClick=()=>{xxx}`
+  3. 在`render`中使用bind绑定【此方法会在每次组件渲染时创建一个新函数，而影响性能】，`<button onClick={this.handleClick.bind(this)}>Click Me</button>`
+  4. 在`render`中使用箭头函数【同3一样，会影响性能】,`<button onClick={() => this.handleClick()}>Click Me</button>`
+- **如何传参？**：
+  1. 使用`bind`:`<button onClick={() => this.handleClick(id)} />`
+  2. 通过`data-*`属性传参：`<button data-letter={letter} onClick={this.handleClick}/>`，在handleClick中通过`e.target.dataset.letter`拿取data-letter的值
+
+#### State和Props
+- **区别？**：`state`是组件内部管理的，而`props`是从外部付入的
+- **state是异步的**，如果更新state需要用到当前的state，那么应该向`setState`中传入一个函数，而不是对象。`this.setState((prevState)=> return {count:prevState+1})`
+- **第三方状态管理**：像`redux`或者`Mobx`的状态管理库都挺好的，但是如果项目体量小，其实只用React也是可以实现的
+
+#### 项目文件结构
+> 项目文件该以何种结构来组织？这其实不是一个应该纠结的问题。有以下几种设置项目目录结构的方式：
+  1. 资源就近维护：将CSS，JS和测试文件一起放入按功能或路由分组的文件夹中
+  2. 按文件类型来分组：如`imgs`统一维护项目图片
+
+#### AJAX及APIs
+- **如何发送AJAX？**：你可以使用任意你喜欢的库，如`Axios`，`jQuery Ajax`或浏览器自带的`window.fetch`
+- **何时发送？**：在`componentDidMount`生命周期方法内发送Ajax请求数据。这样你才能够在请求的数据到达时使用 setState 更新你的组件。
+- **如何取消发送Ajax?**：在`componentWillUnmount `生命周期中取消未完成的Ajax请求。如在`axios`中，`this.serverReq=axios.get(xxx).`再在componentWillUnmount中通过`this.serverReq.abort()`取消

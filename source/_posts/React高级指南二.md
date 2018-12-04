@@ -10,6 +10,7 @@ categories: 前端学习
 
 - [高阶组件HOC](#高阶组件HOC)
 - [深入JSX](#深入JSX)
+- [渲染属性](#渲染属性)
 
 ## 高阶组件HOC
 > 高阶组件（HOC-Higher-Order-Components）是 React 中用于重用组件逻辑的高级技术。**高阶组件是一个函数，能够接受一个组件并返回一个新的组件**。简单来说，高阶组件将一个组价转化（包装）成另外一个组件。
@@ -83,3 +84,61 @@ render() {
 }
 ```
 - 通过`react.createPortal`可以实现如`Modal`，`对话框`等特定组件功能
+
+## 渲染属性
+>  “render prop” 是指一种技术，用于使用一个值为函数的 prop 在 React 组件之间的代码共享。
+> - 使用Render props的库包括`React Router`和`Downshift`
+> - 参考文章：[渲染属性render](https://react.css88.com/docs/render-props.html)
+> **render prop 是一个组件用来了解要渲染什么内容的函数 prop。**
+> - 关于 render props 一个有趣的事情是你可以使用一个带有 render props 的常规组件来实现大量的 高阶组件 (HOC)。
+
+```js
+<DataProvider render={data => (
+  <h1>Hello {data.target}</h1>
+)}/>
+```
+- 示例：封装一个记录鼠标坐标的组件，且可扩展使用图片跟随鼠标移动
+- 思路：1、创建一个Mouse组件用于跟随和显示鼠标，2、通过render属性向Mouse组件传递需要扩展的内容
+```js
+// Mouse.js
+class Mouse extends React.Component{
+  constructor(props) {
+        super(props);
+        this.handleMove=this.handleMove.bind(this);
+        this.state={
+            x:0,
+            y:0
+        }
+    }
+    handleMove(e){
+        this.setState({
+            x:e.clientX,
+            y:e.clientY
+        })
+    }
+    render() {
+        return (
+            <div style={{height:'500px',width:'800px',background:'#ff0'}} onMouseMove={this.handleMove}>
+                {this.props.render?this.props.render(this.state):<p>the mouse position is ({this.state.x},{this.state.y})</p>}
+            </div>
+        )
+    }
+}
+// 扩展用的图片
+class Cat extends React.Component{
+  render(){
+    const mouse = this.props.mouse
+    return <img src="./cat.jpg" style={{position:'absolute',left:mouse.x,top:mouse.y}} alt=""/>
+  }
+}
+// 组合
+class MouseTracker extends React.Component {
+    render() {
+        return (<div >
+            <h1>Move the mouse around!</h1>
+            <Mouse render={mouse=>(<Cat mouse={mouse}/>)}/>
+        </div>)
+    }
+}
+```
+- 这里的render属性不一定非要用`render`表示，只是方便解读，它可以是任意命名的属性，只是一个返回值是组件的渲染函数

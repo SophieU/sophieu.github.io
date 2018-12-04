@@ -58,4 +58,61 @@ render: function (createElement) {
   return createElement('p', 'No items found.')
 }
 ```
-4. ****
+4. **vue的data和react的state**
+> 它们都是用于维护组件作用域内的数据
+```js
+// react
+constructor(){
+    super();
+    this.state={name:'haha'} 
+}
+componentDidMount(){
+    this.setState({name:'lala'})
+}
+//vue
+data:{
+    name:'vue'
+}
+mounted(){
+    this.name='vueTop'
+}
+```
+5. **事件绑定**
+```js
+// react
+constructor(){
+    super();
+    this.handleClick=this.handleClick.bind(this);
+}
+<button onClick={this.handleClick}>点我</button>
+// vue
+methods:{
+   handleClick(){//...} 
+}
+// 或者@click
+<button v-on:click={this.handleClick}>点我</button>
+```
+6. **表单数据**
+> vue中通过`v-model`实现双向绑定，react中通过value与onChange事件监听实现受控组件
+```js
+// react
+<input value={this.state.name} onChange={()=>this.inputChange}/>
+// vue
+<input v-model={this.name} />
+```
+7. **插槽**
+> vue中使用`slot`来实现子元素内容的渲染，react通过`props.children`
+```js
+// react
+<div>
+    <h3>父标题</h3>
+    {props.children}
+</div>
+//vue
+<div>
+    <h3>父标题</h3>
+    <template slot="child"></template>
+</div>
+// 对应child中定义slot
+<slot name="child"></slot>
+```

@@ -116,3 +116,7 @@ methods:{
 // 对应child中定义slot
 <slot name="child"></slot>
 ```
+
+## VueRouter与ReactRouter
+- [VueRouter文档](https://router.vuejs.org/zh/)
+- [ReactRouter文档V4.3.x](https://reacttraining.com/react-router/web/guides/quick-start)

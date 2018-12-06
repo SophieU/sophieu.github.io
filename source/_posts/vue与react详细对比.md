@@ -123,6 +123,7 @@ methods:{
 - [VueRouter文档](https://router.vuejs.org/zh/)
 - [ReactRouter文档V4.3.x](https://reacttraining.com/react-router/web/guides/quick-start)
 
+> Vue Router是`Vue.js`官方的路由管理器，
 - 示例：React简单使用
 ```js
 // react-router
@@ -139,6 +140,9 @@ const AppRouter=()=>(
     </Router>
 )
 
+```
+- vue-router简单使用
+```js
 // vue
 const Home = { template: '<p>home page</p>' }
 const About = { template: '<p>about page</p>' }
@@ -156,4 +160,21 @@ const app = new Vue({
 }).$mount('#app')
 // 跳转链接
  <router-link to="/foo">Go to Foo</router-link>
+```
+#### 使用时的不同点总结：
+- vue-router是全局配置方式，react-router是全局组件方式。
+- vue-router仅支持对象形式的配置，react-router支持对象形式和JSX语法的组件形式配置。
+- vue-router任何路由组件都会被渲染到<router-view/>位置，react-router子组件作为children被传入父组件，而根组件被渲染到<Router/>位置。
+
+#### 路由懒加载
+```js
+// vue-router : 通过在component处使用动态import
+const routes = [
+    {{ path: '/foo', component: ()=> import("@/component/foo") },}
+]
+// react : 使用react.lazy()
+const Foo = React.lazy(()=>import("./component/foo"))
+<Router>
+    <Route exact path="/foo" component={Foo}/>
+</Router>
 ```

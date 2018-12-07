@@ -17,6 +17,14 @@ categories: 前端学习
 - [Vue与React的代码拆分](#Vue与React的代码拆分)
 
 ## Vue与React
+
+对比项|Vue|React
+---|---|---
+路由管理|VueRouter|React-Router
+状态管理|Vuex|Redux
+动画过度|`<Transition>`|`react-transition-group`
+
+
 #### 介绍
 - **Vue.js是什么？？**
     - `Vue`是一套用于构建用户界面的渐进式框架。【[vue与其他框架对比](https://cn.vuejs.org/v2/guide/comparison.html)】

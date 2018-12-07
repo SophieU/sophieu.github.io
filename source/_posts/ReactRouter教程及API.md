@@ -11,6 +11,7 @@ categories: 前端学习
 - [Router对应组件](#Router对应组件)
 - [Router的代码拆分](#Router的代码拆分)
 - [集成Redux](#集成Redux)
+- [主要API](#主要API)
 
 ## 安装使用
 > 通常在安装时，会看到有的项目会同时安装有`react-router`和`react-router-dom`，其实只要安装`react-router-dom`就好了，react-router包含的是react-router的核心模块，而`react-router-dom`则包含了除核心模块以外，针对DOM绑定的组件，如`<Link/>`,`<BrowserRouter/>`。
@@ -189,6 +190,8 @@ function Loading(props) {
 2. 组件不是一个Route声明的组件，即此组件未经过` <Route component={SomeConnectedThing}/>`
 
 为了集成redux与react-router，从而实现通过`dispactch`来操作导航路由，或者同步路由数据到store中，便可以引用`react-router-redux`
+
+- **注意：**官网在4.x版本更新时说已经弃用了`react-router-redux`,在其文档中，推荐了使用[connected-react-router](https://github.com/supasate/connected-react-router)作为代替。
 
 ```js
 // before
@@ -488,6 +491,9 @@ class Header extends React.Component {
 
 export default withRouter(Header);
 ```
+
+## 写在最后
+> [React-Router官方示例](https://reacttraining.com/react-router/web/example/url-params)提供了多种使用React-router的场景，很有用。
 
 
 

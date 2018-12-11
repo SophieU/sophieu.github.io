@@ -105,6 +105,10 @@ const Topics = ({ match }) => (
 >   - component ： `render={MyComponent}`经常使用的渲染属性，用于直接设置Route对应渲染的组件内容。
 >   - render ： `render={()=><MyComponent someParm={this.state.param}>}`,常用，render对应一个行内函数。当你需要向这个Route组件传递当前作用域内的参数【如`this.state.param`】时，就需要用到此方法。
 >   - children ： 不常用，后续介绍。
+> - Route组件传入渲染组件的属性：
+>   - location : 对象，可以简单认为是URL的对象形式表示。注意`location.state`，这里的state与`HTML5 history.pushState API` 中的 state 对象一样，每个 URL 都会对应一个 state 对象，你可以在对象里存储数据，但这个数据却不会出现在 URL 中。实际上，数据被存在了 sessionStorage 中。
+>   - history ： 对象，它提供了很多有用的方法可以在路由系统中使用，比如`history.go()`，用于替换当前的 URL，并且会将被替换的 URL 在浏览器历史中删除。函数的第一个参数是 state 对象，第二个是路径；
+>   - match
 
 #### 导航组件
 > React Router提供了如下三种导航组件：
@@ -255,7 +259,7 @@ class User extends React.Component{
 ##### *render渲染*
 - 当需要向路由组件传入额外的参数时，就可以使用`render`
 - component 的优先级高于render，所以不要同时使用
-
+- 在render渲染方式中，通过声明式的向内部组件传递`props`来获取Route对应的`match,history,location`属性值
 ```js
  <Route path="/bar" render={(props)=><Bar title={"这是给Bar的title"} {...props} />}></Route>
 

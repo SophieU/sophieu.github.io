@@ -351,3 +351,12 @@ const mapDispatchToProps = dispatch=>{
 const AppStore = connect(mapStateToProps,mapDispatchToProps)(App)
 export default AppStore;
 ```
+
+## 和ReactRouter搭配使用
+- 参考使用这个库：[connected-react-router](https://github.com/supasate/connected-react-router)，原`react-router-redux`作者已经不再维护了。
+
+## 一些中间件
+- [redux-saga](https://github.com/redux-saga/redux-saga): 一个用来处理异步任务的redux中间件。
+    > 在 reducers 中的所有操作都是同步的并且是纯粹的，即 reducer 都是纯函数，纯函数是指一个函数的返回结果只依赖于它的参数，并且在执行过程中不会对外部产生副作用，即给它传什么，就吐出什么。但是在实际的应用开发中，我们希望做一些异步的（如Ajax请求）且不纯粹的操作（如改变外部的状态），这些在函数式编程范式中被称为“副作用”。 而`redux-saga`就是用来做这些异步操作的
+- [redux-thunk](https://github.com/reduxjs/redux-thunk):也是一个异步中间件，是redux作者写的。特点：action可以是一个以dispatch为参数的函数，在函数内部做异步操作。缺点：要redux本身的action为对象的概念冲突，导致类型不统一
+

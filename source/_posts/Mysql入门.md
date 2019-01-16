@@ -1,6 +1,6 @@
 ---
 title: MySQL入门教程
-date: 2016-08-07
+date: 2017-08-07
 tag: MySQL
 categories: 后端学习
 ---

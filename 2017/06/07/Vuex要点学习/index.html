@@ -1,0 +1,1541 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>Vuex要点学习 - Sophie&#39;s World</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta name="description" content="Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。它采用集中式存储管理应用的所有组件的状态，并以相应的规则保证状态以一种可预测的方式发生变化。Vuex 也集成到 Vue 的官方调试工具 devtools extension，提供了诸如零配置的 time-travel 调试、状态快照导入导出等高级调试功能。">
+<meta name="keywords" content="Vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vuex要点学习">
+<meta property="og:url" content="https://sophieu.github.io/2017/06/07/Vuex要点学习/index.html">
+<meta property="og:site_name" content="Sophie&#39;s World">
+<meta property="og:description" content="Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。它采用集中式存储管理应用的所有组件的状态，并以相应的规则保证状态以一种可预测的方式发生变化。Vuex 也集成到 Vue 的官方调试工具 devtools extension，提供了诸如零配置的 time-travel 调试、状态快照导入导出等高级调试功能。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://vuex.vuejs.org/vuex.png">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5590388-304c6de2cf25067f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/645/format/webp">
+<meta property="og:updated_time" content="2019-05-13T06:31:47.533Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vuex要点学习">
+<meta name="twitter:description" content="Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。它采用集中式存储管理应用的所有组件的状态，并以相应的规则保证状态以一种可预测的方式发生变化。Vuex 也集成到 Vue 的官方调试工具 devtools extension，提供了诸如零配置的 time-travel 调试、状态快照导入导出等高级调试功能。">
+<meta name="twitter:image" content="https://vuex.vuejs.org/vuex.png">
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    <style>body>.navbar,body>.section,body>.footer{opacity: 0}</style>
+    
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="Vuex要点学习" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">Home</a>
+                
+                <a class="navbar-item" href="/archives">Archives</a>
+                
+                <a class="navbar-item" href="/categories">Categories</a>
+                
+                <a class="navbar-item" href="/tags">Tags</a>
+                
+                <a class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2017-06-06T16:00:00.000Z">2017-06-07</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/前端学习/">前端学习</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    26 分钟 读完 (大约 3847 个字)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                Vuex要点学习
+            
+        </h1>
+        <div class="content">
+            <p>Vuex 是一个专为 Vue.js 应用程序开发的<strong>状态管理模式</strong>。它采用集中式存储管理应用的所有组件的状态，并以相应的规则保证状态以一种可预测的方式发生变化。Vuex 也集成到 Vue 的官方调试工具 devtools extension，提供了诸如零配置的 time-travel 调试、状态快照导入导出等高级调试功能。<br><a id="more"></a></p>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><blockquote>
+<ul>
+<li><a href="#安装">安装</a></li>
+<li><a href="#核心要点">核心要点</a></li>
+<li><a href="#State状态">State状态</a></li>
+<li><a href="#Mutation改变">Mutation改变</a></li>
+<li><a href="#Action行为">Action行为</a></li>
+<li><a href="#Getters">Getters</a></li>
+<li><a href="#Module模块">GettModule模块ers</a></li>
+<li><a href="#Getters">Getters</a></li>
+</ul>
+</blockquote>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install vuex</span><br></pre></td></tr></table></figure>
+<h2 id="核心要点"><a href="#核心要点" class="headerlink" title="核心要点"></a>核心要点</h2><p><img src="https://vuex.vuejs.org/vuex.png" alt="Vuex流程图"></p>
+<ol>
+<li><code>Vue Components</code>：Vue组件。HTML页面上，负责接收用户操作等交互行为，执行dispatch方法触发对应action进行回应。</li>
+<li><code>dispatch</code>：操作行为触发方法，是唯一能执行action的方法。</li>
+<li><code>actions</code>：操作行为处理模块。负责处理Vue Components接收到的所有交互行为。包含同步/异步操作，支持多个同名方法，按照注册的顺序依次触发。向后台API请求的操作就在这个模块中进行，包括触发其他action以及提交mutation的操作。该模块提供了Promise的封装，以支持action的链式触发。</li>
+<li><code>commit</code>：状态改变,提交操作方法。对mutation进行提交，是唯一能执行mutation的方法。</li>
+<li><code>mutations</code>：状态改变操作方法。是Vuex修改state的唯一推荐方法，其他修改方式在严格模式下将会报错。该方法只能进行同步操作，且方法名只能全局唯一。操作之中会有一些hook暴露出来，以进行state的监控等。</li>
+<li><code>state</code>：页面状态管理容器对象。集中存储Vue components中data对象的零散数据，全局唯一，以进行统一的状态管理。页面显示所需的数据从该对象中进行读取，利用Vue的细粒度数据响应机制来进行高效的状态更新。 <ul>
+<li>getters：state对象读取方法。图中没有单独列出该模块，应该被包含在了render中，Vue Components通过该方法读取全局state对象。</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><p><strong>Vue组件接收交互行为，调用dispatch方法触发action相关处理，若页面状态需要改变，则调用commit方法提交mutation修改state，通过getters获取到state新值，重新渲染Vue Components，界面随之更新</strong></p>
+</li>
+<li><p>回顾补充：Readux工作流<br><img src="https://upload-images.jianshu.io/upload_images/5590388-304c6de2cf25067f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/645/format/webp" alt="readux工作流"></p>
+</li>
+</ul>
+<h4 id="简单的应用实例"><a href="#简单的应用实例" class="headerlink" title="简单的应用实例"></a>简单的应用实例</h4><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// store</span></span><br><span class="line"><span class="hljs-keyword">const</span> store = <span class="hljs-keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">    state:&#123;</span><br><span class="line">        count:<span class="hljs-number">0</span></span><br><span class="line">    &#125;,</span><br><span class="line">    mutations:&#123;</span><br><span class="line">       increment (state) &#123;</span><br><span class="line">        state.count++</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="hljs-comment">// component</span></span><br><span class="line"><span class="hljs-keyword">new</span> Vue(&#123;</span><br><span class="line">    el:<span class="hljs-string">'#app'</span>,</span><br><span class="line">    computed:&#123;</span><br><span class="line">        count:<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> store.state.count;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    methods:&#123;</span><br><span class="line">        increment:<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;</span><br><span class="line">            store.commit(<span class="hljs-string">'increment'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="State状态"><a href="#State状态" class="headerlink" title="State状态"></a>State状态</h2><p>Vuex 使用单一状态树：<code>用一个对象就包含了全部的应用层级状态</code>。至此它便作为一个“唯一数据源 (SSOT)”而存在。这也意味着，每个应用将仅仅包含一个 store 实例。<br>单一状态树让我们能够直接地定位任一特定的状态片段，在调试的过程中也能轻易地取得整个当前应用状态的快照。</p>
+<h4 id="组件中获取状态"><a href="#组件中获取状态" class="headerlink" title="组件中获取状态"></a>组件中获取状态</h4><ol>
+<li><del>原始方法：在每个组件中import Store来使用，并在组件computed属性中来获取</del></li>
+<li>全局注入应用：在根组件中注册<code>store</code>选项，该 store 实例会注入到根组件下的所有子组件中，且子组件能通过 <code>this.$store</code> 访问到。</li>
+<li>mapState函数：当一个组件需要获取多个状态时候，将这些状态都声明为计算属性会有些重复和冗余。为了解决这个问题，我们可以使用<code>mapState 辅助函数</code>帮助我们生成计算属性，让你少按几次键.</li>
+</ol>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 全局注入应用</span></span><br><span class="line"><span class="hljs-keyword">import</span> store <span class="hljs-keyword">from</span> <span class="hljs-string">'xxx'</span>;</span><br><span class="line"><span class="hljs-keyword">new</span> Vue(&#123;</span><br><span class="line">    el:<span class="hljs-string">'#app'</span>,</span><br><span class="line">    store,</span><br><span class="line">    components: &#123; Counter &#125;,</span><br><span class="line">    template: <span class="hljs-string">`</span></span><br><span class="line"><span class="hljs-string">        &lt;div class="app"&gt;</span></span><br><span class="line"><span class="hljs-string">        &lt;counter&gt;&lt;/counter&gt;</span></span><br><span class="line"><span class="hljs-string">        &lt;/div&gt;</span></span><br><span class="line"><span class="hljs-string">    `</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="hljs-comment">// Counter组件中，通过this.$store.state获取</span></span><br><span class="line"><span class="hljs-keyword">const</span> Counter = &#123;</span><br><span class="line">  template: <span class="hljs-string">`&lt;div&gt;&#123;&#123; count &#125;&#125;&lt;/div&gt;`</span>,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    count () &#123;</span><br><span class="line">      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.$store.state.count</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">/* 3、mapState函数：</span></span><br><span class="line"><span class="hljs-comment">    三种使用方式：  1、完全映射覆盖computed（部分属性需处理） 2、完全映射   3、部分映射到属性中</span></span><br><span class="line"><span class="hljs-comment">*/</span></span><br><span class="line"><span class="hljs-keyword">import</span> &#123;mapState&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'vuex'</span>;</span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;</span><br><span class="line">    <span class="hljs-comment">//....</span></span><br><span class="line">    computed:mapState(&#123;</span><br><span class="line">        <span class="hljs-comment">// 箭头函数可使代码更简练</span></span><br><span class="line">        count: <span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> state.count,</span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">// 传字符串参数 'count' 等同于 `state =&gt; state.count`</span></span><br><span class="line">        countAlias: <span class="hljs-string">'count'</span>,</span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">// 为了能够使用 `this` 获取局部状态，必须使用常规函数</span></span><br><span class="line">        countPlusLocalState (state) &#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> state.count + <span class="hljs-keyword">this</span>.localCount</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-comment">// 若要完全映射state，不需要单独处理state中的某些值，可以直接通过：传入对应状态名即可</span></span><br><span class="line">    computed:mapState([<span class="hljs-string">'count'</span>,<span class="hljs-string">'xxx'</span>]);</span><br><span class="line"><span class="hljs-comment">// 3、部分映射</span></span><br><span class="line">computed: &#123;</span><br><span class="line">  localComputed () &#123; <span class="hljs-comment">/* ... */</span> &#125;,</span><br><span class="line">  <span class="hljs-comment">// 使用对象展开运算符将此对象混入到外部对象中</span></span><br><span class="line">  ...mapState(&#123;</span><br><span class="line">    <span class="hljs-comment">// ...</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Mutation改变"><a href="#Mutation改变" class="headerlink" title="Mutation改变"></a>Mutation改变</h2><ul>
+<li>更改 Vuex 的 store 中的状态的唯一方法是提交 mutation。</li>
+<li>注意：<code>Mutation必须是同步函数</code>,即在vuex中，mutation是同步事务，若要执行异步事务，请使用actions<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//基础示例</span></span><br><span class="line"><span class="hljs-keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">    state:&#123;<span class="hljs-attr">count</span>:<span class="hljs-number">0</span>&#125;,</span><br><span class="line">    mutations:&#123;</span><br><span class="line">        increment:<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">state</span>)</span>&#123;</span><br><span class="line">            state.count++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="hljs-comment">//调用</span></span><br><span class="line">store.commit(<span class="hljs-string">'increment'</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="传入参数（提交载荷（Payload））"><a href="#传入参数（提交载荷（Payload））" class="headerlink" title="传入参数（提交载荷（Payload））"></a>传入参数（提交载荷（Payload））</h4><p>可以向 store.commit 传入额外的参数，即 mutation 的 载荷（payload），有两种提交参数的方式：</p>
+<ul>
+<li>普通参数风格的提交： <code>store.commit(&#39;mutation_type&#39;,param)</code>;</li>
+<li><p>对象参数风格的提交：<code>store.commit({type:&#39;mutation_type&#39;,param:10})</code></p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 传入参数</span></span><br><span class="line"><span class="hljs-comment">//...</span></span><br><span class="line">mutations:&#123;</span><br><span class="line">    increment:<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">state,n</span>)</span>&#123;</span><br><span class="line">        state.count+=n;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-comment">// 调用</span></span><br><span class="line">store.commit(<span class="hljs-string">'increment'</span>,<span class="hljs-number">10</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>建议：多数情况下建议参数应该以对象的方式提交，这样可以包含多个字段并且记录的 mutation 会更易读：</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// ...</span></span><br><span class="line">mutations:&#123;</span><br><span class="line">    increment:<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">state,payload</span>)</span>&#123;</span><br><span class="line">        state.count+=payload.count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-comment">//调用</span></span><br><span class="line">store.commit(<span class="hljs-string">'increment'</span>, &#123;</span><br><span class="line">  count: <span class="hljs-number">10</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="Mutation-需遵守-Vue-的响应规则"><a href="#Mutation-需遵守-Vue-的响应规则" class="headerlink" title="Mutation 需遵守 Vue 的响应规则"></a>Mutation 需遵守 Vue 的响应规则</h4><ol>
+<li>最好提前在Store中声明好所有需要用到的state</li>
+<li>当需要在对象上添加新属性时，你应该<ul>
+<li>使用<code>Vue.set(obj, &#39;newProp&#39;, 123)</code>, 或者</li>
+<li>以新对象替换老对象：<code>state.obj = { ...state.obj, newProp: 123 }</code></li>
+</ul>
+</li>
+</ol>
+<h4 id="使用常量替代-Mutation-事件类型"><a href="#使用常量替代-Mutation-事件类型" class="headerlink" title="使用常量替代 Mutation 事件类型"></a>使用常量替代 Mutation 事件类型</h4><ul>
+<li><p>使用常量替代 mutation 事件类型，并用单独的文件来管理所有mutations常量，可以让你的代码合作者对整个 app 包含的 mutation 一目了然：</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// mutation-types.js</span></span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> SOME_MUTATION = <span class="hljs-string">'SOME_MUTATION'</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// store.js</span></span><br><span class="line"><span class="hljs-keyword">import</span> Vuex <span class="hljs-keyword">from</span> <span class="hljs-string">'vuex'</span></span><br><span class="line"><span class="hljs-keyword">import</span> &#123; SOME_MUTATION &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'./mutation-types'</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">const</span> store = <span class="hljs-keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">  state: &#123; ... &#125;,</span><br><span class="line">  mutations: &#123;</span><br><span class="line">    <span class="hljs-comment">// 我们可以使用 ES2015 风格的计算属性命名功能来使用一个常量作为函数名</span></span><br><span class="line">    [SOME_MUTATION] (state) &#123;</span><br><span class="line">      <span class="hljs-comment">// mutate state</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">//component</span></span><br><span class="line"><span class="hljs-keyword">import</span> &#123;SOME_MUTATION&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'./mutation-types'</span>;</span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;</span><br><span class="line">    computed:&#123;</span><br><span class="line">        ...mapState(&#123;SOME_MUTATION&#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注意：<code>Mutation必须是同步函数</code></p>
+</li>
+</ul>
+<h4 id="在组件中使用mutations"><a href="#在组件中使用mutations" class="headerlink" title="在组件中使用mutations"></a>在组件中使用mutations</h4><p>两种方法：</p>
+<ol>
+<li>通过<code>this.$store.commit(&#39;mutation_type&#39;)</code>触发</li>
+<li>通过<code>mapMutations</code>辅助函数<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> &#123; mapMutations &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'vuex'</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;</span><br><span class="line">  <span class="hljs-comment">// ...</span></span><br><span class="line">  methods: &#123;</span><br><span class="line">    ...mapMutations([</span><br><span class="line">      <span class="hljs-string">'increment'</span>, <span class="hljs-comment">// 将 `this.increment()` 映射为 `this.$store.commit('increment')`</span></span><br><span class="line"></span><br><span class="line">      <span class="hljs-comment">// `mapMutations` 也支持载荷：</span></span><br><span class="line">      <span class="hljs-string">'incrementBy'</span> <span class="hljs-comment">// 将 `this.incrementBy(amount)` 映射为 `this.$store.commit('incrementBy', amount)`</span></span><br><span class="line">    ]),</span><br><span class="line">    ...mapMutations(&#123;</span><br><span class="line">      add: <span class="hljs-string">'increment'</span> <span class="hljs-comment">// 将 `this.add()` 映射为 `this.$store.commit('increment')`</span></span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="Action行为"><a href="#Action行为" class="headerlink" title="Action行为"></a>Action行为</h2><p>Action 类似于 mutation，不同在于：</p>
+<ul>
+<li>Action提交的是mutaion,而不是直接变更状态。</li>
+<li><p>Action 可以包含任意异步操作。</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 注册一个简单的action</span></span><br><span class="line"><span class="hljs-keyword">const</span> store = <span class="hljs-keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">  state: &#123;</span><br><span class="line">    count: <span class="hljs-number">0</span></span><br><span class="line">  &#125;,</span><br><span class="line">  mutations: &#123;</span><br><span class="line">    increment (state) &#123;</span><br><span class="line">      state.count++</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  actions: &#123;</span><br><span class="line">    increment (context) &#123;</span><br><span class="line">      context.commit(<span class="hljs-string">'increment'</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    increment2(&#123;commit&#125;)&#123;</span><br><span class="line">        <span class="hljs-comment">//通过参数解构可以简化代码</span></span><br><span class="line">        commit(<span class="hljs-string">'increment'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Action 函数接受一个与 store 实例具有相同方法和属性的<code>context 对象</code>，因此你可以调用 <code>context.commit</code> 提交一个 <code>mutation</code>，或者通过<code>context.state</code> 和 <code>context.getters</code> 来获取 <code>state</code> 和 <code>getters</code>。</p>
+</li>
+</ul>
+<h4 id="分发-Action-触发action"><a href="#分发-Action-触发action" class="headerlink" title="分发 Action[触发action]"></a>分发 Action[触发action]</h4><ul>
+<li>通过<code>store.dispatch()</code>来触发action<blockquote>
+<ol>
+<li>在store内触发<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// store.js</span></span><br><span class="line">actions: &#123;</span><br><span class="line">  incrementAsync (&#123; commit &#125;) &#123;</span><br><span class="line">    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;</span><br><span class="line">      commit(<span class="hljs-string">'increment'</span>)</span><br><span class="line">    &#125;, <span class="hljs-number">1000</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 1. 简单触发</span></span><br><span class="line">store.dispatch(<span class="hljs-string">'incrementAsync'</span>)</span><br><span class="line"><span class="hljs-comment">// 2. 以载荷形式分发(传参)</span></span><br><span class="line">store.dispatch(<span class="hljs-string">'incrementAsync'</span>, &#123;</span><br><span class="line">  amount: <span class="hljs-number">10</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="hljs-comment">// 3. 以对象参数形式分发</span></span><br><span class="line">store.dispatch(&#123;</span><br><span class="line">  type: <span class="hljs-string">'incrementAsync'</span>,</span><br><span class="line">  amount: <span class="hljs-number">10</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<p><strong>一个购物车实例：</strong><br><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">actions: &#123;</span><br><span class="line">  checkout (&#123; commit, state &#125;, products) &#123;</span><br><span class="line">    <span class="hljs-comment">// 把当前购物车的物品备份起来</span></span><br><span class="line">    <span class="hljs-keyword">const</span> savedCartItems = [...state.cart.added]</span><br><span class="line">    <span class="hljs-comment">// 发出结账请求，然后乐观地清空购物车</span></span><br><span class="line">    commit(types.CHECKOUT_REQUEST)</span><br><span class="line">    <span class="hljs-comment">// 购物 API 接受一个成功回调和一个失败回调</span></span><br><span class="line">    shop.buyProducts(</span><br><span class="line">      products,</span><br><span class="line">      <span class="hljs-comment">// 成功操作</span></span><br><span class="line">      () =&gt; commit(types.CHECKOUT_SUCCESS),</span><br><span class="line">      <span class="hljs-comment">// 失败操作</span></span><br><span class="line">      () =&gt; commit(types.CHECKOUT_FAILURE, savedCartItems)</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<ol start="2">
+<li>在组件中触发Action<br>有两种方式在组件中分发Action: <code>this.$store.dispatch(&#39;action_type&#39;)</code>，或者<code>mapActions</code>辅助函数<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> &#123; mapActions &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'vuex'</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;</span><br><span class="line">  <span class="hljs-comment">// ...</span></span><br><span class="line">  methods: &#123;</span><br><span class="line">    ...mapActions([</span><br><span class="line">      <span class="hljs-string">'increment'</span>, <span class="hljs-comment">// 将 `this.increment()` 映射为 `this.$store.dispatch('increment')`</span></span><br><span class="line"></span><br><span class="line">      <span class="hljs-comment">// `mapActions` 也支持载荷：</span></span><br><span class="line">      <span class="hljs-string">'incrementBy'</span> <span class="hljs-comment">// 将 `this.incrementBy(amount)` 映射为 `this.$store.dispatch('incrementBy', amount)`</span></span><br><span class="line">    ]),</span><br><span class="line">    ...mapActions(&#123;</span><br><span class="line">      add: <span class="hljs-string">'increment'</span> <span class="hljs-comment">// 将 `this.add()` 映射为 `this.$store.dispatch('increment')`</span></span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</blockquote>
+<h4 id="组合Action"><a href="#组合Action" class="headerlink" title="组合Action"></a>组合Action</h4><ul>
+<li><p>store.dispatch 可以处理被触发的 action 的处理函数返回的 Promise，并且 store.dispatch 仍旧返回 Promise。即store.dispatch后面可以跟<code>then</code>函数实现异步调用组合</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">actions: &#123;</span><br><span class="line">  actionA (&#123; commit &#125;) &#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">      setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;</span><br><span class="line">        commit(<span class="hljs-string">'someMutation'</span>)</span><br><span class="line">        resolve()</span><br><span class="line">      &#125;, <span class="hljs-number">1000</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-comment">// 现在你可以</span></span><br><span class="line">store.dispatch(<span class="hljs-string">'actionA'</span>).then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="hljs-comment">// ...</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="hljs-comment">// 或者</span></span><br><span class="line">actionB (&#123; dispatch, commit &#125;) &#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> dispatch(<span class="hljs-string">'actionA'</span>).then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;</span><br><span class="line">        commit(<span class="hljs-string">'someOtherMutation'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>利用<code>Aysn/Await</code>函数</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 假设 getData() 和 getOtherData() 返回的是 Promise</span></span><br><span class="line"></span><br><span class="line">actions: &#123;</span><br><span class="line">  <span class="hljs-keyword">async</span> actionA (&#123; commit &#125;) &#123;</span><br><span class="line">    commit(<span class="hljs-string">'gotData'</span>, <span class="hljs-keyword">await</span> getData())</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="hljs-keyword">async</span> actionB (&#123; dispatch, commit &#125;) &#123;</span><br><span class="line">    <span class="hljs-keyword">await</span> dispatch(<span class="hljs-string">'actionA'</span>) <span class="hljs-comment">// 等待 actionA 完成</span></span><br><span class="line">    commit(<span class="hljs-string">'gotOtherData'</span>, <span class="hljs-keyword">await</span> getOtherData())</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="Getters"><a href="#Getters" class="headerlink" title="Getters"></a>Getters</h2><p>Vuex 允许我们在 store 中定义“getter”（可以认为是<code>store 的计算属性</code>）。就像计算属性一样，<strong>getter 的返回值会根据它的依赖被缓存起来，且只有当它的依赖值发生了改变才会被重新计算</strong>。<br><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// getters接收state作为第一个参数</span></span><br><span class="line"><span class="hljs-keyword">const</span> store = <span class="hljs-keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">  state: &#123;</span><br><span class="line">    todos: [</span><br><span class="line">      &#123; <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">text</span>: <span class="hljs-string">'...'</span>, <span class="hljs-attr">done</span>: <span class="hljs-literal">true</span> &#125;,</span><br><span class="line">      &#123; <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">text</span>: <span class="hljs-string">'...'</span>, <span class="hljs-attr">done</span>: <span class="hljs-literal">false</span> &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  getters: &#123;</span><br><span class="line">    doneTodos: <span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="hljs-keyword">return</span> state.todos.filter(<span class="hljs-function"><span class="hljs-params">todo</span> =&gt;</span> todo.done)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h4 id="访问Store的Getters"><a href="#访问Store的Getters" class="headerlink" title="访问Store的Getters"></a>访问Store的Getters</h4><p>有三种访问getter的方式：</p>
+<ol>
+<li>通过store的属性方式访问</li>
+<li>通过store的方法方式访问</li>
+<li>通过mapGetters辅助函数访问<h5 id="1、通过属性方式访问"><a href="#1、通过属性方式访问" class="headerlink" title="1、通过属性方式访问"></a>1、通过属性方式访问</h5><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> store = <span class="hljs-keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">  state: &#123;</span><br><span class="line">    todos: [</span><br><span class="line">      &#123; <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">text</span>: <span class="hljs-string">'...'</span>, <span class="hljs-attr">done</span>: <span class="hljs-literal">true</span> &#125;,</span><br><span class="line">      &#123; <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">text</span>: <span class="hljs-string">'...'</span>, <span class="hljs-attr">done</span>: <span class="hljs-literal">false</span> &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  getters: &#123;</span><br><span class="line">    doneTodos: <span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="hljs-keyword">return</span> state.todos.filter(<span class="hljs-function"><span class="hljs-params">todo</span> =&gt;</span> todo.done)</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="hljs-comment">// 第二个参数是getters可用来访问其他getter</span></span><br><span class="line">    doneTodoCount:<span class="hljs-function">(<span class="hljs-params">state,getters</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> getters.doneTodos.length;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="hljs-comment">// 组件中使用</span></span><br><span class="line">computed: &#123;</span><br><span class="line">  doneTodosCount () &#123;</span><br><span class="line">      <span class="hljs-comment">//属性方式使用</span></span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.$store.getters.doneTodosCount</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h5 id="2、方法访问"><a href="#2、方法访问" class="headerlink" title="2、方法访问"></a>2、方法访问</h5><p>通过让 getter 返回一个函数，来实现<code>给 getter 传参</code>。在你对 store 里的数组进行查询时非常有用。</p>
+<ul>
+<li>注意，getter 在通过方法访问时，每次都会去进行调用，而不会缓存结果。<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">getters: &#123;</span><br><span class="line">  <span class="hljs-comment">// ...</span></span><br><span class="line">  getTodoById: <span class="hljs-function">(<span class="hljs-params">state</span>) =&gt;</span> (id) =&gt; &#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> state.todos.find(<span class="hljs-function"><span class="hljs-params">todo</span> =&gt;</span> todo.id === id)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-comment">//使用</span></span><br><span class="line">store.getters.getTodoById(<span class="hljs-number">2</span>) <span class="hljs-comment">// -&gt; &#123; id: 2, text: '...', done: false &#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="3、mapGetters函数"><a href="#3、mapGetters函数" class="headerlink" title="3、mapGetters函数"></a>3、mapGetters函数</h5><p>mapGetters 辅助函数仅仅是将 store 中的 getter 映射到局部计算属性：<br><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> &#123; mapGetters &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'vuex'</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;</span><br><span class="line">  <span class="hljs-comment">// ...</span></span><br><span class="line">  computed: &#123;</span><br><span class="line">  <span class="hljs-comment">// 使用对象展开运算符将 getter 混入 computed 对象中</span></span><br><span class="line">    ...mapGetters([</span><br><span class="line">      <span class="hljs-string">'doneTodosCount'</span>,</span><br><span class="line">      <span class="hljs-string">'anotherGetter'</span>,</span><br><span class="line">      <span class="hljs-comment">// ...</span></span><br><span class="line">    ]),</span><br><span class="line">    mapGetters(&#123;</span><br><span class="line">    <span class="hljs-comment">// 把 `this.doneCount` 映射为 `this.$store.getters.doneTodosCount`</span></span><br><span class="line">    doneCount: <span class="hljs-string">'doneTodosCount'</span></span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="Module模块"><a href="#Module模块" class="headerlink" title="Module模块"></a>Module模块</h2><p>Vuex 允许我们将 store 分割成模块（module）。每个模块拥有自己的 state、mutation、action、getter、甚至是嵌套子模块——从上至下进行同样方式的分割：<br><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> moduleA = &#123;</span><br><span class="line">  state: &#123; ... &#125;,</span><br><span class="line">  mutations: &#123; ... &#125;,</span><br><span class="line">  actions: &#123; ... &#125;,</span><br><span class="line">  getters: &#123; ... &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">const</span> moduleB = &#123;</span><br><span class="line">  state: &#123; ... &#125;,</span><br><span class="line">  mutations: &#123; ... &#125;,</span><br><span class="line">  actions: &#123; ... &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">const</span> store = <span class="hljs-keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">  modules: &#123;</span><br><span class="line">    a: moduleA,</span><br><span class="line">    b: moduleB</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">store.state.a <span class="hljs-comment">// -&gt; moduleA 的状态</span></span><br><span class="line">store.state.b <span class="hljs-comment">// -&gt; moduleB 的状态</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="模块的局部状态"><a href="#模块的局部状态" class="headerlink" title="模块的局部状态"></a>模块的局部状态</h4><ul>
+<li>在各模块内都拥有各自的state，因此其内部的actions,mutations中的state也指的是当前模块对应的state</li>
+<li>对于模块内部的 action，局部状态通过 <code>context.state</code>暴露出来，根节点状态则为<code>context.rootState</code><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// </span></span><br><span class="line"><span class="hljs-keyword">const</span> moduleA = &#123;</span><br><span class="line">  <span class="hljs-comment">// ...</span></span><br><span class="line">  actions: &#123;</span><br><span class="line">    incrementIfOddOnRootSum (&#123; state, commit, rootState &#125;) &#123;</span><br><span class="line">      <span class="hljs-keyword">if</span> ((state.count + rootState.count) % <span class="hljs-number">2</span> === <span class="hljs-number">1</span>) &#123;</span><br><span class="line">        commit(<span class="hljs-string">'increment'</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h4><blockquote>
+<p>默认情况下，模块内部的 action、mutation 和 getter 是注册在全局命名空间的——这样使得多个模块能够对同一 mutation 或 action 作出响应。所以在命名mutaion和action时要防止命名冲突。<br>如果希望你的模块具有更高的封装度和复用性，你可以通过添加 namespaced: true 的方式使其成为带命名空间的模块。当模块被注册后，它的所有 getter、action 及 mutation 都会自动根据模块注册的路径调整命名。<br><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> store = <span class="hljs-keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">  modules: &#123;</span><br><span class="line">    account: &#123; <span class="hljs-comment">//account模块</span></span><br><span class="line">      namespaced: <span class="hljs-literal">true</span>,</span><br><span class="line"></span><br><span class="line">      <span class="hljs-comment">// 模块内容（module assets）</span></span><br><span class="line">      state: &#123; ... &#125;, <span class="hljs-comment">// 模块内的状态已经是嵌套的了，使用 `namespaced` 属性不会对其产生影响</span></span><br><span class="line">      getters: &#123;</span><br><span class="line">        isAdmin () &#123; ... &#125; <span class="hljs-comment">// -&gt; getters['account/isAdmin']</span></span><br><span class="line">      &#125;,</span><br><span class="line">      actions: &#123;</span><br><span class="line">        login () &#123; ... &#125; <span class="hljs-comment">// -&gt; dispatch('account/login')</span></span><br><span class="line">      &#125;,</span><br><span class="line">      mutations: &#123;</span><br><span class="line">        login () &#123; ... &#125; <span class="hljs-comment">// -&gt; commit('account/login')</span></span><br><span class="line">      &#125;,</span><br><span class="line"></span><br><span class="line">      <span class="hljs-comment">// 嵌套模块</span></span><br><span class="line">      modules: &#123;</span><br><span class="line">        <span class="hljs-comment">// 继承父模块的命名空间</span></span><br><span class="line">        myPage: &#123;</span><br><span class="line">          state: &#123; ... &#125;,</span><br><span class="line">          getters: &#123;</span><br><span class="line">            profile () &#123; ... &#125; <span class="hljs-comment">// -&gt; getters['account/profile']</span></span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">// 进一步嵌套命名空间</span></span><br><span class="line">        posts: &#123;</span><br><span class="line">          namespaced: <span class="hljs-literal">true</span>,</span><br><span class="line"></span><br><span class="line">          state: &#123; ... &#125;,</span><br><span class="line">          getters: &#123;</span><br><span class="line">            popular () &#123; ... &#125; <span class="hljs-comment">// -&gt; getters['account/posts/popular']</span></span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h5 id="在带命名空间的模块内访问全局内容（Global-Assets）"><a href="#在带命名空间的模块内访问全局内容（Global-Assets）" class="headerlink" title="在带命名空间的模块内访问全局内容（Global Assets）"></a>在带命名空间的模块内访问全局内容（Global Assets）</h5><p>如果你希望使用全局 state 和 getter，rootState 和 rootGetter 会作为第三和第四参数传入 getter，也会通过 context 对象的属性传入 action。<br>若需要在全局命名空间内分发 action 或提交 mutation，将 { root: true } 作为第三参数传给 dispatch 或 commit<br><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">modules: &#123;</span><br><span class="line">  foo: &#123;</span><br><span class="line">    namespaced: <span class="hljs-literal">true</span>,</span><br><span class="line"></span><br><span class="line">    getters: &#123;</span><br><span class="line">      <span class="hljs-comment">// 在这个模块的 getter 中，`getters` 被局部化了</span></span><br><span class="line">      <span class="hljs-comment">// 你可以使用 getter 的第四个参数来调用 `rootGetters`</span></span><br><span class="line">      someGetter (state, getters, rootState, rootGetters) &#123;</span><br><span class="line">        getters.someOtherGetter <span class="hljs-comment">// -&gt; 'foo/someOtherGetter'</span></span><br><span class="line">        rootGetters.someOtherGetter <span class="hljs-comment">// -&gt; 'someOtherGetter'</span></span><br><span class="line">      &#125;,</span><br><span class="line">      someOtherGetter: <span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> &#123; ... &#125;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    actions: &#123;</span><br><span class="line">      <span class="hljs-comment">// 在这个模块中， dispatch 和 commit 也被局部化了</span></span><br><span class="line">      <span class="hljs-comment">// 他们可以接受 `root` 属性以访问根 dispatch 或 commit</span></span><br><span class="line">      someAction (&#123; dispatch, commit, getters, rootGetters &#125;) &#123;</span><br><span class="line">        getters.someGetter <span class="hljs-comment">// -&gt; 'foo/someGetter'</span></span><br><span class="line">        rootGetters.someGetter <span class="hljs-comment">// -&gt; 'someGetter'</span></span><br><span class="line"></span><br><span class="line">        dispatch(<span class="hljs-string">'someOtherAction'</span>) <span class="hljs-comment">// -&gt; 'foo/someOtherAction'</span></span><br><span class="line">        <span class="hljs-comment">// 通过设置 &#123;root:true&#125;，则会在全局命名空间内分发</span></span><br><span class="line">        dispatch(<span class="hljs-string">'someOtherAction'</span>, <span class="hljs-literal">null</span>, &#123; <span class="hljs-attr">root</span>: <span class="hljs-literal">true</span> &#125;) <span class="hljs-comment">// -&gt; 'someOtherAction'</span></span><br><span class="line"></span><br><span class="line">        commit(<span class="hljs-string">'someMutation'</span>) <span class="hljs-comment">// -&gt; 'foo/someMutation'</span></span><br><span class="line">        commit(<span class="hljs-string">'someMutation'</span>, <span class="hljs-literal">null</span>, &#123; <span class="hljs-attr">root</span>: <span class="hljs-literal">true</span> &#125;) <span class="hljs-comment">// -&gt; 'someMutation'</span></span><br><span class="line">      &#125;,</span><br><span class="line">      someOtherAction (ctx, payload) &#123; ... &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="在带命名空间的模块注册全局-action"><a href="#在带命名空间的模块注册全局-action" class="headerlink" title="在带命名空间的模块注册全局 action"></a>在带命名空间的模块注册全局 action</h5><p>若需要在带命名空间的模块注册全局 action，你可添加 root: true，并将这个 action 的定义放在函数 handler 中。<br><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  actions: &#123;</span><br><span class="line">    someOtherAction (&#123;dispatch&#125;) &#123;</span><br><span class="line">      dispatch(<span class="hljs-string">'someAction'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  modules: &#123;</span><br><span class="line">    foo: &#123;</span><br><span class="line">      namespaced: <span class="hljs-literal">true</span>,</span><br><span class="line"></span><br><span class="line">      actions: &#123;</span><br><span class="line">        someAction: &#123;</span><br><span class="line">          root: <span class="hljs-literal">true</span>,</span><br><span class="line">          handler (namespacedContext, payload) &#123; ... &#125; <span class="hljs-comment">// -&gt; 'someAction'</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="带命名空间的绑定函数"><a href="#带命名空间的绑定函数" class="headerlink" title="带命名空间的绑定函数"></a>带命名空间的绑定函数</h5><p>当使用<code>mapState</code>, <code>mapGetters</code>, <code>mapActions</code> 和 <code>mapMutations</code> 这些函数来绑定带命名空间的模块时，写起来可能比较繁琐</p>
+<ul>
+<li>通过使用<code>createNamespacedHelpers</code>创建基于某个命名空间辅助函数。它返回一个对象，对象里有新的绑定在给定命名空间值上的组件绑定辅助函数<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//原始：绑定带命名空间的模块</span></span><br><span class="line">methods: &#123;</span><br><span class="line">  ...mapActions([</span><br><span class="line">    <span class="hljs-string">'some/nested/module/foo'</span>, <span class="hljs-comment">// -&gt; this['some/nested/module/foo']()</span></span><br><span class="line">    <span class="hljs-string">'some/nested/module/bar'</span> <span class="hljs-comment">// -&gt; this['some/nested/module/bar']()</span></span><br><span class="line">  ])</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-comment">// 提升：使用createNamespacedHelpers</span></span><br><span class="line"><span class="hljs-keyword">import</span> &#123; createNamespacedHelpers &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'vuex'</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">const</span> &#123; mapState, mapActions &#125; = createNamespacedHelpers(<span class="hljs-string">'some/nested/module'</span>)</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;</span><br><span class="line">  computed: &#123;</span><br><span class="line">    <span class="hljs-comment">// 在 `some/nested/module` 中查找</span></span><br><span class="line">    ...mapState(&#123;</span><br><span class="line">      a: <span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> state.a,</span><br><span class="line">      b: <span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> state.b</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    <span class="hljs-comment">// 在 `some/nested/module` 中查找</span></span><br><span class="line">    ...mapActions([</span><br><span class="line">      <span class="hljs-string">'foo'</span>,</span><br><span class="line">      <span class="hljs-string">'bar'</span></span><br><span class="line">    ])</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="动态注册模块"><a href="#动态注册模块" class="headerlink" title="动态注册模块"></a>动态注册模块</h4><ul>
+<li>当在项目运行过程中，需要新增一个模块来处理Vuex中的状态时，可以用动态注册的方式来增加模块。【模块动态注册功能使得其他 Vue 插件可以通过在 store 中附加新模块的方式来使用 Vuex 管理状态】</li>
+<li>如，<strong><a href="https://github.com/vuejs/vuex-router-sync" target="_blank" rel="noopener">vuex-router-sync</a> 插件就是通过动态注册模块将 vue-router 和 vuex 结合在一起，实现应用的路由状态管理。</strong></li>
+<li>在 store 创建之后，你可以使用 <code>store.registerModule</code> 方法<code>注册模块</code>：</li>
+<li>使用 <code>store.unregisterModule(moduleName)</code> 来动态<code>卸载模块</code>。<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/* 注册模块 `myModule`</span></span><br><span class="line"><span class="hljs-comment">    &#123; preserveState: true &#125;用于保留过去的 state，例如从一个服务端渲染的应用保留 state</span></span><br><span class="line"><span class="hljs-comment">*/</span></span><br><span class="line">store.registerModule(<span class="hljs-string">'myModule'</span>, &#123;</span><br><span class="line">  <span class="hljs-comment">// some modules</span></span><br><span class="line">&#125;,&#123; <span class="hljs-attr">preserveState</span>: <span class="hljs-literal">true</span> &#125;)</span><br><span class="line"><span class="hljs-comment">// 注册嵌套模块 `nested/myModule`</span></span><br><span class="line">store.registerModule([<span class="hljs-string">'nested'</span>, <span class="hljs-string">'myModule'</span>], &#123;</span><br><span class="line">  <span class="hljs-comment">// ...</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/Vue/">Vue</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2017/07/19/React高级指南/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">React进阶要点汇总(一)</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2017/06/05/react入门要点汇总/">
+                <span class="level-item">react入门要点汇总</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    <img class="image is-128x128 has-mb-6" src="/images/avatar.png" alt="Your name">
+                    
+                    <p class="is-size-4 is-block">
+                        Your name
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Your title
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Your location</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        19
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        5
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        10
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="http://github.com/ppoffice">
+                关注我</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="http://github.com/ppoffice">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="http://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="http://twitter.com">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="http://dribbble.com">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">https://hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">https://github.com/ppoffice</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/前端学习/">
+            <span class="level-start">
+                <span class="level-item">前端学习</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">7</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/前端开发/">
+            <span class="level-start">
+                <span class="level-item">前端开发</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/后端学习/">
+            <span class="level-start">
+                <span class="level-item">后端学习</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">8</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/读书笔记/">
+            <span class="level-start">
+                <span class="level-item">读书笔记</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/随笔/">
+            <span class="level-start">
+                <span class="level-item">随笔</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 13.33px;">Nginx</a> <a href="/tags/Node/" style="font-size: 16.67px;">Node</a> <a href="/tags/React/" style="font-size: 20px;">React</a> <a href="/tags/Vue/" style="font-size: 13.33px;">Vue</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/个人/" style="font-size: 10px;">个人</a> <a href="/tags/教程资源/" style="font-size: 10px;">教程资源</a>
+    </div>
+</div>
+
+    
+    
+        <div class="card card-transparent is-hidden-widescreen">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/02/15/nginx与pm2常用配置/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Nginx+PM2+node简单配置">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-02-14T16:00:00.000Z">2019-02-15</time></div>
+                    <a href="/2019/02/15/nginx与pm2常用配置/" class="has-link-black-ter is-size-6">Nginx+PM2+node简单配置</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/后端学习/">后端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/01/28/centOS7安装Node环境/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="CentOS7安装Node环境">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-27T16:00:00.000Z">2019-01-28</time></div>
+                    <a href="/2019/01/28/centOS7安装Node环境/" class="has-link-black-ter is-size-6">CentOS7安装Node环境</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/后端学习/">后端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/01/07/Nginx免费视频教程/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Nginx免费视频教程">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-06T16:00:00.000Z">2019-01-07</time></div>
+                    <a href="/2019/01/07/Nginx免费视频教程/" class="has-link-black-ter is-size-6">Nginx免费视频教程</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/后端学习/">后端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/01/03/2019前端技能目标/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/deer.jpg" alt="2019前端技能目标">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-02T16:00:00.000Z">2019-01-03</time></div>
+                    <a href="/2019/01/03/2019前端技能目标/" class="has-link-black-ter is-size-6">2019前端技能目标</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/12/04/vue与react详细对比/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="vue与react详细对比">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-12-04T08:37:31.000Z">2018-12-04</time></div>
+                    <a href="/2018/12/04/vue与react详细对比/" class="has-link-black-ter is-size-6">vue与react详细对比</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端学习/">前端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/06/">
+                <span class="level-start">
+                    <span class="level-item">六月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/CentOS/">
+                        <span class="level-start">
+                            <span class="level-item">CentOS</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/JavaScript/">
+                        <span class="level-start">
+                            <span class="level-item">JavaScript</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/MySQL/">
+                        <span class="level-start">
+                            <span class="level-item">MySQL</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Nginx/">
+                        <span class="level-start">
+                            <span class="level-item">Nginx</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Node/">
+                        <span class="level-start">
+                            <span class="level-item">Node</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">4</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/React/">
+                        <span class="level-start">
+                            <span class="level-item">React</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">5</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Vue/">
+                        <span class="level-start">
+                            <span class="level-item">Vue</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/markdown/">
+                        <span class="level-start">
+                            <span class="level-item">markdown</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/个人/">
+                        <span class="level-start">
+                            <span class="level-item">个人</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/教程资源/">
+                        <span class="level-start">
+                            <span class="level-item">教程资源</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/02/15/nginx与pm2常用配置/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Nginx+PM2+node简单配置">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-02-14T16:00:00.000Z">2019-02-15</time></div>
+                    <a href="/2019/02/15/nginx与pm2常用配置/" class="has-link-black-ter is-size-6">Nginx+PM2+node简单配置</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/后端学习/">后端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/01/28/centOS7安装Node环境/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="CentOS7安装Node环境">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-27T16:00:00.000Z">2019-01-28</time></div>
+                    <a href="/2019/01/28/centOS7安装Node环境/" class="has-link-black-ter is-size-6">CentOS7安装Node环境</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/后端学习/">后端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/01/07/Nginx免费视频教程/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Nginx免费视频教程">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-06T16:00:00.000Z">2019-01-07</time></div>
+                    <a href="/2019/01/07/Nginx免费视频教程/" class="has-link-black-ter is-size-6">Nginx免费视频教程</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/后端学习/">后端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/01/03/2019前端技能目标/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/deer.jpg" alt="2019前端技能目标">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-02T16:00:00.000Z">2019-01-03</time></div>
+                    <a href="/2019/01/03/2019前端技能目标/" class="has-link-black-ter is-size-6">2019前端技能目标</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/12/04/vue与react详细对比/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="vue与react详细对比">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-12-04T08:37:31.000Z">2018-12-04</time></div>
+                    <a href="/2018/12/04/vue与react详细对比/" class="has-link-black-ter is-size-6">vue与react详细对比</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端学习/">前端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/06/">
+                <span class="level-start">
+                    <span class="level-item">六月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/CentOS/">
+                        <span class="level-start">
+                            <span class="level-item">CentOS</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/JavaScript/">
+                        <span class="level-start">
+                            <span class="level-item">JavaScript</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/MySQL/">
+                        <span class="level-start">
+                            <span class="level-item">MySQL</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Nginx/">
+                        <span class="level-start">
+                            <span class="level-item">Nginx</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Node/">
+                        <span class="level-start">
+                            <span class="level-item">Node</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">4</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/React/">
+                        <span class="level-start">
+                            <span class="level-item">React</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">5</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Vue/">
+                        <span class="level-start">
+                            <span class="level-item">Vue</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/markdown/">
+                        <span class="level-start">
+                            <span class="level-item">markdown</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/个人/">
+                        <span class="level-start">
+                            <span class="level-item">个人</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/教程资源/">
+                        <span class="level-start">
+                            <span class="level-item">教程资源</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="Vuex要点学习" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2019 Sophie Wu&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-icarus">Icarus</a>
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?83519e103faf33e698f8b433e97efc38";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" async></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/animejs@2.2.0/anime.js" defer></script>
+    <script src="/js/animation.js" defer></script>
+    
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

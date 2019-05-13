@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>vue与react详细对比 - Sophie&#39;s World</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta name="description" content="每次用vue或者react做完一个项目，隔个两三个月不用vue或react时，会发现要么好多东西又忘了，要么很多API混在一起了。所以，写下这篇文章，用于以后不时的复习参考。同时也加深下对两个框架的认知。">
+<meta name="keywords" content="Vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue与react详细对比">
+<meta property="og:url" content="https://sophieu.github.io/2018/12/04/vue与react详细对比/index.html">
+<meta property="og:site_name" content="Sophie&#39;s World">
+<meta property="og:description" content="每次用vue或者react做完一个项目，隔个两三个月不用vue或react时，会发现要么好多东西又忘了，要么很多API混在一起了。所以，写下这篇文章，用于以后不时的复习参考。同时也加深下对两个框架的认知。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-05-13T06:37:44.456Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vue与react详细对比">
+<meta name="twitter:description" content="每次用vue或者react做完一个项目，隔个两三个月不用vue或react时，会发现要么好多东西又忘了，要么很多API混在一起了。所以，写下这篇文章，用于以后不时的复习参考。同时也加深下对两个框架的认知。">
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    <style>body>.navbar,body>.section,body>.footer{opacity: 0}</style>
+    
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="vue与react详细对比" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">Home</a>
+                
+                <a class="navbar-item" href="/archives">Archives</a>
+                
+                <a class="navbar-item" href="/categories">Categories</a>
+                
+                <a class="navbar-item" href="/tags">Tags</a>
+                
+                <a class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-12-04T08:37:31.000Z">2018-12-04</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/前端学习/">前端学习</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    6 分钟 读完 (大约 839 个字)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                vue与react详细对比
+            
+        </h1>
+        <div class="content">
+            <blockquote>
+<p>每次用vue或者react做完一个项目，隔个两三个月不用vue或react时，会发现要么好多东西又忘了，要么很多API混在一起了。所以，写下这篇文章，用于以后不时的复习参考。同时也加深下对两个框架的认知。<br><a id="more"></a></p>
+</blockquote>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li><a href="#Vue与React">Vue与React</a><ul>
+<li><a href="#介绍">介绍</a></li>
+<li><a href="#区别">区别</a></li>
+</ul>
+</li>
+<li><a href="#VueRouter与ReactRouter">VueRouter与ReactRouter</a></li>
+<li><a href="#Vuex与Redux">Vuex与Redux</a></li>
+<li><a href="#Vuex与Redux">Vue与React服务端渲染</a></li>
+<li><a href="#Vue与React的代码拆分">Vue与React的代码拆分</a></li>
+</ul>
+<h2 id="Vue与React"><a href="#Vue与React" class="headerlink" title="Vue与React"></a>Vue与React</h2><table>
+<thead>
+<tr>
+<th>对比项</th>
+<th>Vue</th>
+<th>React</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>路由管理</td>
+<td>VueRouter</td>
+<td>React-Router</td>
+</tr>
+<tr>
+<td>状态管理</td>
+<td>Vuex</td>
+<td>Redux</td>
+</tr>
+<tr>
+<td>动画过度</td>
+<td><code>&lt;Transition&gt;</code></td>
+<td><code>react-transition-group</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><ul>
+<li><strong>Vue.js是什么？？</strong><ul>
+<li><code>Vue</code>是一套用于构建用户界面的渐进式框架。【<a href="https://cn.vuejs.org/v2/guide/comparison.html" target="_blank" rel="noopener">vue与其他框架对比</a>】</li>
+</ul>
+</li>
+<li><strong>React.js是什么??</strong><br>  -<code>React</code>是一个用于构建用户界面的 JavaScript 库。<h4 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h4></li>
+</ul>
+<ol>
+<li><p><strong>JSX与Template</strong></p>
+<blockquote>
+<p>在React中一切皆为JS，所以对于HTML的书写，引入了JSX的概念，JSX等同于用<code>React.createElement</code></p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// react </span></span><br><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyComponent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span></span>&#123;</span><br><span class="line">    render()&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> (&lt;div&gt;hello,react&lt;/div&gt;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-comment">// vue</span></span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;hello, vue&lt;<span class="hljs-regexp">/div&gt;</span></span><br><span class="line"><span class="hljs-regexp">&lt;/</span>template&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p><strong>CSS写法</strong></p>
+<blockquote>
+<p>React中可以使用行类样式（不推荐），也可以使用<a href="https://react.css88.com/docs/faq-styling.html" target="_blank" rel="noopener">CSS-in-JS</a>,也可以通过<code>import</code>导入样式文件的方式来引用CSS。<code>Vue</code>则直接在<code>Style</code>标签中</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// react</span></span><br><span class="line"><span class="hljs-keyword">import</span> <span class="hljs-string">'./mycomponent.css'</span></span><br><span class="line"><span class="hljs-comment">// vue</span></span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line">    div&#123;<span class="hljs-attr">background</span>:<span class="hljs-string">'#eee'</span>;&#125;</span><br><span class="line">&lt;<span class="hljs-regexp">/style&gt;</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p><strong>React.createElement与VueRender</strong></p>
+<blockquote>
+<p>二者都可以手动渲染对应组件。<a href="https://react.css88.com/docs/react-without-jsx.html" target="_blank" rel="noopener">createElement</a>、<a href="https://cn.vuejs.org/v2/guide/render-function.html" target="_blank" rel="noopener">Render</a></p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// react</span></span><br><span class="line">React.createElement(&#123;</span><br><span class="line">     type, <span class="hljs-comment">//'div'</span></span><br><span class="line">  [props], <span class="hljs-comment">// &#123;className:'hello'&#125;</span></span><br><span class="line">  [...children] , <span class="hljs-comment">//'内容'</span></span><br><span class="line">&#125;)</span><br><span class="line">render: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">createElement</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">return</span> createElement(<span class="hljs-string">'p'</span>, <span class="hljs-string">'No items found.'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p><strong>vue的data和react的state</strong></p>
+<blockquote>
+<p>它们都是用于维护组件作用域内的数据</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// react</span></span><br><span class="line"><span class="hljs-keyword">constructor</span>()&#123;</span><br><span class="line">    <span class="hljs-keyword">super</span>();</span><br><span class="line">    <span class="hljs-keyword">this</span>.state=&#123;<span class="hljs-attr">name</span>:<span class="hljs-string">'haha'</span>&#125; </span><br><span class="line">&#125;</span><br><span class="line">componentDidMount()&#123;</span><br><span class="line">    <span class="hljs-keyword">this</span>.setState(&#123;<span class="hljs-attr">name</span>:<span class="hljs-string">'lala'</span>&#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-comment">//vue</span></span><br><span class="line">data:&#123;</span><br><span class="line">    name:<span class="hljs-string">'vue'</span></span><br><span class="line">&#125;</span><br><span class="line">mounted()&#123;</span><br><span class="line">    <span class="hljs-keyword">this</span>.name=<span class="hljs-string">'vueTop'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p><strong>事件绑定</strong></p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// react</span></span><br><span class="line"><span class="hljs-keyword">constructor</span>()&#123;</span><br><span class="line">    <span class="hljs-keyword">super</span>();</span><br><span class="line">    <span class="hljs-keyword">this</span>.handleClick=<span class="hljs-keyword">this</span>.handleClick.bind(<span class="hljs-keyword">this</span>);</span><br><span class="line">&#125;</span><br><span class="line">&lt;button onClick=&#123;<span class="hljs-keyword">this</span>.handleClick&#125;&gt;点我&lt;<span class="hljs-regexp">/button&gt;</span></span><br><span class="line"><span class="hljs-regexp">/</span><span class="hljs-regexp">/ vue</span></span><br><span class="line"><span class="hljs-regexp">methods:&#123;</span></span><br><span class="line"><span class="hljs-regexp">   handleClick()&#123;/</span><span class="hljs-regexp">/...&#125; </span></span><br><span class="line"><span class="hljs-regexp">&#125;</span></span><br><span class="line"><span class="hljs-regexp">/</span><span class="hljs-regexp">/ 或者@click</span></span><br><span class="line"><span class="hljs-regexp">&lt;button v-on:click=&#123;this.handleClick&#125;&gt;点我&lt;/</span>button&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>表单数据</strong></p>
+<blockquote>
+<p>vue中通过<code>v-model</code>实现双向绑定，react中通过value与onChange事件监听实现受控组件</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// react</span></span><br><span class="line">&lt;input value=&#123;<span class="hljs-keyword">this</span>.state.name&#125; onChange=&#123;()=&gt;<span class="hljs-keyword">this</span>.inputChange&#125;/&gt;</span><br><span class="line"><span class="hljs-comment">// vue</span></span><br><span class="line">&lt;input v-model=&#123;<span class="hljs-keyword">this</span>.name&#125; /&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p><strong>插槽</strong></p>
+<blockquote>
+<p>vue中使用<code>slot</code>来实现子元素内容的渲染，react通过<code>props.children</code></p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// react</span></span><br><span class="line">&lt;div&gt;</span><br><span class="line">    &lt;h3&gt;父标题&lt;<span class="hljs-regexp">/h3&gt;</span></span><br><span class="line"><span class="hljs-regexp">    &#123;props.children&#125;</span></span><br><span class="line"><span class="hljs-regexp">&lt;/</span>div&gt;</span><br><span class="line"><span class="hljs-comment">//vue</span></span><br><span class="line">&lt;div&gt;</span><br><span class="line">    &lt;h3&gt;父标题&lt;<span class="hljs-regexp">/h3&gt;</span></span><br><span class="line"><span class="hljs-regexp">    &lt;template slot="child"&gt;&lt;/</span>template&gt;</span><br><span class="line">&lt;<span class="hljs-regexp">/div&gt;</span></span><br><span class="line"><span class="hljs-regexp">/</span><span class="hljs-regexp">/ 对应child中定义slot</span></span><br><span class="line"><span class="hljs-regexp">&lt;slot name="child"&gt;&lt;/</span>slot&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ol>
+<h2 id="VueRouter与ReactRouter"><a href="#VueRouter与ReactRouter" class="headerlink" title="VueRouter与ReactRouter"></a>VueRouter与ReactRouter</h2><ul>
+<li><a href="https://router.vuejs.org/zh/" target="_blank" rel="noopener">VueRouter文档</a></li>
+<li><a href="https://reacttraining.com/react-router/web/guides/quick-start" target="_blank" rel="noopener">ReactRouter文档V4.3.x</a></li>
+</ul>
+<blockquote>
+<p>Vue Router是<code>Vue.js</code>官方的路由管理器，</p>
+<ul>
+<li>示例：React简单使用<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// react-router</span></span><br><span class="line"><span class="hljs-keyword">import</span> &#123;BrowserRouter <span class="hljs-keyword">as</span> Router,Switch, Route, Link&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;</span><br><span class="line"><span class="hljs-keyword">const</span> Index = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &lt;h2&gt;Home&lt;<span class="hljs-regexp">/h2&gt;;</span></span><br><span class="line"><span class="hljs-regexp">const AppRouter=()=&gt;(</span></span><br><span class="line"><span class="hljs-regexp">    &lt;Router&gt;</span></span><br><span class="line"><span class="hljs-regexp">        &lt;ul&gt;</span></span><br><span class="line"><span class="hljs-regexp">            &lt;li&gt;&lt;Link to="/</span><span class="hljs-string">"&gt;Home&lt;/Link&gt;&lt;/li&gt;</span></span><br><span class="line"><span class="hljs-string">        &lt;/ul&gt;</span></span><br><span class="line"><span class="hljs-string">        &lt;Switch&gt;</span></span><br><span class="line"><span class="hljs-string">            &lt;Route path="</span>/<span class="hljs-string">" exact component=&#123;Index&#125;/&gt;</span></span><br><span class="line"><span class="hljs-string">        &lt;/Switch&gt;</span></span><br><span class="line"><span class="hljs-string">    &lt;/Router&gt;</span></span><br><span class="line"><span class="hljs-string">)</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>vue-router简单使用<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// vue</span></span><br><span class="line"><span class="hljs-keyword">const</span> Home = &#123; <span class="hljs-attr">template</span>: <span class="hljs-string">'&lt;p&gt;home page&lt;/p&gt;'</span> &#125;</span><br><span class="line"><span class="hljs-keyword">const</span> About = &#123; <span class="hljs-attr">template</span>: <span class="hljs-string">'&lt;p&gt;about page&lt;/p&gt;'</span> &#125;</span><br><span class="line"><span class="hljs-comment">// 创建路由对象</span></span><br><span class="line"><span class="hljs-keyword">const</span> routes = &#123;</span><br><span class="line">  <span class="hljs-string">'/'</span>: Home,</span><br><span class="line">  <span class="hljs-string">'/about'</span>: About</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-keyword">const</span> router = <span class="hljs-keyword">new</span> VueRouter(&#123;</span><br><span class="line">  routes</span><br><span class="line">&#125;)</span><br><span class="line"><span class="hljs-comment">// 引入到实例中</span></span><br><span class="line"><span class="hljs-keyword">const</span> app = <span class="hljs-keyword">new</span> Vue(&#123;</span><br><span class="line">  router</span><br><span class="line">&#125;).$mount(<span class="hljs-string">'#app'</span>)</span><br><span class="line"><span class="hljs-comment">// 跳转链接</span></span><br><span class="line"> &lt;router-link to=<span class="hljs-string">"/foo"</span>&gt;Go to Foo&lt;<span class="hljs-regexp">/router-link&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="使用时的不同点总结："><a href="#使用时的不同点总结：" class="headerlink" title="使用时的不同点总结："></a>使用时的不同点总结：</h4><ul>
+<li>vue-router是全局配置方式，react-router是全局组件方式。</li>
+<li>vue-router仅支持对象形式的配置，react-router支持对象形式和JSX语法的组件形式配置。</li>
+<li>vue-router任何路由组件都会被渲染到<router-view>位置，react-router子组件作为children被传入父组件，而根组件被渲染到<router>位置。</router></router-view></li>
+</ul>
+<h4 id="路由懒加载"><a href="#路由懒加载" class="headerlink" title="路由懒加载"></a>路由懒加载</h4><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// vue-router : 通过在component处使用动态import</span></span><br><span class="line"><span class="hljs-keyword">const</span> routes = [</span><br><span class="line">    &#123;&#123; <span class="hljs-attr">path</span>: <span class="hljs-string">'/foo'</span>, <span class="hljs-attr">component</span>: <span class="hljs-function"><span class="hljs-params">()</span>=&gt;</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">"@/component/foo"</span>) &#125;,&#125;</span><br><span class="line">]</span><br><span class="line"><span class="hljs-comment">// react : 使用react.lazy()</span></span><br><span class="line"><span class="hljs-keyword">const</span> Foo = React.lazy(<span class="hljs-function"><span class="hljs-params">()</span>=&gt;</span><span class="hljs-keyword">import</span>(<span class="hljs-string">"./component/foo"</span>))</span><br><span class="line">&lt;Router&gt;</span><br><span class="line">    &lt;Route exact path=<span class="hljs-string">"/foo"</span> component=&#123;Foo&#125;/&gt;</span><br><span class="line">&lt;<span class="hljs-regexp">/Router&gt;</span></span><br></pre></td></tr></table></figure>
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/Vue/">Vue</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/01/03/2019前端技能目标/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">2019前端技能目标</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2018/11/22/PM2实用入门指南/">
+                <span class="level-item">PM2实用入门指南</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    <img class="image is-128x128 has-mb-6" src="/images/avatar.png" alt="Your name">
+                    
+                    <p class="is-size-4 is-block">
+                        Your name
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Your title
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Your location</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        19
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        5
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        10
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="http://github.com/ppoffice">
+                关注我</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="http://github.com/ppoffice">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="http://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="http://twitter.com">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="http://dribbble.com">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">https://hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">https://github.com/ppoffice</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/前端学习/">
+            <span class="level-start">
+                <span class="level-item">前端学习</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">7</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/前端开发/">
+            <span class="level-start">
+                <span class="level-item">前端开发</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/后端学习/">
+            <span class="level-start">
+                <span class="level-item">后端学习</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">8</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/读书笔记/">
+            <span class="level-start">
+                <span class="level-item">读书笔记</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/随笔/">
+            <span class="level-start">
+                <span class="level-item">随笔</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 13.33px;">Nginx</a> <a href="/tags/Node/" style="font-size: 16.67px;">Node</a> <a href="/tags/React/" style="font-size: 20px;">React</a> <a href="/tags/Vue/" style="font-size: 13.33px;">Vue</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/个人/" style="font-size: 10px;">个人</a> <a href="/tags/教程资源/" style="font-size: 10px;">教程资源</a>
+    </div>
+</div>
+
+    
+    
+        <div class="card card-transparent is-hidden-widescreen">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/02/15/nginx与pm2常用配置/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Nginx+PM2+node简单配置">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-02-14T16:00:00.000Z">2019-02-15</time></div>
+                    <a href="/2019/02/15/nginx与pm2常用配置/" class="has-link-black-ter is-size-6">Nginx+PM2+node简单配置</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/后端学习/">后端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/01/28/centOS7安装Node环境/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="CentOS7安装Node环境">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-27T16:00:00.000Z">2019-01-28</time></div>
+                    <a href="/2019/01/28/centOS7安装Node环境/" class="has-link-black-ter is-size-6">CentOS7安装Node环境</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/后端学习/">后端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/01/07/Nginx免费视频教程/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Nginx免费视频教程">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-06T16:00:00.000Z">2019-01-07</time></div>
+                    <a href="/2019/01/07/Nginx免费视频教程/" class="has-link-black-ter is-size-6">Nginx免费视频教程</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/后端学习/">后端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/01/03/2019前端技能目标/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/deer.jpg" alt="2019前端技能目标">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-02T16:00:00.000Z">2019-01-03</time></div>
+                    <a href="/2019/01/03/2019前端技能目标/" class="has-link-black-ter is-size-6">2019前端技能目标</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/12/04/vue与react详细对比/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="vue与react详细对比">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-12-04T08:37:31.000Z">2018-12-04</time></div>
+                    <a href="/2018/12/04/vue与react详细对比/" class="has-link-black-ter is-size-6">vue与react详细对比</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端学习/">前端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/06/">
+                <span class="level-start">
+                    <span class="level-item">六月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/CentOS/">
+                        <span class="level-start">
+                            <span class="level-item">CentOS</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/JavaScript/">
+                        <span class="level-start">
+                            <span class="level-item">JavaScript</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/MySQL/">
+                        <span class="level-start">
+                            <span class="level-item">MySQL</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Nginx/">
+                        <span class="level-start">
+                            <span class="level-item">Nginx</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Node/">
+                        <span class="level-start">
+                            <span class="level-item">Node</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">4</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/React/">
+                        <span class="level-start">
+                            <span class="level-item">React</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">5</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Vue/">
+                        <span class="level-start">
+                            <span class="level-item">Vue</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/markdown/">
+                        <span class="level-start">
+                            <span class="level-item">markdown</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/个人/">
+                        <span class="level-start">
+                            <span class="level-item">个人</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/教程资源/">
+                        <span class="level-start">
+                            <span class="level-item">教程资源</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/02/15/nginx与pm2常用配置/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Nginx+PM2+node简单配置">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-02-14T16:00:00.000Z">2019-02-15</time></div>
+                    <a href="/2019/02/15/nginx与pm2常用配置/" class="has-link-black-ter is-size-6">Nginx+PM2+node简单配置</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/后端学习/">后端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/01/28/centOS7安装Node环境/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="CentOS7安装Node环境">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-27T16:00:00.000Z">2019-01-28</time></div>
+                    <a href="/2019/01/28/centOS7安装Node环境/" class="has-link-black-ter is-size-6">CentOS7安装Node环境</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/后端学习/">后端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/01/07/Nginx免费视频教程/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Nginx免费视频教程">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-06T16:00:00.000Z">2019-01-07</time></div>
+                    <a href="/2019/01/07/Nginx免费视频教程/" class="has-link-black-ter is-size-6">Nginx免费视频教程</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/后端学习/">后端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/01/03/2019前端技能目标/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/deer.jpg" alt="2019前端技能目标">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-02T16:00:00.000Z">2019-01-03</time></div>
+                    <a href="/2019/01/03/2019前端技能目标/" class="has-link-black-ter is-size-6">2019前端技能目标</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/12/04/vue与react详细对比/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="vue与react详细对比">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-12-04T08:37:31.000Z">2018-12-04</time></div>
+                    <a href="/2018/12/04/vue与react详细对比/" class="has-link-black-ter is-size-6">vue与react详细对比</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端学习/">前端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/06/">
+                <span class="level-start">
+                    <span class="level-item">六月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/CentOS/">
+                        <span class="level-start">
+                            <span class="level-item">CentOS</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/JavaScript/">
+                        <span class="level-start">
+                            <span class="level-item">JavaScript</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/MySQL/">
+                        <span class="level-start">
+                            <span class="level-item">MySQL</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Nginx/">
+                        <span class="level-start">
+                            <span class="level-item">Nginx</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Node/">
+                        <span class="level-start">
+                            <span class="level-item">Node</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">4</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/React/">
+                        <span class="level-start">
+                            <span class="level-item">React</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">5</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Vue/">
+                        <span class="level-start">
+                            <span class="level-item">Vue</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/markdown/">
+                        <span class="level-start">
+                            <span class="level-item">markdown</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/个人/">
+                        <span class="level-start">
+                            <span class="level-item">个人</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/教程资源/">
+                        <span class="level-start">
+                            <span class="level-item">教程资源</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="vue与react详细对比" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2019 Sophie Wu&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-icarus">Icarus</a>
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?83519e103faf33e698f8b433e97efc38";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" async></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/animejs@2.2.0/anime.js" defer></script>
+    <script src="/js/animation.js" defer></script>
+    
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

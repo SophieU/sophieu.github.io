@@ -1,0 +1,1485 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>PM2实用入门指南 - Sophie&#39;s World</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta name="description" content="PM2是node进程管理工具，可以利用它来简化很多node应用管理的繁琐任务，如性能监控、自动重启、负载均衡等，而且使用非常简单。">
+<meta name="keywords" content="Node">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PM2实用入门指南">
+<meta property="og:url" content="https://sophieu.github.io/2018/11/22/PM2实用入门指南/index.html">
+<meta property="og:site_name" content="Sophie&#39;s World">
+<meta property="og:description" content="PM2是node进程管理工具，可以利用它来简化很多node应用管理的繁琐任务，如性能监控、自动重启、负载均衡等，而且使用非常简单。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://yqfile.alicdn.com/ece3290b6246801c221de4639012416e3c7f3692.png">
+<meta property="og:updated_time" content="2019-05-13T06:31:47.530Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PM2实用入门指南">
+<meta name="twitter:description" content="PM2是node进程管理工具，可以利用它来简化很多node应用管理的繁琐任务，如性能监控、自动重启、负载均衡等，而且使用非常简单。">
+<meta name="twitter:image" content="https://yqfile.alicdn.com/ece3290b6246801c221de4639012416e3c7f3692.png">
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    <style>body>.navbar,body>.section,body>.footer{opacity: 0}</style>
+    
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="PM2实用入门指南" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">Home</a>
+                
+                <a class="navbar-item" href="/archives">Archives</a>
+                
+                <a class="navbar-item" href="/categories">Categories</a>
+                
+                <a class="navbar-item" href="/tags">Tags</a>
+                
+                <a class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-11-21T16:00:00.000Z">2018-11-22</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/后端学习/">后端学习</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    19 分钟 读完 (大约 2805 个字)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                PM2实用入门指南
+            
+        </h1>
+        <div class="content">
+            <ul>
+<li>PM2是node进程管理工具，可以利用它来简化很多node应用管理的繁琐任务，如性能监控、自动重启、负载均衡等，而且使用非常简单。<a id="more"></a></li>
+<li>转载自<a href="https://www.cnblogs.com/chyingp/p/pm2-documentation.html" target="_blank" rel="noopener">博客园</a></li>
+<li>下面就对PM2进行入门性的介绍，基本涵盖了PM2的常用的功能和配置。</li>
+</ul>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>全局安装，简直不能更简单。<br><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g pm2</span><br></pre></td></tr></table></figure></p>
+<h2 id="目录介绍"><a href="#目录介绍" class="headerlink" title="目录介绍"></a>目录介绍</h2><blockquote>
+<p>pm2安装好后，会自动创建下面目录。看文件名基本就知道干嘛的了，就不翻译了。</p>
+</blockquote>
+<ul>
+<li><code>$HOME/.pm2</code> will contain all PM2 related files</li>
+<li><code>$HOME/.pm2/logs</code> will contain all applications logs</li>
+<li><code>$HOME/.pm2/pids</code> will contain all applications pids</li>
+<li><code>$HOME/.pm2/pm2.log</code> PM2 logs</li>
+<li><code>$HOME/.pm2/pm2.pid</code> PM2 pid</li>
+<li><code>$HOME/.pm2/rpc.sock</code> Socket file for remote commands</li>
+<li><code>$HOME/.pm2/pub.sock</code> Socket file for publishable events</li>
+<li><code>$HOME/.pm2/conf.js</code> PM2 Configuration</li>
+</ul>
+<h2 id="入门教程"><a href="#入门教程" class="headerlink" title="入门教程"></a>入门教程</h2><blockquote>
+<p>挑我们最爱的express应用来举例。一般我们都是通过<code>npm start</code>启动应用，其实就是调用<code>node ./bin/www</code>。那么，换成pm2就是</p>
+<ul>
+<li>注意，这里用了<code>--watch</code>参数，意味着当你的express应用代码发生变化时，pm2会帮你重启服务，多贴心。<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pm2 start ./bin/www --watch</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>入门太简单了，没什么好讲的。直接上官方文档：<a href="http://pm2.keymetrics.io/docs/usage/quick-start" target="_blank" rel="noopener">http://pm2.keymetrics.io/docs/usage/quick-start</a></li>
+</ul>
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><h4 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h4><p>参数说明：</p>
+<ul>
+<li><code>--watch</code>：监听应用目录的变化，一旦发生变化，自动重启。如果要精确监听、不见听的目录，最好通过配置文件。</li>
+<li><code>-i --instances</code>：启用多少个实例，可用于负载均衡。如果-i 0或者-i max，则根据当前机器核数确定实例数目。</li>
+<li><code>--ignore-watch</code>：排除监听的目录/文件，可以是特定的文件名，也可以是正则。比如–ignore-watch=”test node_modules “some scripts””</li>
+<li><code>-n --name</code>：应用的名称。查看应用信息的时候可以用到。</li>
+<li><code>-o --output &lt;path&gt;</code>：标准输出日志文件的路径。</li>
+<li><code>-e --error &lt;path&gt;</code>：错误输出日志文件的路径。</li>
+<li><code>--interpreter &lt;interpreter&gt;</code>：the interpreter pm2 should use for executing app (bash, python…)。比如你用的coffee script来编写应用。</li>
+</ul>
+<p>完整命令行参数列表：<a href="http://pm2.keymetrics.io/docs/usage/quick-start/#options" target="_blank" rel="noopener">地址</a></p>
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pm2 start app.js --watch -i 2</span><br></pre></td></tr></table></figure>
+<h4 id="重启"><a href="#重启" class="headerlink" title="重启"></a>重启</h4><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pm2 restart app.js</span><br></pre></td></tr></table></figure>
+<h4 id="停止"><a href="#停止" class="headerlink" title="停止"></a>停止</h4><p>停止特定的应用。可以先通过<code>pm2 list</code>获取应用的名字（–name指定的）或者进程id。</p>
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pm2 stop app_name|app_id</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment"># 停止所有应用</span></span><br><span class="line">pm2 stop all</span><br></pre></td></tr></table></figure>
+<h4 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h4><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pm2 stop app_name|app_id</span><br><span class="line">pm2 stop all</span><br></pre></td></tr></table></figure>
+<h4 id="查看进程状态"><a href="#查看进程状态" class="headerlink" title="查看进程状态"></a>查看进程状态</h4><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pm2 list</span><br></pre></td></tr></table></figure>
+<h4 id="查看某个进程的信息"><a href="#查看某个进程的信息" class="headerlink" title="查看某个进程的信息"></a>查看某个进程的信息</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ94wb7tioqZ pids]# pm2 describe 0</span><br><span class="line">Describing process with id 0 - name oc-server</span><br><span class="line">┌───────────────────┬──────────────────────────────────────────────────────────────┐</span><br><span class="line">│ status            │ online                                                       │</span><br><span class="line">│ name              │ oc-server                                                    │</span><br><span class="line">│ id                │ 0                                                            │</span><br><span class="line">│ path              │ /data/file/qiquan/over_the_counter/server/bin/www            │</span><br><span class="line">│ args              │                                                              │</span><br><span class="line">│ exec cwd          │ /data/file/qiquan/over_the_counter/server                    │</span><br><span class="line">│ error log path    │ /data/file/qiquan/over_the_counter/server/logs/app-err-0.log │</span><br><span class="line">│ out log path      │ /data/file/qiquan/over_the_counter/server/logs/app-out-0.log │</span><br><span class="line">│ pid path          │ /root/.pm2/pids/oc-server-0.pid                              │</span><br><span class="line">│ mode              │ fork_mode                                                    │</span><br><span class="line">│ node v8 arguments │                                                              │</span><br><span class="line">│ watch &amp; reload    │                                                             │</span><br><span class="line">│ interpreter       │ node                                                         │</span><br><span class="line">│ restarts          │ 293                                                          │</span><br><span class="line">│ unstable restarts │ 0                                                            │</span><br><span class="line">│ uptime            │ 87m                                                          │</span><br><span class="line">│ created at        │ 2016-08-26T08:13:43.705Z                                     │</span><br><span class="line">└───────────────────┴──────────────────────────────────────────────────────────────┘</span><br></pre></td></tr></table></figure>
+<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><h4 id="简单说明"><a href="#简单说明" class="headerlink" title="简单说明"></a>简单说明</h4><ul>
+<li>配置文件里的设置项，跟命令行参数基本是一一对应的。</li>
+<li>可以选择yaml或者json文件，就看个人洗好了。</li>
+<li>json格式的配置文件，pm2当作普通的js文件来处理，所以可以在里面添加注释或者编写代码，这对于动态调整配置很有好处。</li>
+<li>如果启动的时候指定了配置文件，那么命令行参数会被忽略。（个别参数除外，比如–env）</li>
+</ul>
+<h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><p>举个简单例子，完整配置说明请参考<a href="http://pm2.keymetrics.io/docs/usage/pm2-doc-single-page/" target="_blank" rel="noopener">官方文档</a>。<br><figure class="highlight hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "name"        : "fis-receiver",  // 应用名称</span><br><span class="line">  "script"      : "./bin/www",  // 实际启动脚本</span><br><span class="line">  "cwd"         : "./",  // 当前工作路径</span><br><span class="line">  "watch": [  // 监控变化的目录，一旦变化，自动重启</span><br><span class="line">    "bin",</span><br><span class="line">    <span class="hljs-string">"routers"</span></span><br><span class="line">  ],</span><br><span class="line">  "ignore_watch" : [  // 从监控目录中排除</span><br><span class="line">    "node_modules", </span><br><span class="line">    "logs",</span><br><span class="line">    <span class="hljs-string">"public"</span></span><br><span class="line">  ],</span><br><span class="line">  "watch_options": &#123;</span><br><span class="line">    "followSymlinks": false</span><br><span class="line">  &#125;,</span><br><span class="line">  "error_file" : "./logs/app-err.log",  // 错误日志路径</span><br><span class="line">  "out_file"   : "./logs/app-out.log",  // 普通日志路径</span><br><span class="line">  "env": &#123;</span><br><span class="line">      "NODE_ENV": "production"  // 环境参数，当前指定为生产环境</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="自动重启"><a href="#自动重启" class="headerlink" title="自动重启"></a>自动重启</h2><p>前面已经提到了，这里贴命令行，更多点击<a href="http://pm2.keymetrics.io/docs/usage/watch-and-restart/#auto-restart-apps-on-file-change" target="_blank" rel="noopener">这里</a>。<br><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pm2 start app.js --watch</span><br></pre></td></tr></table></figure></p>
+<p>这里是监控整个项目的文件，如果只想监听指定文件和目录，建议通过配置文件的<code>watch、ignore_watch</code>字段来设置。</p>
+<h2 id="环境切换"><a href="#环境切换" class="headerlink" title="环境切换"></a>环境切换</h2><p>在实际项目开发中，我们的应用经常需要在多个环境下部署，比如开发环境、测试环境、生产环境等。在不同环境下，有时候配置项会有差异，比如链接的数据库地址不同等。</p>
+<p>对于这种场景，pm2也是可以很好支持的。首先通过在配置文件中通过env_xx来声明不同环境的配置，然后在启动应用时，通过–env参数指定运行的环境。</p>
+<h4 id="环境配置声明"><a href="#环境配置声明" class="headerlink" title="环境配置声明"></a>环境配置声明</h4><p>首先，在配置文件中，通过<code>env</code>选项声明多个环境配置。简单说明下：</p>
+<ul>
+<li><code>env</code>为默认的环境配置（生产环境），<code>env_dev、env_test</code>则分别是开发、测试环境。可以看到，不同环境下的<code>NODE_ENV、REMOTE_ADDR</code>字段的值是不同的。</li>
+<li>在应用中，可以通过<code>process.env.REMOTE_ADDR</code>等来读取配置中生命的变量。<figure class="highlight hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">"env": &#123;</span><br><span class="line">  "NODE_ENV": "production",</span><br><span class="line">  "REMOTE_ADDR": "http://www.example.com/"</span><br><span class="line">&#125;,</span><br><span class="line">"env_dev": &#123;</span><br><span class="line">  "NODE_ENV": "development",</span><br><span class="line">  "REMOTE_ADDR": "http://wdev.example.com/"</span><br><span class="line">&#125;,</span><br><span class="line">"env_test": &#123;</span><br><span class="line">  "NODE_ENV": "test",</span><br><span class="line">  "REMOTE_ADDR": "http://wtest.example.com/"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="启动指明环境"><a href="#启动指明环境" class="headerlink" title="启动指明环境"></a>启动指明环境</h4><p>假设通过下面启动脚本（开发环境），那么，此时<code>process.env.REMOTE_ADDR</code>的值就是相应的 <a href="http://wdev.example.com/" target="_blank" rel="noopener">http://wdev.example.com/</a> ，可以自己试验下。<br><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pm2 start app.js --env dev</span><br></pre></td></tr></table></figure></p>
+<h2 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h2><p>命令如下，表示开启三个进程。如果<code>-i 0</code>，则会根据机器当前核数自动开启尽可能多的进程。<br><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pm2 start app.js -i 3 <span class="hljs-comment"># 开启三个进程</span></span><br><span class="line">pm2 start app.js -i max <span class="hljs-comment"># 根据机器CPU核数，开启对应数目的进程</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="日志查看"><a href="#日志查看" class="headerlink" title="日志查看"></a>日志查看</h2><p>除了可以打开日志文件查看日志外，还可以通过<code>pm2 logs</code>来查看实时日志。这点对于线上问题排查非常重要。</p>
+<p>比如某个node服务突然异常重启了，那么可以通过pm2提供的日志工具来查看实时日志，看是不是脚本出错之类导致的异常重启。<br><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pm2 logs</span><br></pre></td></tr></table></figure></p>
+<h2 id="指令tab补全"><a href="#指令tab补全" class="headerlink" title="指令tab补全"></a>指令tab补全</h2><p>运行<code>pm2 --help</code>，可以看到pm2支持的子命令还是蛮多的，这个时候，自动完成的功能就很重要了。<br>运行如下命令。恭喜，已经能够通过tab自动补全了。细节可参考<a href="http://pm2.keymetrics.io/docs/usage/auto-completion/" target="_blank" rel="noopener">这里</a>。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pm2 completion install</span><br><span class="line">source ~/.bash_profile</span><br></pre></td></tr></table></figure></p>
+<h2 id="开机自动启动"><a href="#开机自动启动" class="headerlink" title="开机自动启动"></a>开机自动启动</h2><p>可以通过pm2 startup来实现开机自启动。细节可参考。大致流程如下</p>
+<ol>
+<li>通过<code>pm2 save</code>保存当前进程状态。</li>
+<li>通过<code>pm2 startup [platform]</code>生成开机自启动的命令。（记得查看控制台输出）</li>
+<li>将步骤2生成的命令，粘贴到控制台进行，搞定。<h2 id="传入node-args"><a href="#传入node-args" class="headerlink" title="传入node args"></a>传入node args</h2>直接上例子，分别是通过命令行和配置文件。</li>
+</ol>
+<p>命令行：<br><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pm2 start app.js --node-args=<span class="hljs-string">"--harmony"</span></span><br></pre></td></tr></table></figure></p>
+<p>配置文件：<br><figure class="highlight json hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="hljs-attr">"name"</span> : <span class="hljs-string">"oc-server"</span>,</span><br><span class="line">  <span class="hljs-attr">"script"</span> : <span class="hljs-string">"app.js"</span>,</span><br><span class="line">  <span class="hljs-attr">"node_args"</span> : <span class="hljs-string">"--harmony"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="实例说明"><a href="#实例说明" class="headerlink" title="实例说明"></a>实例说明</h2><p>假设是在<code>centos</code>下，那么运行如下命令，搞定。强烈建议运行完成之后，重启机器，看是否设置成功。<br><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ94wb7tioqZ option_analysis]<span class="hljs-comment"># pm2 save</span></span><br><span class="line">[root@iZ94wb7tioqZ option_analysis]<span class="hljs-comment"># pm2 startup centos</span></span><br><span class="line">[PM2] Generating system init script <span class="hljs-keyword">in</span> /etc/init.d/pm2-init.sh</span><br><span class="line">[PM2] Making script booting at startup...</span><br><span class="line">[PM2] /var/lock/subsys/pm2-init.sh lockfile has been added</span><br><span class="line">[PM2] -centos- Using the <span class="hljs-built_in">command</span>:</span><br><span class="line">      su -c <span class="hljs-string">"chmod +x /etc/init.d/pm2-init.sh; chkconfig --add pm2-init.sh"</span></span><br><span class="line"></span><br><span class="line">[PM2] Done.</span><br><span class="line">[root@iZ94wb7tioqZ option_analysis]<span class="hljs-comment"># pm2 save</span></span><br><span class="line">[PM2] Dumping processes</span><br></pre></td></tr></table></figure></p>
+<h2 id="远程部署"><a href="#远程部署" class="headerlink" title="远程部署"></a>远程部署</h2><p>可参考官方文档，配置也不复杂，用到的时候再来填写这里的坑。TODO</p>
+<p>官方文档：<a href="http://pm2.keymetrics.io/docs/usage/deployment/#getting-started" target="_blank" rel="noopener">http://pm2.keymetrics.io/docs/usage/deployment/#getting-started</a></p>
+<h2 id="监控-monitor"><a href="#监控-monitor" class="headerlink" title="监控(monitor)"></a>监控(monitor)</h2><p>运行如下命令，查看当前通过pm2运行的进程的状态。<br><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pm2 monit</span><br></pre></td></tr></table></figure></p>
+<p>看到类似输出<br><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[root@oneday-dev0 server]<span class="hljs-comment"># pm2 monit</span></span><br><span class="line">⌬ PM2 monitoring (To go further check out https://app.keymetrics.io) </span><br><span class="line">                                       [                              ] 0 %</span><br><span class="line">⌬ PM2 monitoring (To go further check o[|||||||||||||||               ] 196.285 MB  </span><br><span class="line"></span><br><span class="line"> ● fis-receiver                        [                              ] 0 %</span><br><span class="line">[1] [fork_mode]                        [|||||                         ] 65.773 MB  </span><br><span class="line"></span><br><span class="line"> ● www                                 [                              ] 0 %</span><br><span class="line">[2] [fork_mode]                        [|||||                         ] 74.426 MB  </span><br><span class="line"></span><br><span class="line"> ● oc-server                           [                              ] 0 %</span><br><span class="line">[3] [fork_mode]                        [||||                          ] 57.801 MB  </span><br><span class="line"></span><br><span class="line"> ● pm2-http-interface                  [                              ] stopped</span><br><span class="line">[4] [fork_mode]                        [                              ] 0 B   </span><br><span class="line"></span><br><span class="line"> ● start-production</span><br><span class="line">[5] [fork_mode]</span><br></pre></td></tr></table></figure></p>
+<h2 id="内存使用超过上限自动重启"><a href="#内存使用超过上限自动重启" class="headerlink" title="内存使用超过上限自动重启"></a>内存使用超过上限自动重启</h2><p>如果想要你的应用，在超过使用内存上限后自动重启，那么可以加上<code>--max-memory-restart</code>参数。（有对应的配置项）<br><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pm2 start big-array.js --max-memory-restart 20M</span><br></pre></td></tr></table></figure></p>
+<h2 id="更新pm2"><a href="#更新pm2" class="headerlink" title="更新pm2"></a>更新pm2</h2><p>官方文档：<a href="http://pm2.keymetrics.io/docs/usage/update-pm2/#updating-pm2" target="_blank" rel="noopener">http://pm2.keymetrics.io/docs/usage/update-pm2/#updating-pm2</a><br><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ pm2 save <span class="hljs-comment"># 记得保存进程状态</span></span><br><span class="line">$ npm install pm2 -g</span><br><span class="line">$ pm2 update</span><br></pre></td></tr></table></figure></p>
+<h2 id="pm2-nginx"><a href="#pm2-nginx" class="headerlink" title="pm2 + nginx"></a>pm2 + nginx</h2><p>无非就是在nginx上做个反向代理配置，直接贴配置。<br><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">upstream my_nodejs_upstream &#123;</span><br><span class="line">    server <span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>:<span class="hljs-number">3001</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen <span class="hljs-number">80</span>;</span><br><span class="line">    server_name my_nodejs_server;</span><br><span class="line">    root /home/www/project_root;</span><br><span class="line">    </span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">        proxy_set_header Host $http_host;</span><br><span class="line">        proxy_set_header X-NginX-<span class="hljs-built_in">Proxy</span> <span class="hljs-literal">true</span>;</span><br><span class="line">        proxy_http_version <span class="hljs-number">1.1</span>;</span><br><span class="line">        proxy_set_header Upgrade $http_upgrade;</span><br><span class="line">        proxy_set_header Connection <span class="hljs-string">"upgrade"</span>;</span><br><span class="line">        proxy_max_temp_file_size <span class="hljs-number">0</span>;</span><br><span class="line">        proxy_pass http:<span class="hljs-comment">//my_nodejs_upstream/;</span></span><br><span class="line">        proxy_redirect off;</span><br><span class="line">        proxy_read_timeout <span class="hljs-number">240</span>s;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>官方文档：<a href="http://pm2.keymetrics.io/docs/tutorials/pm2-nginx-production-setup" target="_blank" rel="noopener">http://pm2.keymetrics.io/docs/tutorials/pm2-nginx-production-setup</a></p>
+<h2 id="在线监控系统"><a href="#在线监控系统" class="headerlink" title="在线监控系统"></a>在线监控系统</h2><p>收费服务，使用超级简单，可以方便的对进程的服务情况进行监控。可以试用下，地址在<a href="https://app.keymetrics.io/" target="_blank" rel="noopener">这里</a>。</p>
+<p>这里贴个项目中试用的截图。<br><img src="https://yqfile.alicdn.com/ece3290b6246801c221de4639012416e3c7f3692.png" alt=""></p>
+<h2 id="pm2编程接口"><a href="#pm2编程接口" class="headerlink" title="pm2编程接口"></a>pm2编程接口</h2><p>如果想把pm2的进程监控，跟其他自动化流程整合起来，pm2的编程接口就很有用了。细节可参考官方文档：<br><a href="http://pm2.keymetrics.io/docs/usage/pm2-api/" target="_blank" rel="noopener">http://pm2.keymetrics.io/docs/usage/pm2-api/</a></p>
+<h2 id="模块扩展系统"><a href="#模块扩展系统" class="headerlink" title="模块扩展系统"></a>模块扩展系统</h2><p>pm2支持第三方扩展，比如常用的log rotate等。可参考<a href="http://pm2.keymetrics.io/docs/advanced/pm2-module-system/" target="_blank" rel="noopener">官方文档</a>。</p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/Node/">Node</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2018/12/04/vue与react详细对比/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">vue与react详细对比</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2018/09/25/站点简介/">
+                <span class="level-item">MarkDown语法汇总</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    <img class="image is-128x128 has-mb-6" src="/images/avatar.png" alt="Your name">
+                    
+                    <p class="is-size-4 is-block">
+                        Your name
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Your title
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Your location</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        19
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        5
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        10
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="http://github.com/ppoffice">
+                关注我</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="http://github.com/ppoffice">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="http://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="http://twitter.com">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="http://dribbble.com">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">https://hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">https://github.com/ppoffice</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/前端学习/">
+            <span class="level-start">
+                <span class="level-item">前端学习</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">7</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/前端开发/">
+            <span class="level-start">
+                <span class="level-item">前端开发</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/后端学习/">
+            <span class="level-start">
+                <span class="level-item">后端学习</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">8</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/读书笔记/">
+            <span class="level-start">
+                <span class="level-item">读书笔记</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/随笔/">
+            <span class="level-start">
+                <span class="level-item">随笔</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 13.33px;">Nginx</a> <a href="/tags/Node/" style="font-size: 16.67px;">Node</a> <a href="/tags/React/" style="font-size: 20px;">React</a> <a href="/tags/Vue/" style="font-size: 13.33px;">Vue</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/个人/" style="font-size: 10px;">个人</a> <a href="/tags/教程资源/" style="font-size: 10px;">教程资源</a>
+    </div>
+</div>
+
+    
+    
+        <div class="card card-transparent is-hidden-widescreen">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/02/15/nginx与pm2常用配置/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Nginx+PM2+node简单配置">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-02-14T16:00:00.000Z">2019-02-15</time></div>
+                    <a href="/2019/02/15/nginx与pm2常用配置/" class="has-link-black-ter is-size-6">Nginx+PM2+node简单配置</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/后端学习/">后端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/01/28/centOS7安装Node环境/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="CentOS7安装Node环境">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-27T16:00:00.000Z">2019-01-28</time></div>
+                    <a href="/2019/01/28/centOS7安装Node环境/" class="has-link-black-ter is-size-6">CentOS7安装Node环境</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/后端学习/">后端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/01/07/Nginx免费视频教程/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Nginx免费视频教程">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-06T16:00:00.000Z">2019-01-07</time></div>
+                    <a href="/2019/01/07/Nginx免费视频教程/" class="has-link-black-ter is-size-6">Nginx免费视频教程</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/后端学习/">后端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/01/03/2019前端技能目标/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/deer.jpg" alt="2019前端技能目标">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-02T16:00:00.000Z">2019-01-03</time></div>
+                    <a href="/2019/01/03/2019前端技能目标/" class="has-link-black-ter is-size-6">2019前端技能目标</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/12/04/vue与react详细对比/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="vue与react详细对比">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-12-04T08:37:31.000Z">2018-12-04</time></div>
+                    <a href="/2018/12/04/vue与react详细对比/" class="has-link-black-ter is-size-6">vue与react详细对比</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端学习/">前端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/06/">
+                <span class="level-start">
+                    <span class="level-item">六月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/CentOS/">
+                        <span class="level-start">
+                            <span class="level-item">CentOS</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/JavaScript/">
+                        <span class="level-start">
+                            <span class="level-item">JavaScript</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/MySQL/">
+                        <span class="level-start">
+                            <span class="level-item">MySQL</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Nginx/">
+                        <span class="level-start">
+                            <span class="level-item">Nginx</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Node/">
+                        <span class="level-start">
+                            <span class="level-item">Node</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">4</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/React/">
+                        <span class="level-start">
+                            <span class="level-item">React</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">5</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Vue/">
+                        <span class="level-start">
+                            <span class="level-item">Vue</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/markdown/">
+                        <span class="level-start">
+                            <span class="level-item">markdown</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/个人/">
+                        <span class="level-start">
+                            <span class="level-item">个人</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/教程资源/">
+                        <span class="level-start">
+                            <span class="level-item">教程资源</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/02/15/nginx与pm2常用配置/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Nginx+PM2+node简单配置">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-02-14T16:00:00.000Z">2019-02-15</time></div>
+                    <a href="/2019/02/15/nginx与pm2常用配置/" class="has-link-black-ter is-size-6">Nginx+PM2+node简单配置</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/后端学习/">后端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/01/28/centOS7安装Node环境/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="CentOS7安装Node环境">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-27T16:00:00.000Z">2019-01-28</time></div>
+                    <a href="/2019/01/28/centOS7安装Node环境/" class="has-link-black-ter is-size-6">CentOS7安装Node环境</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/后端学习/">后端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/01/07/Nginx免费视频教程/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Nginx免费视频教程">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-06T16:00:00.000Z">2019-01-07</time></div>
+                    <a href="/2019/01/07/Nginx免费视频教程/" class="has-link-black-ter is-size-6">Nginx免费视频教程</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/后端学习/">后端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/01/03/2019前端技能目标/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/deer.jpg" alt="2019前端技能目标">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-02T16:00:00.000Z">2019-01-03</time></div>
+                    <a href="/2019/01/03/2019前端技能目标/" class="has-link-black-ter is-size-6">2019前端技能目标</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/12/04/vue与react详细对比/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="vue与react详细对比">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-12-04T08:37:31.000Z">2018-12-04</time></div>
+                    <a href="/2018/12/04/vue与react详细对比/" class="has-link-black-ter is-size-6">vue与react详细对比</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端学习/">前端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/06/">
+                <span class="level-start">
+                    <span class="level-item">六月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/CentOS/">
+                        <span class="level-start">
+                            <span class="level-item">CentOS</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/JavaScript/">
+                        <span class="level-start">
+                            <span class="level-item">JavaScript</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/MySQL/">
+                        <span class="level-start">
+                            <span class="level-item">MySQL</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Nginx/">
+                        <span class="level-start">
+                            <span class="level-item">Nginx</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Node/">
+                        <span class="level-start">
+                            <span class="level-item">Node</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">4</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/React/">
+                        <span class="level-start">
+                            <span class="level-item">React</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">5</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Vue/">
+                        <span class="level-start">
+                            <span class="level-item">Vue</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/markdown/">
+                        <span class="level-start">
+                            <span class="level-item">markdown</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/个人/">
+                        <span class="level-start">
+                            <span class="level-item">个人</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/教程资源/">
+                        <span class="level-start">
+                            <span class="level-item">教程资源</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="PM2实用入门指南" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2019 Sophie Wu&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-icarus">Icarus</a>
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?83519e103faf33e698f8b433e97efc38";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" async></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/animejs@2.2.0/anime.js" defer></script>
+    <script src="/js/animation.js" defer></script>
+    
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

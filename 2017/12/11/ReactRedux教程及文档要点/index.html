@@ -1,0 +1,1514 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>ReactRedux教程及文档要点 - Sophie&#39;s World</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta name="description" content="Redux 是 JavaScript 状态容器，提供可预测化的状态管理。它以让你构建一致化的应用，运行于不同的环境（客户端、服务器、原生应用），并且易于测试。参考文档：Redux中文文档，官方文档 Redux 除了和 React 一起用外，还支持其它界面库。 它体小精悍（只有2kB，包括依赖）。实际上，你并不一定需要使用到Redux,参考文章: “You Might Not Need Redux”">
+<meta name="keywords" content="React">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ReactRedux教程及文档要点">
+<meta property="og:url" content="https://sophieu.github.io/2017/12/11/ReactRedux教程及文档要点/index.html">
+<meta property="og:site_name" content="Sophie&#39;s World">
+<meta property="og:description" content="Redux 是 JavaScript 状态容器，提供可预测化的状态管理。它以让你构建一致化的应用，运行于不同的环境（客户端、服务器、原生应用），并且易于测试。参考文档：Redux中文文档，官方文档 Redux 除了和 React 一起用外，还支持其它界面库。 它体小精悍（只有2kB，包括依赖）。实际上，你并不一定需要使用到Redux,参考文章: “You Might Not Need Redux”">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6548744-df461a22f59ef7da.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/800/format/webp">
+<meta property="og:updated_time" content="2019-05-13T06:37:03.044Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ReactRedux教程及文档要点">
+<meta name="twitter:description" content="Redux 是 JavaScript 状态容器，提供可预测化的状态管理。它以让你构建一致化的应用，运行于不同的环境（客户端、服务器、原生应用），并且易于测试。参考文档：Redux中文文档，官方文档 Redux 除了和 React 一起用外，还支持其它界面库。 它体小精悍（只有2kB，包括依赖）。实际上，你并不一定需要使用到Redux,参考文章: “You Might Not Need Redux”">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/6548744-df461a22f59ef7da.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/800/format/webp">
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    <style>body>.navbar,body>.section,body>.footer{opacity: 0}</style>
+    
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="ReactRedux教程及文档要点" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">Home</a>
+                
+                <a class="navbar-item" href="/archives">Archives</a>
+                
+                <a class="navbar-item" href="/categories">Categories</a>
+                
+                <a class="navbar-item" href="/tags">Tags</a>
+                
+                <a class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2017-12-11T03:17:24.000Z">2017-12-11</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/前端学习/">前端学习</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    18 分钟 读完 (大约 2760 个字)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                ReactRedux教程及文档要点
+            
+        </h1>
+        <div class="content">
+            <p>Redux 是 JavaScript 状态容器，提供可预测化的状态管理。它以让你构建一致化的应用，运行于不同的环境（客户端、服务器、原生应用），并且易于测试。参考文档：<a href="https://www.redux.org.cn/" target="_blank" rel="noopener">Redux中文文档</a>，<a href="https://redux.js.org/" target="_blank" rel="noopener">官方文档</a></p>
+<p>Redux 除了和 React 一起用外，还支持其它界面库。 它体小精悍（只有2kB，包括依赖）。实际上，你并不一定需要使用到Redux,参考文章:<a href="https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367" target="_blank" rel="noopener"> “You Might Not Need Redux”</a><br><a id="more"></a></p>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><blockquote>
+<ul>
+<li><a href="#安装">安装</a></li>
+<li><a href="#核心要点">核心要点</a></li>
+<li><a href="#Action">Action</a></li>
+<li><a href="#Reducer">Reducer</a></li>
+<li><a href="#Store">Store</a></li>
+<li><a href="#搭配React使用">搭配React使用</a></li>
+</ul>
+</blockquote>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ul>
+<li>多数多数情况下，你除了安装<code>redux</code>外，还需要使用 <a href="http://github.com/gaearon/react-redux" target="_blank" rel="noopener">React 绑定库</a>和<a href="http://github.com/gaearon/redux-devtools" target="_blank" rel="noopener">开发者工具</a>。<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ yarn add redux</span><br><span class="line"><span class="hljs-comment"># 安装react绑定库及开发工具</span></span><br><span class="line">$ yarn add react-redux </span><br><span class="line">$ yarn add redux-devtools --dev</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="核心要点"><a href="#核心要点" class="headerlink" title="核心要点"></a>核心要点</h2><blockquote>
+<p>Redux是将整个应用状态存储到一个叫<code>store</code>的对象上,里面保存着一个状态树store tree,整个app内部的组件都订阅了<code>store</code>中的状态<code>state</code>来对应自己的视图，用户产生<code>action</code>传递给<code>store</code>，<code>store</code>找到对应<code>reducer</code>来处理此行为action，并返回新的<code>state</code>到store中，从而影响了订阅store的组件的视图。</p>
+<ol>
+<li>组件产生行为：Component-dispatch-action</li>
+<li>store为action找到对应处理函数reducer</li>
+<li>reducer返回新的state到store</li>
+<li>因为组件订阅了store,所以当store发生变化时，组件视图也会发生相应变化。</li>
+</ol>
+<ul>
+<li>组件可以<code>派发(dispatch)</code>用户的<code>行为(action)</code>给store,而不是直接通知其他组件，组件内部通过订阅store中的状态state来刷新自己的视图。</li>
+<li>Redux工作流：<br><img src="https://upload-images.jianshu.io/upload_images/6548744-df461a22f59ef7da.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/800/format/webp" alt="Redux工作流"></li>
+</ul>
+</blockquote>
+<h4 id="redux三大原则"><a href="#redux三大原则" class="headerlink" title="redux三大原则"></a>redux三大原则</h4><ol>
+<li><strong>唯一数据源</strong>：整个应用的state都被存储在一个状态树中，而这个状态树由<code>store</code>对象管理</li>
+<li><strong>操持只读状态</strong>：state是只读的，唯一改变state的方法就是触发action，<em><code>action</code>是一个用于描述以发生时间的<code>普通对象</code></em></li>
+<li><strong>数据改变只能通过纯函数来执行</strong> : 使用纯函数(<code>reducer</code>)来执行修改，为了对action做出响应并改变对应state，你需要编写<code>reducers</code></li>
+</ol>
+<h4 id="关键词"><a href="#关键词" class="headerlink" title="关键词"></a>关键词</h4><ul>
+<li><code>store</code> ： 全局state树，视图的更新都依赖于store</li>
+<li><code>action</code>:把数据从应用传到store的JS对象，通过<code>store.dispatch()</code>将action传到store，通常用一个单独的js来传递应用中的action。</li>
+<li><p><code>reducer</code> ： 根据不同的action做出相应处理并返回新的state</p>
+<p>以下是一个不规范的简单使用redux示例：</p>
+</li>
+</ul>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/* store.js 统一的state管理*/</span></span><br><span class="line"><span class="hljs-keyword">import</span> &#123;createStore&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'redux'</span>;</span><br><span class="line"><span class="hljs-comment">// reducer</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">counter</span>(<span class="hljs-params">state=<span class="hljs-number">0</span>,action</span>)</span>&#123;</span><br><span class="line">    <span class="hljs-keyword">switch</span>(action.type)&#123;</span><br><span class="line">        <span class="hljs-keyword">case</span> <span class="hljs-string">'INCREMENT'</span>:</span><br><span class="line">            <span class="hljs-keyword">return</span> state +<span class="hljs-number">1</span>;</span><br><span class="line">        <span class="hljs-keyword">case</span> <span class="hljs-string">'DECREMENT'</span>:</span><br><span class="line">            <span class="hljs-keyword">return</span> state <span class="hljs-number">-1</span>;</span><br><span class="line">        <span class="hljs-keyword">default</span>:</span><br><span class="line">            <span class="hljs-keyword">return</span> state</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-keyword">let</span> store = createStore(counter);</span><br><span class="line"><span class="hljs-comment">//actions</span></span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> INCREMENT=&#123;<span class="hljs-attr">type</span>:<span class="hljs-string">'INCREMENT'</span>&#125;;</span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> DECREMENT = &#123;<span class="hljs-attr">type</span>:<span class="hljs-string">'DECREMENT'</span>&#125;;</span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> store;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">/*Component.js*/</span></span><br><span class="line"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;</span><br><span class="line"><span class="hljs-keyword">import</span> store,&#123;INCREMENT,DECREMENT&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'./redux/index'</span></span><br><span class="line"><span class="hljs-comment">// 通过 store.getState()取值，这里目前只考虑了只有一个state的情况</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Component</span> (<span class="hljs-params">props</span>)</span>&#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> (</span><br><span class="line">        &lt;Router&gt;</span><br><span class="line">            &lt;div&gt;</span><br><span class="line">               &lt;div&gt;这是counter: &#123;store.getState()&#125;&lt;<span class="hljs-regexp">/div&gt;</span></span><br><span class="line"><span class="hljs-regexp">                &lt;div&gt;</span></span><br><span class="line"><span class="hljs-regexp">                    &lt;button onClick=&#123;()=&gt;store.dispatch(INCREMENT)&#125;&gt;加&lt;/</span>button&gt;</span><br><span class="line">                    &lt;button onClick=&#123;()=&gt;store.dispatch(DECREMENT)&#125;&gt;减&lt;<span class="hljs-regexp">/button&gt;</span></span><br><span class="line"><span class="hljs-regexp">                &lt;/</span>div&gt;</span><br><span class="line">            &lt;<span class="hljs-regexp">/div&gt;</span></span><br><span class="line"><span class="hljs-regexp">        &lt;/</span>Router&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Component;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">/*index.js ：统一渲染的index.js*/</span></span><br><span class="line"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;</span><br><span class="line"><span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;</span><br><span class="line"><span class="hljs-keyword">import</span> Component <span class="hljs-keyword">from</span> <span class="hljs-string">'./Component'</span>;</span><br><span class="line"><span class="hljs-keyword">import</span> store <span class="hljs-keyword">from</span> <span class="hljs-string">'./redux/index'</span>;</span><br><span class="line"><span class="hljs-comment">//首次渲染</span></span><br><span class="line">ReactDOM.render(<span class="hljs-xml"><span class="hljs-tag">&lt;<span class="hljs-name">App</span> /&gt;</span>, document.getElementById('root'));</span></span><br><span class="line"><span class="hljs-xml">// 通过store.subscribe订阅store，才能让store中的state变化时能及时更新到视图上</span></span><br><span class="line"><span class="hljs-xml">store.subscribe(function()&#123;</span></span><br><span class="line"><span class="hljs-xml">    ReactDOM.render(<span class="hljs-tag">&lt;<span class="hljs-name">App</span> /&gt;</span>, document.getElementById('root'));</span></span><br><span class="line"><span class="hljs-xml">&#125;);</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>总结：</p>
+<ul>
+<li><code>action</code>通常长这样儿：<code>{type:&#39;INCREMENT&#39;}</code>，通常type对应的是一串大写的字符串</li>
+<li>通过<code>createStore(reducer)</code>来创建store对象,这样就能把reducer中对应的state传入到store中来统一管理</li>
+<li>通过<code>state.getState()</code>来获取state的值，通过<code>store.subscribe(fn)</code>来订阅store，传入reactDOM.render即为更新视图</li>
+<li>通过<code>store.dispatch(action)</code>来向store传递action，从而改变对应的state</li>
+</ul>
+</blockquote>
+<h2 id="Action"><a href="#Action" class="headerlink" title="Action"></a>Action</h2><blockquote>
+<p>Action 是把数据从应用传到 store 的有效载荷。它是 store 数据的唯一来源。一般来说你会通过 <code>store.dispatch()</code> 将 action 传到 store。本质为一个普通的JS对象。</p>
+</blockquote>
+<blockquote>
+<p>我们约定，action 内必须使用一个字符串类型的 type 字段来表示将要执行的动作。多数情况下，type 会被定义成字符串常量。当应用规模越来越大时，建议使用单独的模块或文件来存放 action。<code>import { ADD_TODO, REMOVE_TODO } from &#39;../actionTypes&#39;</code></p>
+</blockquote>
+<p>Action的创建有以下几种方式：</p>
+<ul>
+<li>定义JS对象的方式：<code>{type:&#39;ADD&#39;}</code></li>
+<li>通过<code>创建函数</code>来创建<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 如下就是一个单独的action.js文件的常见内容</span></span><br><span class="line"><span class="hljs-comment">/*</span></span><br><span class="line"><span class="hljs-comment"> * action 类型</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> ADD_TODO = <span class="hljs-string">'ADD_TODO'</span>;</span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> TOGGLE_TODO = <span class="hljs-string">'TOGGLE_TODO'</span></span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> SET_VISIBILITY_FILTER = <span class="hljs-string">'SET_VISIBILITY_FILTER'</span></span><br><span class="line"><span class="hljs-comment">/*</span></span><br><span class="line"><span class="hljs-comment"> * 其它的常量</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> VisibilityFilters = &#123;</span><br><span class="line">  SHOW_ALL: <span class="hljs-string">'SHOW_ALL'</span>,</span><br><span class="line">  SHOW_COMPLETED: <span class="hljs-string">'SHOW_COMPLETED'</span>,</span><br><span class="line">  SHOW_ACTIVE: <span class="hljs-string">'SHOW_ACTIVE'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-comment">/*</span></span><br><span class="line"><span class="hljs-comment"> * action 创建函数</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addTodo</span>(<span class="hljs-params">text</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">return</span> &#123; <span class="hljs-attr">type</span>: ADD_TODO, text &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toggleTodo</span>(<span class="hljs-params">index</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">return</span> &#123; <span class="hljs-attr">type</span>: TOGGLE_TODO, index &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setVisibilityFilter</span>(<span class="hljs-params">filter</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">return</span> &#123; <span class="hljs-attr">type</span>: SET_VISIBILITY_FILTER, filter &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="Reducer"><a href="#Reducer" class="headerlink" title="Reducer"></a>Reducer</h2><p><strong>Reducers</strong>指定了应用状态的变化如何响应 actions 并发送到 store 的，记住 actions 只是描述了有事情发生了这一事实，并没有描述应用如何更新 state。</p>
+<ul>
+<li>reducer 就是一个<strong>纯函数</strong>，接收旧的 state 和 action，返回新的 state。</li>
+<li>永远不要在reducer内部做以下事：<ul>
+<li>修改传入参数：</li>
+<li>执行有副作用的操作，如API请求和路由跳转</li>
+<li>调用非纯函数，如Date.now()或Math.random();</li>
+</ul>
+</li>
+</ul>
+<p>以下是TODO示例中reducers.js的代码:<br><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> &#123;combineReducers&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'redux'</span>;</span><br><span class="line"><span class="hljs-keyword">import</span>&#123;</span><br><span class="line">    ADD_TODO,</span><br><span class="line">    TOGO_TODO,</span><br><span class="line">    SET_VISIBILITY_FILTER,</span><br><span class="line">    Visibility,</span><br><span class="line">&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">"./actions"</span>;</span><br><span class="line"><span class="hljs-keyword">const</span> &#123;SHOW_ALL&#125; = Visibility;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">visibilityFilter</span>(<span class="hljs-params">state=SHOW_ALL,action</span>)</span>&#123;</span><br><span class="line">    <span class="hljs-keyword">switch</span> (action.type) &#123;</span><br><span class="line">        <span class="hljs-keyword">case</span> SET_VISIBILITY_FILTER:</span><br><span class="line">            <span class="hljs-keyword">return</span> action.filter;</span><br><span class="line">        <span class="hljs-keyword">default</span>:</span><br><span class="line">            <span class="hljs-keyword">return</span> state</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">todos</span>(<span class="hljs-params">state=[],action</span>)</span>&#123;</span><br><span class="line">    <span class="hljs-keyword">switch</span>(action.type)&#123;</span><br><span class="line">        <span class="hljs-keyword">case</span> ADD_TODO:</span><br><span class="line">            <span class="hljs-keyword">return</span> [</span><br><span class="line">                ...state,</span><br><span class="line">                &#123;</span><br><span class="line">                    text:action.text,</span><br><span class="line">                    completed:<span class="hljs-literal">false</span></span><br><span class="line">                &#125;</span><br><span class="line">            ]</span><br><span class="line">        <span class="hljs-keyword">case</span> TOGO_TODO:</span><br><span class="line">            <span class="hljs-keyword">return</span> state.map(<span class="hljs-function">(<span class="hljs-params">todo,index</span>)=&gt;</span>&#123;</span><br><span class="line">                <span class="hljs-keyword">if</span>(index===action.index)&#123;</span><br><span class="line">                    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.assign(&#123;&#125;,todo,&#123;</span><br><span class="line">                        completed: !todo.completed</span><br><span class="line">                    &#125;)</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="hljs-keyword">return</span> todo</span><br><span class="line">            &#125;);</span><br><span class="line">        <span class="hljs-keyword">default</span>:</span><br><span class="line">            <span class="hljs-keyword">return</span> state;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">const</span> todoApp = combineReducers(&#123;</span><br><span class="line">    todos,</span><br><span class="line">    visibilityFilter</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> todoApp;</span><br></pre></td></tr></table></figure></p>
+<h4 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h4><ul>
+<li>通过<code>combineReducers</code>来将多个单一的reducer整合在一起导出</li>
+<li>reducer是纯函数</li>
+<li>reducer的函数名其实就对应了最后<code>store.getState()</code>得到的state的各个属性</li>
+<li>通过<code>(state=xxx,action)</code>可以设置reducer对应的state的默认值。</li>
+</ul>
+<h2 id="Store"><a href="#Store" class="headerlink" title="Store"></a>Store</h2><p><code>store</code>就是把<code>action</code>和<code>reducers</code>联系在一起的总的state 树对象。它的职责如下：</p>
+<ul>
+<li>给的应用的<code>state</code>;</li>
+<li>提供<code>getState()</code>方法用于获取state;</li>
+<li>提供<code>dispatch(action)</code>方法用于更新state;</li>
+<li>通过<code>subscribe(listenerFunc)</code>注册监听器用于监听state的变化，其中的函数会在state发生变化时调用</li>
+<li><code>subscribe(listenerFunc)</code>的返回值就是一个函数注销监听器。</li>
+</ul>
+<p>示例：一个TODO应用中的store.js<br><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// store.js</span></span><br><span class="line"><span class="hljs-keyword">import</span> &#123;createStore&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'redux'</span>;</span><br><span class="line"><span class="hljs-keyword">import</span> todoApp <span class="hljs-keyword">from</span> <span class="hljs-string">'./reducers'</span>;</span><br><span class="line"><span class="hljs-keyword">let</span> store = <span class="hljs-keyword">new</span> createStore(todoApp);</span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> store;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// index.js</span></span><br><span class="line"><span class="hljs-keyword">import</span> store <span class="hljs-keyword">from</span> <span class="hljs-string">'./redux/store'</span>;</span><br><span class="line">store.subscribe(<span class="hljs-function"><span class="hljs-params">()</span>=&gt;</span>&#123;</span><br><span class="line">    ReactDOM.render(<span class="hljs-xml"><span class="hljs-tag">&lt;<span class="hljs-name">App</span> /&gt;</span>, document.getElementById('root'))</span></span><br><span class="line"><span class="hljs-xml">&#125;);</span></span><br><span class="line"><span class="hljs-xml">// App.js</span></span><br><span class="line"><span class="hljs-xml">import React from 'react';</span></span><br><span class="line"><span class="hljs-xml">import store from './redux/store';</span></span><br><span class="line"><span class="hljs-xml">import &#123;addTodo,toggleTodo,setVisibilityFilter&#125; from './redux/actions';</span></span><br><span class="line"><span class="hljs-xml">class App extends React.Component&#123;</span></span><br><span class="line"><span class="hljs-xml">    constructor()&#123;</span></span><br><span class="line"><span class="hljs-xml">        super();</span></span><br><span class="line"><span class="hljs-xml">        this.addInput=React.createRef();</span></span><br><span class="line"><span class="hljs-xml">    &#125;</span></span><br><span class="line"><span class="hljs-xml">    addTodo=()=&gt;&#123;</span></span><br><span class="line"><span class="hljs-xml">        let addInput = this.addInput.current;</span></span><br><span class="line"><span class="hljs-xml">        let todoText = addInput.value;</span></span><br><span class="line"><span class="hljs-xml">        store.dispatch(addTodo(todoText));</span></span><br><span class="line"><span class="hljs-xml">        addInput.value='';</span></span><br><span class="line"><span class="hljs-xml">    &#125;;</span></span><br><span class="line"><span class="hljs-xml">    toggleTodo=(e)=&gt;&#123;</span></span><br><span class="line"><span class="hljs-xml">        let index = parseInt(e.target.dataset.index);</span></span><br><span class="line"><span class="hljs-xml">        store.dispatch(toggleTodo(index));</span></span><br><span class="line"><span class="hljs-xml">        console.log(index)</span></span><br><span class="line"><span class="hljs-xml">        console.log(typeof index)</span></span><br><span class="line"><span class="hljs-xml">    &#125;;</span></span><br><span class="line"><span class="hljs-xml">    toggleVisible=(e)=&gt;&#123;</span></span><br><span class="line"><span class="hljs-xml">        let visible = e.target.dataset.visible;</span></span><br><span class="line"><span class="hljs-xml">        store.dispatch(setVisibilityFilter(visible));</span></span><br><span class="line"><span class="hljs-xml">    &#125;;</span></span><br><span class="line"><span class="hljs-xml">    render()&#123;</span></span><br><span class="line"><span class="hljs-xml">        let state = store.getState();</span></span><br><span class="line"><span class="hljs-xml">        let todos = state.todos;</span></span><br><span class="line"><span class="hljs-xml">        let visibilityFilter = state.visibilityFilter;</span></span><br><span class="line"><span class="hljs-xml">        console.log(state)</span></span><br><span class="line"><span class="hljs-xml">        return (</span></span><br><span class="line">            &lt;div&gt;</span><br><span class="line">                &lt;input ref=&#123;this.addInput&#125; type="text" className="input-todo"/&gt;</span><br><span class="line">                &lt;button onClick=&#123;this.addTodo&#125;&gt;add TODO&lt;/button&gt;</span><br><span class="line">                &lt;ul className="todo-list"&gt;</span><br><span class="line">                    &#123;</span><br><span class="line">                        todos.map((todo,index)=&gt;&#123;</span><br><span class="line">                            return (&lt;li key=&#123;index&#125; data-index=&#123;index&#125; onClick=&#123;this.toggleTodo&#125; className=&#123;todo.completed?'finished':''&#125;&gt;&#123;todo.text&#125;&lt;/li&gt;)</span><br><span class="line">                        &#125;)</span><br><span class="line">                    &#125;</span><br><span class="line">                &lt;/ul&gt;</span><br><span class="line">                &lt;div className="toggle-todo"&gt;</span><br><span class="line">                    &lt;span data-visible="SHOW_ALL" onClick=&#123;this.toggleVisible&#125; className=&#123;visibilityFilter==='SHOW_ALL'?'active':''&#125;&gt;显示全部&lt;/span&gt;</span><br><span class="line">                    &lt;span data-visible="SHOW_COMPLETED" onClick=&#123;this.toggleVisible&#125; className=&#123;visibilityFilter==='SHOW_COMPLETED'?'active':''&#125;&gt;已完成&lt;/span&gt;</span><br><span class="line">                    &lt;span data-visible="SHOW_ACTIVE" onClick=&#123;this.toggleVisible&#125; className=&#123;visibilityFilter==='SHOW_ACTIVE'?'active':''&#125;&gt;未完成&lt;/span&gt;</span><br><span class="line">                &lt;/div&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">export default App;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>以上结合action.js,reducer.js,store.js等就构成了一个完整的TODO应用。<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4></li>
+<li>通过<code>createStore(reducers,defaultValue)</code>来创建一个store,其中参数<code>defaultValue</code>是可选的，用于设置 state 初始状态。【这对开发同构应用时非常有用，服务器端 redux 应用的 state 结构可以与客户端保持一致, 那么客户端可以将从网络接收到的服务端 state 直接用于本地数据初始化。】</li>
+<li>在组件中，通过<code>store.getState()</code>来获取整个state</li>
+<li>通过<code>store.dispatch(action)</code>来发起action</li>
+</ul>
+<h2 id="搭配React使用"><a href="#搭配React使用" class="headerlink" title="搭配React使用"></a>搭配React使用</h2><p>Redux 和 React 之间没有关系。Redux 支持 React、Angular、Ember、jQuery 甚至纯 JavaScript。只是说，Redux与React搭配也是很好用的。</p>
+<h4 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h4><ul>
+<li>redux默认并不包含<a href="https://github.com/reactjs/react-redux" target="_blank" rel="noopener">React 绑定库</a>,因此要同时安装<code>redux</code>和<code>react-redux</code></li>
+<li>可以通过<code>yarn add react-redux</code>安装，也可以通过<code>npm</code>，还可以从unpkg获取最新的UMD包（包括<a href="https://unpkg.com/react-redux@latest/dist/react-redux.js" target="_blank" rel="noopener">开发环境包</a>和<a href="https://unpkg.com/react-redux@latest/dist/react-redux.min.js" target="_blank" rel="noopener">生产环境包</a>）。</li>
+<li>通过<code>&lt;script&gt;</code>引入UMD包会在全局抛出<code>window.ReactRedux</code>对象。<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yarn add react-redux</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="关键词-1"><a href="#关键词-1" class="headerlink" title="关键词"></a>关键词</h4><ul>
+<li><code>&lt;Provider/&gt;</code>：通常用于包裹<code>App</code>组件。用于外层包裹组件，通过设置属性<code>store=store</code>,来将store关联到整体组件中</li>
+<li><code>connect</code> : 用于各react子组件内部，通过<code>connect(mapStateToProps,mapDispatchToProps)(Component)</code>例各子组件与 store建立联系</li>
+<li><code>mapStateToProps</code> : 【字面理解】-将State映射到组件Props中，从而可以直接使用<code>this.props.xxx</code>来直接访问store中的state</li>
+<li><code>mapDispatchToProps</code> : 【字面理解】-将Dispatch映射到组件Props中，从而可以直接使用<code>this.props.dispatch(action)</code>来达到<code>store.dispatch</code>的同等效果。</li>
+</ul>
+<h4 id="对上面的TODO进行改造"><a href="#对上面的TODO进行改造" class="headerlink" title="对上面的TODO进行改造"></a>对上面的TODO进行改造</h4><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// index.js中，去掉store.subscribe()而使用Provider组件</span></span><br><span class="line">ReactDOM.render(</span><br><span class="line">    &lt;Provider store=&#123;store&#125;&gt;</span><br><span class="line">        &lt;App /&gt;</span><br><span class="line">    &lt;<span class="hljs-regexp">/Provider&gt;,</span></span><br><span class="line"><span class="hljs-regexp">    document.getElementById('root'));</span></span><br><span class="line"><span class="hljs-regexp"></span></span><br><span class="line"><span class="hljs-regexp">/</span><span class="hljs-regexp">/ App.js  </span></span><br><span class="line"><span class="hljs-regexp">/</span><span class="hljs-regexp">/ App组件中的代码段</span></span><br><span class="line"><span class="hljs-regexp">toggleVisible=(e)=&gt;&#123;</span></span><br><span class="line"><span class="hljs-regexp">    let visible = e.target.dataset.visible;</span></span><br><span class="line"><span class="hljs-regexp">    this.props.setVisibilityFilter(visible);</span></span><br><span class="line"><span class="hljs-regexp">&#125;;</span></span><br><span class="line"><span class="hljs-regexp"> render()&#123;</span></span><br><span class="line"><span class="hljs-regexp">        let todos = this.props.todos;</span></span><br><span class="line"><span class="hljs-regexp">        let visibilityFilter =  this.props.visibilityFilter;</span></span><br><span class="line"><span class="hljs-regexp">        return(/</span>*....*<span class="hljs-regexp">/)</span></span><br><span class="line"><span class="hljs-regexp"> &#125;</span></span><br><span class="line"><span class="hljs-regexp"></span></span><br><span class="line"><span class="hljs-regexp">/</span><span class="hljs-regexp">/ mapStateToProps,mapDispatchToProps是自己手动映射props的函数</span></span><br><span class="line"><span class="hljs-regexp">const mapStateToProps = state=&gt;&#123;</span></span><br><span class="line"><span class="hljs-regexp">    return &#123;</span></span><br><span class="line"><span class="hljs-regexp">        todos:state.todos,</span></span><br><span class="line"><span class="hljs-regexp">        visibilityFilter:state.visibilityFilter,</span></span><br><span class="line"><span class="hljs-regexp">    &#125;</span></span><br><span class="line"><span class="hljs-regexp">&#125;;</span></span><br><span class="line"><span class="hljs-regexp">const mapDispatchToProps = dispatch=&gt;&#123;</span></span><br><span class="line"><span class="hljs-regexp">    return &#123;</span></span><br><span class="line"><span class="hljs-regexp">        toggleTodo:index=&gt;&#123;</span></span><br><span class="line"><span class="hljs-regexp">            dispatch(toggleTodo(index))</span></span><br><span class="line"><span class="hljs-regexp">        &#125;,</span></span><br><span class="line"><span class="hljs-regexp">        addTodo:text=&gt;&#123;</span></span><br><span class="line"><span class="hljs-regexp">            dispatch(addTodo(text))</span></span><br><span class="line"><span class="hljs-regexp">        &#125;,</span></span><br><span class="line"><span class="hljs-regexp">        setVisibilityFilter:filter=&gt;&#123;</span></span><br><span class="line"><span class="hljs-regexp">            dispatch(setVisibilityFilter(filter))</span></span><br><span class="line"><span class="hljs-regexp">        &#125;</span></span><br><span class="line"><span class="hljs-regexp">    &#125;</span></span><br><span class="line"><span class="hljs-regexp">&#125;</span></span><br><span class="line"><span class="hljs-regexp"></span></span><br><span class="line"><span class="hljs-regexp">const AppStore = connect(mapStateToProps,mapDispatchToProps)(App)</span></span><br><span class="line"><span class="hljs-regexp">export default AppStore;</span></span><br></pre></td></tr></table></figure>
+<h2 id="和ReactRouter搭配使用"><a href="#和ReactRouter搭配使用" class="headerlink" title="和ReactRouter搭配使用"></a>和ReactRouter搭配使用</h2><ul>
+<li>参考使用这个库：<a href="https://github.com/supasate/connected-react-router" target="_blank" rel="noopener">connected-react-router</a>，原<code>react-router-redux</code>作者已经不再维护了。</li>
+</ul>
+<h2 id="一些中间件"><a href="#一些中间件" class="headerlink" title="一些中间件"></a>一些中间件</h2><ul>
+<li><a href="https://github.com/redux-saga/redux-saga" target="_blank" rel="noopener">redux-saga</a>: 一个用来处理异步任务的redux中间件。<blockquote>
+<p>在 reducers 中的所有操作都是同步的并且是纯粹的，即 reducer 都是纯函数，纯函数是指一个函数的返回结果只依赖于它的参数，并且在执行过程中不会对外部产生副作用，即给它传什么，就吐出什么。但是在实际的应用开发中，我们希望做一些异步的（如Ajax请求）且不纯粹的操作（如改变外部的状态），这些在函数式编程范式中被称为“副作用”。 而<code>redux-saga</code>就是用来做这些异步操作的</p>
+</blockquote>
+</li>
+<li><a href="https://github.com/reduxjs/redux-thunk" target="_blank" rel="noopener">redux-thunk</a>:也是一个异步中间件，是redux作者写的。特点：action可以是一个以dispatch为参数的函数，在函数内部做异步操作。缺点：要redux本身的action为对象的概念冲突，导致类型不统一</li>
+</ul>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/React/">React</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2018/01/10/vue打包优化/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">vue打包优化</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2017/10/25/nodemon/">
+                <span class="level-item">nodemon-解决开发时无限npm start的痛点</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    <img class="image is-128x128 has-mb-6" src="/images/avatar.png" alt="Your name">
+                    
+                    <p class="is-size-4 is-block">
+                        Your name
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Your title
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Your location</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        19
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        5
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        10
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="http://github.com/ppoffice">
+                关注我</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="http://github.com/ppoffice">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="http://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="http://twitter.com">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="http://dribbble.com">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">https://hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">https://github.com/ppoffice</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/前端学习/">
+            <span class="level-start">
+                <span class="level-item">前端学习</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">7</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/前端开发/">
+            <span class="level-start">
+                <span class="level-item">前端开发</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/后端学习/">
+            <span class="level-start">
+                <span class="level-item">后端学习</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">8</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/读书笔记/">
+            <span class="level-start">
+                <span class="level-item">读书笔记</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/随笔/">
+            <span class="level-start">
+                <span class="level-item">随笔</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 13.33px;">Nginx</a> <a href="/tags/Node/" style="font-size: 16.67px;">Node</a> <a href="/tags/React/" style="font-size: 20px;">React</a> <a href="/tags/Vue/" style="font-size: 13.33px;">Vue</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/个人/" style="font-size: 10px;">个人</a> <a href="/tags/教程资源/" style="font-size: 10px;">教程资源</a>
+    </div>
+</div>
+
+    
+    
+        <div class="card card-transparent is-hidden-widescreen">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/02/15/nginx与pm2常用配置/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Nginx+PM2+node简单配置">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-02-14T16:00:00.000Z">2019-02-15</time></div>
+                    <a href="/2019/02/15/nginx与pm2常用配置/" class="has-link-black-ter is-size-6">Nginx+PM2+node简单配置</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/后端学习/">后端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/01/28/centOS7安装Node环境/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="CentOS7安装Node环境">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-27T16:00:00.000Z">2019-01-28</time></div>
+                    <a href="/2019/01/28/centOS7安装Node环境/" class="has-link-black-ter is-size-6">CentOS7安装Node环境</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/后端学习/">后端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/01/07/Nginx免费视频教程/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Nginx免费视频教程">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-06T16:00:00.000Z">2019-01-07</time></div>
+                    <a href="/2019/01/07/Nginx免费视频教程/" class="has-link-black-ter is-size-6">Nginx免费视频教程</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/后端学习/">后端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/01/03/2019前端技能目标/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/deer.jpg" alt="2019前端技能目标">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-02T16:00:00.000Z">2019-01-03</time></div>
+                    <a href="/2019/01/03/2019前端技能目标/" class="has-link-black-ter is-size-6">2019前端技能目标</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/12/04/vue与react详细对比/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="vue与react详细对比">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-12-04T08:37:31.000Z">2018-12-04</time></div>
+                    <a href="/2018/12/04/vue与react详细对比/" class="has-link-black-ter is-size-6">vue与react详细对比</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端学习/">前端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/06/">
+                <span class="level-start">
+                    <span class="level-item">六月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/CentOS/">
+                        <span class="level-start">
+                            <span class="level-item">CentOS</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/JavaScript/">
+                        <span class="level-start">
+                            <span class="level-item">JavaScript</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/MySQL/">
+                        <span class="level-start">
+                            <span class="level-item">MySQL</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Nginx/">
+                        <span class="level-start">
+                            <span class="level-item">Nginx</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Node/">
+                        <span class="level-start">
+                            <span class="level-item">Node</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">4</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/React/">
+                        <span class="level-start">
+                            <span class="level-item">React</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">5</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Vue/">
+                        <span class="level-start">
+                            <span class="level-item">Vue</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/markdown/">
+                        <span class="level-start">
+                            <span class="level-item">markdown</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/个人/">
+                        <span class="level-start">
+                            <span class="level-item">个人</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/教程资源/">
+                        <span class="level-start">
+                            <span class="level-item">教程资源</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/02/15/nginx与pm2常用配置/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Nginx+PM2+node简单配置">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-02-14T16:00:00.000Z">2019-02-15</time></div>
+                    <a href="/2019/02/15/nginx与pm2常用配置/" class="has-link-black-ter is-size-6">Nginx+PM2+node简单配置</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/后端学习/">后端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/01/28/centOS7安装Node环境/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="CentOS7安装Node环境">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-27T16:00:00.000Z">2019-01-28</time></div>
+                    <a href="/2019/01/28/centOS7安装Node环境/" class="has-link-black-ter is-size-6">CentOS7安装Node环境</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/后端学习/">后端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/01/07/Nginx免费视频教程/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Nginx免费视频教程">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-06T16:00:00.000Z">2019-01-07</time></div>
+                    <a href="/2019/01/07/Nginx免费视频教程/" class="has-link-black-ter is-size-6">Nginx免费视频教程</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/后端学习/">后端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/01/03/2019前端技能目标/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/deer.jpg" alt="2019前端技能目标">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-02T16:00:00.000Z">2019-01-03</time></div>
+                    <a href="/2019/01/03/2019前端技能目标/" class="has-link-black-ter is-size-6">2019前端技能目标</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/随笔/">随笔</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/12/04/vue与react详细对比/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="vue与react详细对比">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-12-04T08:37:31.000Z">2018-12-04</time></div>
+                    <a href="/2018/12/04/vue与react详细对比/" class="has-link-black-ter is-size-6">vue与react详细对比</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端学习/">前端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/06/">
+                <span class="level-start">
+                    <span class="level-item">六月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/CentOS/">
+                        <span class="level-start">
+                            <span class="level-item">CentOS</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/JavaScript/">
+                        <span class="level-start">
+                            <span class="level-item">JavaScript</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/MySQL/">
+                        <span class="level-start">
+                            <span class="level-item">MySQL</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Nginx/">
+                        <span class="level-start">
+                            <span class="level-item">Nginx</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Node/">
+                        <span class="level-start">
+                            <span class="level-item">Node</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">4</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/React/">
+                        <span class="level-start">
+                            <span class="level-item">React</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">5</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Vue/">
+                        <span class="level-start">
+                            <span class="level-item">Vue</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/markdown/">
+                        <span class="level-start">
+                            <span class="level-item">markdown</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/个人/">
+                        <span class="level-start">
+                            <span class="level-item">个人</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/教程资源/">
+                        <span class="level-start">
+                            <span class="level-item">教程资源</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="ReactRedux教程及文档要点" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2019 Sophie Wu&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-icarus">Icarus</a>
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?83519e103faf33e698f8b433e97efc38";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" async></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/animejs@2.2.0/anime.js" defer></script>
+    <script src="/js/animation.js" defer></script>
+    
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

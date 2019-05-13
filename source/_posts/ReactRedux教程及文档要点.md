@@ -1,7 +1,7 @@
 ---
 title: ReactRedux教程及文档要点
 date: 2017-12-11 11:17:24
-tags: redux
+tags: React
 categories: 前端学习
 ---
 Redux 是 JavaScript 状态容器，提供可预测化的状态管理。它以让你构建一致化的应用，运行于不同的环境（客户端、服务器、原生应用），并且易于测试。参考文档：[Redux中文文档](https://www.redux.org.cn/)，[官方文档](https://redux.js.org/)

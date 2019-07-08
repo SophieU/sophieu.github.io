@@ -10,6 +10,11 @@ Vuex 是一个专为 Vue.js 应用程序开发的**状态管理模式**。它采
 > - [安装](#安装)
 > - [核心要点](#核心要点)
 > - [State状态](#State状态)
+> - [Mutation改变](#Mutation改变)
+> - [Action行为](#Action行为)
+> - [Getters](#Getters)
+> - [GettModule模块ers](#Module模块)
+> - [Getters](#Getters)
 
 ## 安装
 ```bash
@@ -119,7 +124,7 @@ computed: {
 }
 ```
 
-## Mutation ：改变
+## Mutation改变
 - 更改 Vuex 的 store 中的状态的唯一方法是提交 mutation。
 - 注意：`Mutation必须是同步函数`,即在vuex中，mutation是同步事务，若要执行异步事务，请使用actions
 ```js
@@ -222,7 +227,7 @@ export default {
 }
 ```
 
-## Action
+## Action行为
 Action 类似于 mutation，不同在于：
 - Action提交的是mutaion,而不是直接变更状态。
 - Action 可以包含任意异步操作。

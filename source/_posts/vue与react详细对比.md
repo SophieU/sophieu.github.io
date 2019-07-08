@@ -1,7 +1,7 @@
 ---
 title: vue与react详细对比
 date: 2018-12-04 16:37:31
-tags: vue
+tags: Vue
 categories: 前端学习
 ---
 > 每次用vue或者react做完一个项目，隔个两三个月不用vue或react时，会发现要么好多东西又忘了，要么很多API混在一起了。所以，写下这篇文章，用于以后不时的复习参考。同时也加深下对两个框架的认知。

@@ -63,3 +63,14 @@ categories: H5
 - [半椭圆](http://dabblet.com/gist/e98d11da331bd9482bb0)
     - 原理：利用border-radius可以使用`/`分隔开水平和垂直方向上的圆角值特性来分别设置不同方式上的圆角半径
 - [四分之一椭圆](http://dabblet.com/gist/2b75df0e72c9804e8abe) 
+    - 原理：border-radius只设置一个角的圆弧
+- [平行四边形](http://dabblet.com/gist/e1f72639c34a5578dda3)
+    - 原理：`transform:skew()`变形。（注意：行内元素无效）
+- [平行四边形伪元素方案](http://dabblet.com/gist/f2d98791ab1f0b238aa9)
+    - 原理：利用伪元素来变形，从而不影响元素内部正常内容（变形元素内部的内容也会变形）
+- [菱形图片裁切](http://dabblet.com/gist/7563400)
+    - 原理：嵌套元素，内外反向rotate，内部图片宽度与对角线平齐.(内部反向rotate是为了摆正图片)
+- [菱形裁切方案二](http://dabblet.com/gist/c62456fed36a524b8273)
+    - 原理：利用`clip-path`裁切路径属性，设置其值为`polygon()`多边形来实现 
+- [元素切角](http://dabblet.com/gist/2937c990d6bfad274740)
+    - 原理：利用渐变（透明到实色）实现角度，利用background-size控制多个渐变互不影响实现多个切角

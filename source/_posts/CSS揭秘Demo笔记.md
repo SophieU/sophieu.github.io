@@ -74,3 +74,31 @@ categories: H5
     - 原理：利用`clip-path`裁切路径属性，设置其值为`polygon()`多边形来实现 
 - [元素切角](http://dabblet.com/gist/2937c990d6bfad274740)
     - 原理：利用渐变（透明到实色）实现角度，利用background-size控制多个渐变互不影响实现多个切角
+- [元素弧形切角](http://dabblet.com/gist/24484257bc6cf7076a8e)
+    - 原理：利用径向渐变实现，多个圆角与上述同理
+- [border-image实现切角](http://dabblet.com/gist/365c867441f3ee298212)
+    - 原理：运用border-image结合svg图实现切角边框，通过background-clip限制背景色
+- [裁切路径实现切角](http://dabblet.com/gist/4a88c463afdb0778e973)
+    - 原理：运用clip-path:polygon()实现，局限兼容性不好，裁切会忽略内部文本内容。优点：可裁切任意内容，不受背景图限制
+- [梯形导航tab效果](http://dabblet.com/gist/1345dc9399dc8e794502)
+    - 原理：运用`transform:perspective()`实现穿透变形
+- [动态饼图](http://dabblet.com/gist/722909b9808c14eb7300)
+    - 原理：伪元素遮盖旋转
+- [静态饼图](http://dabblet.com/gist/66e1e52ac2a44ad87aa4)
+- [svg实现饼图](http://dabblet.com/gist/4696e4c6700fe9f346d8)
+
+## 三、视觉效果
+- [单侧投影](http://dabblet.com/gist/cc055dadf493c15723cf)
+    - 原理：利用box-shadow的3个大小值外，第4个长度参数（扩张半径），当扩张半径为负的模糊半径时，即可实现单侧投影
+- [邻边投影](http://dabblet.com/gist/d29d19ab66177b18bd64)
+    - 原理：设置双侧位移，并设置扩张半径为模糊半径值一半
+- [对侧投影](http://dabblet.com/gist/a23e445fca36293d12f6)
+    - 原理：叠加两个单侧投影
+- [不规则图形投影](http://dabblet.com/gist/d8a2376c79906d68f3d1)
+    - 原理：利用CSS滤镜`filter:drop-shadow()`实现
+- [染色效果](http://dabblet.com/gist/b338c9940a31b727b7a9)
+    - 原理：通过多个滤镜结合实现效果
+- [染色效果-混合模式](http://dabblet.com/gist/0dced2852818c0f555e9)
+    - 原理：利用CSS混合模式属性，设置两层背景混合效果，mix-blend-mode:是混合叠加两个元素的效果，background-blend-mode是设置两层背景图的混合效果。`luminosity`表示混合模式
+- [毛玻璃效果](http://dabblet.com/gist/d9f243ddd7dbffa341a4)
+    - 原理：利用CSS滤镜`filter:blur()`实现模糊，通过模糊伪元素再叠加到元素底部实现。（细节：滤镜默认靠近边框时效果会减弱，因此在设置blur值时，最好多设大一点）

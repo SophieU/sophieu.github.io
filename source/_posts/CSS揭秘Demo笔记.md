@@ -102,3 +102,90 @@ categories: H5
     - 原理：利用CSS混合模式属性，设置两层背景混合效果，mix-blend-mode:是混合叠加两个元素的效果，background-blend-mode是设置两层背景图的混合效果。`luminosity`表示混合模式
 - [毛玻璃效果](http://dabblet.com/gist/d9f243ddd7dbffa341a4)
     - 原理：利用CSS滤镜`filter:blur()`实现模糊，通过模糊伪元素再叠加到元素底部实现。（细节：滤镜默认靠近边框时效果会减弱，因此在设置blur值时，最好多设大一点）
+- [折角效果](http://dabblet.com/gist/83b4d6bc907aa5ab576a)
+    - 原理：利用切角效果 ，结合叠加一个深色三角形
+- [多角度折角效果](http://dabblet.com/gist/bc32dc20adea2261c731)
+- [mixin实现折角](http://codepen.io/leaverou/pen/raGaNR)
+
+## 四、字体排印
+- [连字符断行](http://dabblet.com/gist/e370ba333ae95116e212)
+    - 效果不理想（兼容性不好）
+- [插入换行](http://dabblet.com/gist/7eb242f4e8f078cadbca)
+    - 原理：运用unicode中的换行符`0x000A`,在CSS中即为`\000A`（简写为`\A`）来作为伪元素的content值，同时注意保留换行符和空白符`white-space:pre`
+- [文本行斑马条纹](http://dabblet.com/gist/cf30f5d442533b32600d)
+    - 原理：利用`条纹背景`实现条纹，再利用背景`em`值作为条纹大小
+- [调整tab的宽度](http://dabblet.com/gist/88c1523dfd1284950b4d)
+    - 原理：通过CSS3新增文本属性`tab-size:2;`来设置每个tab占2个字符宽度
+- [连字](http://dabblet.com/gist/f9f078a639e5cad002d4)
+- [华丽的&符号](http://dabblet.com/gist/42898081c1f7cf8750f9)
+    - 原理：通过`@font-face`规则实现基本的字体嵌入
+- [自定义下划线](http://dabblet.com/gist/58f3d67d5bb0f8338776)
+    - 原理：CSS渐变 ，background-size,text-shadow,‘条纹背景’【效果不理想】
+- [波浪下划线](http://dabblet.com/gist/c9184f634e9e9efde6e8)
+    - 【效果不理想】
+- [凸版印刷效果](http://dabblet.com/gist/80eafefae35d26979972)
+- [空心字效果](http://dabblet.com/gist/7a665ce85190f9cb201e)
+- [文字外发光效果](http://dabblet.com/gist/4af6d5c3b22395543cb8)
+    - 原理：通过叠加多个text-shadow，运用transition过渡实现特效
+- [文字突起效果](http://dabblet.com/gist/ba8161d038b9c13b99ac)
+- [环形文字](http://dabblet.com/gist/bda1bf6b0c4adbcea63d)
+    - 原理：通过内联SVG来实现文字环形排版，还可以运用动画使其旋转。通过`xlink:href`属性来把元素内容链接到路径上
+    - 通过JS处理，把`.circual`类元素自动替换为相应的SVG
+
+## 五、用户体验
+- [选用合适的鼠标指针](http://dabblet.com/gist/41c8da81742e1ab1d07f)
+    - 原理：在不同场景下选用不同的鼠标指针。`cursor`属性设置
+    - 隐藏光标：`cursor:none`,对于老版本浏览器可以通过`cursor:url(transparent.gif)`来传入一张1*1的透明gif模拟隐藏
+- [扩大可点击区域](http://dabblet.com/gist/df5686d4047307991f73)
+    - 原理：通过伪元素扩大按钮范围
+- [扩大可点击区域](http://dabblet.com/gist/d76ac0acc80923d47106)
+- [自定义复选框](http://dabblet.com/gist/e269f10328615254e29e)
+    - 原理：利用checkbox的`:checked`属性区分选中状态，再结合相邻label元素控制，通过伪元素实现想要的效果，再隐藏掉原复选框
+- [开关式按钮](http://dabblet.com/gist/fa5c622180b232043891)
+- [CSS遮罩层](http://dabblet.com/gist/91538b2131d3545035ca)
+    - 原理：通过box-shadow实现。缺陷：遮罩层下还是可以操作
+- [原生modal遮罩层](http://dabblet.com/gist/bb2121aea259be94c35d)
+    - 原理：通过 `::backdrop`伪类实现遮罩
+- [模糊背景弱化](http://dabblet.com/gist/1326eb460b0dff91d638)
+    - 原理：通过滤镜模糊`filter:blur()`模糊背景
+- [滚动提示](http://dabblet.com/gist/20205b5fcdd834461e80)
+    - 应用场景：当可向下，或向上滚动时，提示出部分阴影
+- [交互式图片对比控件](http://dabblet.com/gist/b7e7fef7dcf9a7161a51)
+
+## 六、结构与布局
+- [自适应内部元素](http://dabblet.com/gist/82eb1575806f6eff9c37)
+    - 原理：通过CSS3新增属性`min-content`让元素宽度最大宽度为其内部不可断行的元素宽度，
+- [精准控制表格列表](http://dabblet.com/gist/7979af102a991cecfcdf)
+    - 原理：通过设置`table-layout:fixed`把表格更多的控制权交到开发者手里，而不是让浏览器决定内容多少时变更理想的渲染宽度
+- [根据兄弟元素的数量范围来匹配元素](http://dabblet.com/gist/70c434a6e802b062f494)
+    - 原理：选择器`:nth-child`,兄弟选择符`~`结合使用
+- [满幅背景，定宽内容](http://dabblet.com/gist/763229b68fa27c5c1bfa)
+    - 运用：通常情况下我们制作定宽内容版本居中时，会用到两个html元素，外层100%宽度，内层定宽并通过margin:auto居中。
+    - 优化：此方案通过`纯CSS`的方法来实现，且只需要一个元素就可以了
+- 垂直居中
+    - [绝对定位解决方案](http://dabblet.com/gist/cd12fac0e18bb27fb62d)
+        - 通过绝对定位结合translate实现水平垂直居中
+    - [基于视口单位的解决方案](http://dabblet.com/gist/bf12b39d8f5da2b6e5b6)
+        - 只针对相对于整屏视口来做水平垂直居中的效果。利用`margin:50vh auto 0`实现对上50vh，再通过transform:translateY(-50%);实现居中
+    - [flexbox解决方案](http://dabblet.com/gist/8aa9aa04ee57f479c513)
+- CSS-Sticky-footer紧贴底部页脚
+    - [固定高度解决方案](http://dabblet.com/gist/b10c3eb3b7078711a588)
+        - 原理：在已知页脚以及header高度的情况下，通过`calc(100vh-header-footer)`得到中间部分的min-height
+    - [Flexbox解决方案](http://dabblet.com/gist/410e43c60863a8dba193)
+        - 原理：通过弹性布局实现
+    - 更多解决方案可以搜索`CSS-sticky-footer`，上面两种方法都提倡不增加额外的html（因为这会影响性能）
+
+## 七、过渡与动画
+- 动画调速函数
+    - [弹跳球动画](http://dabblet.com/gist/1b37089310d0a5a2d8e6)
+        - CSS在提供了内置了几种缓动函数`ease,linear,ease-in,ease-out,ease-in-out`外，还提供了`cubic-bezier()`用于开发者定定义调速函数。
+        - [animate.css动画库](https://daneden.github.io/animate.css/)
+    - [弹性过渡-popup动效](http://dabblet.com/gist/6cf33228089efef8a5ac)
+    - [弹性过渡变色效果](http://dabblet.com/gist/73294faf1e2bc5ff0078)
+- [逐帧动画-CSS实现Loading动态图](http://dabblet.com/gist/bcc082518391f45b41dc)
+    - 原理：通过把所有帧全部拼合到一张PNG图中，以一个一帧大小元素来容纳，变换background-position值实现帧过度，通过animation的steps()函数实现不平滑过度，从而显示每帧动画
+- []()
+- []()
+- []()
+- []()
+- []()

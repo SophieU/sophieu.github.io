@@ -5,6 +5,7 @@ tag: CSS
 categories: H5
 ---
 > 《CSS揭秘》一书揭示了 47 个鲜为人知的 CSS 技巧，主要内容包括背景与边框、形状、 视觉效果、字体排印、用户体验、结构与布局、过渡与动画等。本书将带领读者循序渐进地探寻更优雅的解决方案，攻克每天都会遇到的各种网页样式难题。
+- 此篇文章只是用于记录下《CSS揭秘》一书中提到的CSS效果解决方案，并附带代码链接。
 - DRY: don't repeat yourself,减少代码重复
 - WET：we enjoy typing/write everything twice,与DRY正相反
 <!--more-->
@@ -184,8 +185,9 @@ categories: H5
     - [弹性过渡变色效果](http://dabblet.com/gist/73294faf1e2bc5ff0078)
 - [逐帧动画-CSS实现Loading动态图](http://dabblet.com/gist/bcc082518391f45b41dc)
     - 原理：通过把所有帧全部拼合到一张PNG图中，以一个一帧大小元素来容纳，变换background-position值实现帧过度，通过animation的steps()函数实现不平滑过度，从而显示每帧动画
-- []()
-- []()
-- []()
-- []()
-- []()
+- [闪烁效果](http://dabblet.com/gist/46fe09e5f2b97d6f282d)
+- [打字动画](http://dabblet.com/gist/b04ab9f41084b0a66960)
+- [平滑的动画](http://dabblet.com/gist/b7b53efcc2f933ca6d54)
+    - 原理：通过css动画状态管理`animation-play-state: running/pause;`在合适的时间（houver)运行或暂停动画
+- [沿环形路径平移的动画-多个元素方案](http://dabblet.com/gist/87d80a51a5294ec07aea)
+- [沿环形路径平移的动画-单个元素方案](http://dabblet.com/gist/6c647a5599dc11145f2c)

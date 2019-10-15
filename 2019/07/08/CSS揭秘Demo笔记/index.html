@@ -1,0 +1,1795 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>《CSS揭秘》Demo笔记 - Sophie&#39;s World</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta name="description" content="《CSS揭秘》一书揭示了 47 个鲜为人知的 CSS 技巧，主要内容包括背景与边框、形状、 视觉效果、字体排印、用户体验、结构与布局、过渡与动画等。本书将带领读者循序渐进地探寻更优雅的解决方案，攻克每天都会遇到的各种网页样式难题。  DRY: don’t repeat yourself,减少代码重复 WET：we enjoy typing/write everything twice,与DRY正">
+<meta name="keywords" content="CSS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《CSS揭秘》Demo笔记">
+<meta property="og:url" content="https://sophieu.github.io/2019/07/08/CSS揭秘Demo笔记/index.html">
+<meta property="og:site_name" content="Sophie&#39;s World">
+<meta property="og:description" content="《CSS揭秘》一书揭示了 47 个鲜为人知的 CSS 技巧，主要内容包括背景与边框、形状、 视觉效果、字体排印、用户体验、结构与布局、过渡与动画等。本书将带领读者循序渐进地探寻更优雅的解决方案，攻克每天都会遇到的各种网页样式难题。  DRY: don’t repeat yourself,减少代码重复 WET：we enjoy typing/write everything twice,与DRY正">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://img1.doubanio.com/view/subject/l/public/s28659699.jpg">
+<meta property="og:updated_time" content="2019-10-15T06:36:18.344Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《CSS揭秘》Demo笔记">
+<meta name="twitter:description" content="《CSS揭秘》一书揭示了 47 个鲜为人知的 CSS 技巧，主要内容包括背景与边框、形状、 视觉效果、字体排印、用户体验、结构与布局、过渡与动画等。本书将带领读者循序渐进地探寻更优雅的解决方案，攻克每天都会遇到的各种网页样式难题。  DRY: don’t repeat yourself,减少代码重复 WET：we enjoy typing/write everything twice,与DRY正">
+<meta name="twitter:image" content="https://img1.doubanio.com/view/subject/l/public/s28659699.jpg">
+
+
+
+
+
+<link rel="icon" href="/user/favicon.ico">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-dark.css">
+
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+    
+    
+    
+    <style>body>.navbar,body>.section,body>.footer{opacity: 0}</style>
+    
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+<script>
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?83519e103faf33e698f8b433e97efc38";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/user/logo.svg" alt="《CSS揭秘》Demo笔记" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">首页</a>
+                
+                <a class="navbar-item" href="/archives">归档</a>
+                
+                <a class="navbar-item" href="/categories">分类</a>
+                
+                <a class="navbar-item" href="/tags">标签</a>
+                
+                <a class="navbar-item" href="/about">关于我</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://github.com/SophieU">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-07-07T16:00:00.000Z">2019-07-08</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/H5/">H5</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    24 分钟 读完 (大约 3569 个字)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                《CSS揭秘》Demo笔记
+            
+        </h1>
+        <div class="content">
+            <blockquote>
+<p>《CSS揭秘》一书揭示了 47 个鲜为人知的 CSS 技巧，主要内容包括背景与边框、形状、 视觉效果、字体排印、用户体验、结构与布局、过渡与动画等。本书将带领读者循序渐进地探寻更优雅的解决方案，攻克每天都会遇到的各种网页样式难题。</p>
+<ul>
+<li>DRY: don’t repeat yourself,减少代码重复</li>
+<li>WET：we enjoy typing/write everything twice,与DRY正相反<a id="more"></a>
+<img src="https://img1.doubanio.com/view/subject/l/public/s28659699.jpg" style="width:200px;"></li>
+</ul>
+</blockquote>
+<h2 id="一、背景与边框"><a href="#一、背景与边框" class="headerlink" title="一、背景与边框"></a>一、背景与边框</h2><ul>
+<li><a href="http://dabblet.com/gist/012289cc14106a1bd7a5" target="_blank" rel="noopener">半透明边框</a> <ul>
+<li>原理：利用<code>background-clip:padding-box</code>实现背景色不占用边框底部（默认情况下background-clip的初始值是border-box，这意味着当边框设置半透明色值时，显示的会是背景色叠加透明色的效果）</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/525eb8e9cdade71723c1" target="_blank" rel="noopener">多重边框</a><ul>
+<li>原理：1、利用<code>box-shadow</code>可以创建任意数量的投影（实色即边框），但注意投影是不占用元素布局的。 2、利用<code>outline</code>实现双重边框</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/0f226e63595d1bef88cb" target="_blank" rel="noopener">灵活背景定位</a><ul>
+<li>原理：<code>background-positioon:right 10px bottom 20px;</code>指背景位置距离右边10px，距离底部20px.</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/0f19ac5d28d0aa7b6c60" target="_blank" rel="noopener">background-origin</a><ul>
+<li>作用：用于设置背景的原始位置依据，值为content-box,padding-box,border-box;</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/b5fcb42d055427ab6c1a" target="_blank" rel="noopener">calc()方案</a></li>
+<li><a href="http://dabblet.com/gist/170fe436f290083cc24c" target="_blank" rel="noopener">边框内圆角</a><ul>
+<li>原理：利用outline和box-shadow组合实现内圆角（outline目前没有实现圆角）</li>
+<li>方法二：两个元素来实现，当然这样增加了额外的html标签</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/119dbf7f0c76dba7b7ee" target="_blank" rel="noopener">横向条纹背景</a><ul>
+<li>原理：利用<code>bacground:linear-gradient(red 50%,green 50%)</code>实现双条纹，利用<code>background-size:100% 30px</code>实现单个条纹高15px</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/1b4983062fd2b4d7e60e" target="_blank" rel="noopener">垂直条纹背景</a><ul>
+<li>原理：设置<code>linear-gradient</code>角度为90deg，或<code>to right</code>，通过<code>background-size:30px 100%</code>设置条纹单个宽15px</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/abeab80934fc26e6538e" target="_blank" rel="noopener">斜向条纹</a><ul>
+<li>原理：45deg斜向条纹，利用 勾股定理计算出 条纹若30px时，需要background-size对应的值</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/5646121210b0c99c94a7" target="_blank" rel="noopener">60度斜向条纹</a><ul>
+<li>原理：通过<code>background:repeating-linear-gradient(60deg,red,red 15px,blue 15px ,blue 30px)</code>实现</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/aa50d296a8ec07cf7334" target="_blank" rel="noopener">灵活同色系条纹</a><ul>
+<li>应用场景：如bootstrap的进度条，由深色背景+同色系浅背景的斜条纹组成</li>
+<li>原理：同色系深色作为背景色，再通过叠加<code>白色半透明</code>和透明条纹，实现深浅间隔条纹</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/43bde2086e9d549fb844" target="_blank" rel="noopener">蓝色网格背景</a><ul>
+<li>原理：利用background-image:linear-gradient()支持分隔叠加的属性方式</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/cd33da5d1a48046746cd" target="_blank" rel="noopener">波点背景图</a><ul>
+<li>原理：利用<code>background:radial-gradient(green 30%,transparent 0)</code>实现，径向渐变由内向外</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/4f7ca0749582b1bd7527" target="_blank" rel="noopener">棋盘</a></li>
+<li><a href="http://dabblet.com/gist/5d3cacead6f134da842e" target="_blank" rel="noopener">svg实现棋盘</a></li>
+<li><a href="http://dabblet.com/gist/1617f9750e4581e73720" target="_blank" rel="noopener">角向渐变</a><ul>
+<li>作用：可用于实现取色的色轮</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/4b4ad05f4c1b5259066f" target="_blank" rel="noopener">伪随机背景</a><ul>
+<li>作用：实现随机宽度的竖直条纹</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/ea53f3bee9a7f1439aa7" target="_blank" rel="noopener">动态loading图</a><ul>
+<li>原理：通过叠加多个animation，实现连续动画效果（旋转，变色，边框宽度增加）</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/c73fd4ea4b592a05c004" target="_blank" rel="noopener">连续的图像边框</a><ul>
+<li>原理：通过叠加纯白背景（渐变实现，padding-box）和图像背景（border-box）</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/e3cfcb094e65d85df847" target="_blank" rel="noopener">信封边缘背景</a><ul>
+<li>原理：通过叠加纯白渐变背景（padding-box)和-45deg条纹渐变（borderbox)</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/0f6900d370f55ec9c975" target="_blank" rel="noopener">边框背景图实现信封边缘</a><ul>
+<li>原理：通过border-image值为线性渐变的条纹而实现</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/f26dddc71730c3847153" target="_blank" rel="noopener">移动的虚线边框</a><ul>
+<li>原理：利用背景叠加实现虚线边框，通过animation实现背景移动产生动态效果</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/9483cc7012049f2c808e" target="_blank" rel="noopener">字体脚注效果</a><ul>
+<li>原理：利用<code>border-image</code>属性加一条线性渐变产生的垂直条纹，<code>border-width</code>控制边框粗线，<code>渐变长度</code>来控制脚注长度</li>
+</ul>
+</li>
+</ul>
+<h2 id="二、形状"><a href="#二、形状" class="headerlink" title="二、形状"></a>二、形状</h2><ul>
+<li><a href="http://dabblet.com/gist/aada0b96b21ae3e45c1b" target="_blank" rel="noopener">椭圆</a><ul>
+<li>原理：使用<code>border-radius:50%</code>实现</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/e98d11da331bd9482bb0" target="_blank" rel="noopener">半椭圆</a><ul>
+<li>原理：利用border-radius可以使用<code>/</code>分隔开水平和垂直方向上的圆角值特性来分别设置不同方式上的圆角半径</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/2b75df0e72c9804e8abe" target="_blank" rel="noopener">四分之一椭圆</a> <ul>
+<li>原理：border-radius只设置一个角的圆弧</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/e1f72639c34a5578dda3" target="_blank" rel="noopener">平行四边形</a><ul>
+<li>原理：<code>transform:skew()</code>变形。（注意：行内元素无效）</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/f2d98791ab1f0b238aa9" target="_blank" rel="noopener">平行四边形伪元素方案</a><ul>
+<li>原理：利用伪元素来变形，从而不影响元素内部正常内容（变形元素内部的内容也会变形）</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/7563400" target="_blank" rel="noopener">菱形图片裁切</a><ul>
+<li>原理：嵌套元素，内外反向rotate，内部图片宽度与对角线平齐.(内部反向rotate是为了摆正图片)</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/c62456fed36a524b8273" target="_blank" rel="noopener">菱形裁切方案二</a><ul>
+<li>原理：利用<code>clip-path</code>裁切路径属性，设置其值为<code>polygon()</code>多边形来实现 </li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/2937c990d6bfad274740" target="_blank" rel="noopener">元素切角</a><ul>
+<li>原理：利用渐变（透明到实色）实现角度，利用background-size控制多个渐变互不影响实现多个切角</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/24484257bc6cf7076a8e" target="_blank" rel="noopener">元素弧形切角</a><ul>
+<li>原理：利用径向渐变实现，多个圆角与上述同理</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/365c867441f3ee298212" target="_blank" rel="noopener">border-image实现切角</a><ul>
+<li>原理：运用border-image结合svg图实现切角边框，通过background-clip限制背景色</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/4a88c463afdb0778e973" target="_blank" rel="noopener">裁切路径实现切角</a><ul>
+<li>原理：运用clip-path:polygon()实现，局限兼容性不好，裁切会忽略内部文本内容。优点：可裁切任意内容，不受背景图限制</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/1345dc9399dc8e794502" target="_blank" rel="noopener">梯形导航tab效果</a><ul>
+<li>原理：运用<code>transform:perspective()</code>实现穿透变形</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/722909b9808c14eb7300" target="_blank" rel="noopener">动态饼图</a><ul>
+<li>原理：伪元素遮盖旋转</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/66e1e52ac2a44ad87aa4" target="_blank" rel="noopener">静态饼图</a></li>
+<li><a href="http://dabblet.com/gist/4696e4c6700fe9f346d8" target="_blank" rel="noopener">svg实现饼图</a></li>
+</ul>
+<h2 id="三、视觉效果"><a href="#三、视觉效果" class="headerlink" title="三、视觉效果"></a>三、视觉效果</h2><ul>
+<li><a href="http://dabblet.com/gist/cc055dadf493c15723cf" target="_blank" rel="noopener">单侧投影</a><ul>
+<li>原理：利用box-shadow的3个大小值外，第4个长度参数（扩张半径），当扩张半径为负的模糊半径时，即可实现单侧投影</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/d29d19ab66177b18bd64" target="_blank" rel="noopener">邻边投影</a><ul>
+<li>原理：设置双侧位移，并设置扩张半径为模糊半径值一半</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/a23e445fca36293d12f6" target="_blank" rel="noopener">对侧投影</a><ul>
+<li>原理：叠加两个单侧投影</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/d8a2376c79906d68f3d1" target="_blank" rel="noopener">不规则图形投影</a><ul>
+<li>原理：利用CSS滤镜<code>filter:drop-shadow()</code>实现</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/b338c9940a31b727b7a9" target="_blank" rel="noopener">染色效果</a><ul>
+<li>原理：通过多个滤镜结合实现效果</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/0dced2852818c0f555e9" target="_blank" rel="noopener">染色效果-混合模式</a><ul>
+<li>原理：利用CSS混合模式属性，设置两层背景混合效果，mix-blend-mode:是混合叠加两个元素的效果，background-blend-mode是设置两层背景图的混合效果。<code>luminosity</code>表示混合模式</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/d9f243ddd7dbffa341a4" target="_blank" rel="noopener">毛玻璃效果</a><ul>
+<li>原理：利用CSS滤镜<code>filter:blur()</code>实现模糊，通过模糊伪元素再叠加到元素底部实现。（细节：滤镜默认靠近边框时效果会减弱，因此在设置blur值时，最好多设大一点）</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/83b4d6bc907aa5ab576a" target="_blank" rel="noopener">折角效果</a><ul>
+<li>原理：利用切角效果 ，结合叠加一个深色三角形</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/bc32dc20adea2261c731" target="_blank" rel="noopener">多角度折角效果</a></li>
+<li><a href="http://codepen.io/leaverou/pen/raGaNR" target="_blank" rel="noopener">mixin实现折角</a></li>
+</ul>
+<h2 id="四、字体排印"><a href="#四、字体排印" class="headerlink" title="四、字体排印"></a>四、字体排印</h2><ul>
+<li><a href="http://dabblet.com/gist/e370ba333ae95116e212" target="_blank" rel="noopener">连字符断行</a><ul>
+<li>效果不理想（兼容性不好）</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/7eb242f4e8f078cadbca" target="_blank" rel="noopener">插入换行</a><ul>
+<li>原理：运用unicode中的换行符<code>0x000A</code>,在CSS中即为<code>\000A</code>（简写为<code>\A</code>）来作为伪元素的content值，同时注意保留换行符和空白符<code>white-space:pre</code></li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/cf30f5d442533b32600d" target="_blank" rel="noopener">文本行斑马条纹</a><ul>
+<li>原理：利用<code>条纹背景</code>实现条纹，再利用背景<code>em</code>值作为条纹大小</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/88c1523dfd1284950b4d" target="_blank" rel="noopener">调整tab的宽度</a><ul>
+<li>原理：通过CSS3新增文本属性<code>tab-size:2;</code>来设置每个tab占2个字符宽度</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/f9f078a639e5cad002d4" target="_blank" rel="noopener">连字</a></li>
+<li><a href="http://dabblet.com/gist/42898081c1f7cf8750f9" target="_blank" rel="noopener">华丽的&amp;符号</a><ul>
+<li>原理：通过<code>@font-face</code>规则实现基本的字体嵌入</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/58f3d67d5bb0f8338776" target="_blank" rel="noopener">自定义下划线</a><ul>
+<li>原理：CSS渐变 ，background-size,text-shadow,‘条纹背景’【效果不理想】</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/c9184f634e9e9efde6e8" target="_blank" rel="noopener">波浪下划线</a><ul>
+<li>【效果不理想】</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/80eafefae35d26979972" target="_blank" rel="noopener">凸版印刷效果</a></li>
+<li><a href="http://dabblet.com/gist/7a665ce85190f9cb201e" target="_blank" rel="noopener">空心字效果</a></li>
+<li><a href="http://dabblet.com/gist/4af6d5c3b22395543cb8" target="_blank" rel="noopener">文字外发光效果</a><ul>
+<li>原理：通过叠加多个text-shadow，运用transition过渡实现特效</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/ba8161d038b9c13b99ac" target="_blank" rel="noopener">文字突起效果</a></li>
+<li><a href="http://dabblet.com/gist/bda1bf6b0c4adbcea63d" target="_blank" rel="noopener">环形文字</a><ul>
+<li>原理：通过内联SVG来实现文字环形排版，还可以运用动画使其旋转。通过<code>xlink:href</code>属性来把元素内容链接到路径上</li>
+<li>通过JS处理，把<code>.circual</code>类元素自动替换为相应的SVG</li>
+</ul>
+</li>
+</ul>
+<h2 id="五、用户体验"><a href="#五、用户体验" class="headerlink" title="五、用户体验"></a>五、用户体验</h2><ul>
+<li><a href="http://dabblet.com/gist/41c8da81742e1ab1d07f" target="_blank" rel="noopener">选用合适的鼠标指针</a><ul>
+<li>原理：在不同场景下选用不同的鼠标指针。<code>cursor</code>属性设置</li>
+<li>隐藏光标：<code>cursor:none</code>,对于老版本浏览器可以通过<code>cursor:url(transparent.gif)</code>来传入一张1*1的透明gif模拟隐藏</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/df5686d4047307991f73" target="_blank" rel="noopener">扩大可点击区域</a><ul>
+<li>原理：通过伪元素扩大按钮范围</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/d76ac0acc80923d47106" target="_blank" rel="noopener">扩大可点击区域</a></li>
+<li><a href="http://dabblet.com/gist/e269f10328615254e29e" target="_blank" rel="noopener">自定义复选框</a><ul>
+<li>原理：利用checkbox的<code>:checked</code>属性区分选中状态，再结合相邻label元素控制，通过伪元素实现想要的效果，再隐藏掉原复选框</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/fa5c622180b232043891" target="_blank" rel="noopener">开关式按钮</a></li>
+<li><a href="http://dabblet.com/gist/91538b2131d3545035ca" target="_blank" rel="noopener">CSS遮罩层</a><ul>
+<li>原理：通过box-shadow实现。缺陷：遮罩层下还是可以操作</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/bb2121aea259be94c35d" target="_blank" rel="noopener">原生modal遮罩层</a><ul>
+<li>原理：通过 <code>::backdrop</code>伪类实现遮罩</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/1326eb460b0dff91d638" target="_blank" rel="noopener">模糊背景弱化</a><ul>
+<li>原理：通过滤镜模糊<code>filter:blur()</code>模糊背景</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/20205b5fcdd834461e80" target="_blank" rel="noopener">滚动提示</a><ul>
+<li>应用场景：当可向下，或向上滚动时，提示出部分阴影</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/b7e7fef7dcf9a7161a51" target="_blank" rel="noopener">交互式图片对比控件</a></li>
+</ul>
+<h2 id="六、结构与布局"><a href="#六、结构与布局" class="headerlink" title="六、结构与布局"></a>六、结构与布局</h2><ul>
+<li><a href="http://dabblet.com/gist/82eb1575806f6eff9c37" target="_blank" rel="noopener">自适应内部元素</a><ul>
+<li>原理：通过CSS3新增属性<code>min-content</code>让元素宽度最大宽度为其内部不可断行的元素宽度，</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/7979af102a991cecfcdf" target="_blank" rel="noopener">精准控制表格列表</a><ul>
+<li>原理：通过设置<code>table-layout:fixed</code>把表格更多的控制权交到开发者手里，而不是让浏览器决定内容多少时变更理想的渲染宽度</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/70c434a6e802b062f494" target="_blank" rel="noopener">根据兄弟元素的数量范围来匹配元素</a><ul>
+<li>原理：选择器<code>:nth-child</code>,兄弟选择符<code>~</code>结合使用</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/763229b68fa27c5c1bfa" target="_blank" rel="noopener">满幅背景，定宽内容</a><ul>
+<li>运用：通常情况下我们制作定宽内容版本居中时，会用到两个html元素，外层100%宽度，内层定宽并通过margin:auto居中。</li>
+<li>优化：此方案通过<code>纯CSS</code>的方法来实现，且只需要一个元素就可以了</li>
+</ul>
+</li>
+<li>垂直居中<ul>
+<li><a href="http://dabblet.com/gist/cd12fac0e18bb27fb62d" target="_blank" rel="noopener">绝对定位解决方案</a><ul>
+<li>通过绝对定位结合translate实现水平垂直居中</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/bf12b39d8f5da2b6e5b6" target="_blank" rel="noopener">基于视口单位的解决方案</a><ul>
+<li>只针对相对于整屏视口来做水平垂直居中的效果。利用<code>margin:50vh auto 0</code>实现对上50vh，再通过transform:translateY(-50%);实现居中</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/8aa9aa04ee57f479c513" target="_blank" rel="noopener">flexbox解决方案</a></li>
+</ul>
+</li>
+<li>CSS-Sticky-footer紧贴底部页脚<ul>
+<li><a href="http://dabblet.com/gist/b10c3eb3b7078711a588" target="_blank" rel="noopener">固定高度解决方案</a><ul>
+<li>原理：在已知页脚以及header高度的情况下，通过<code>calc(100vh-header-footer)</code>得到中间部分的min-height</li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/410e43c60863a8dba193" target="_blank" rel="noopener">Flexbox解决方案</a><ul>
+<li>原理：通过弹性布局实现</li>
+</ul>
+</li>
+<li>更多解决方案可以搜索<code>CSS-sticky-footer</code>，上面两种方法都提倡不增加额外的html（因为这会影响性能）</li>
+</ul>
+</li>
+</ul>
+<h2 id="七、过渡与动画"><a href="#七、过渡与动画" class="headerlink" title="七、过渡与动画"></a>七、过渡与动画</h2><ul>
+<li>动画调速函数<ul>
+<li><a href="http://dabblet.com/gist/1b37089310d0a5a2d8e6" target="_blank" rel="noopener">弹跳球动画</a><ul>
+<li>CSS在提供了内置了几种缓动函数<code>ease,linear,ease-in,ease-out,ease-in-out</code>外，还提供了<code>cubic-bezier()</code>用于开发者定定义调速函数。</li>
+<li><a href="https://daneden.github.io/animate.css/" target="_blank" rel="noopener">animate.css动画库</a></li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/6cf33228089efef8a5ac" target="_blank" rel="noopener">弹性过渡-popup动效</a></li>
+<li><a href="http://dabblet.com/gist/73294faf1e2bc5ff0078" target="_blank" rel="noopener">弹性过渡变色效果</a></li>
+</ul>
+</li>
+<li><a href="http://dabblet.com/gist/bcc082518391f45b41dc" target="_blank" rel="noopener">逐帧动画-CSS实现Loading动态图</a><ul>
+<li>原理：通过把所有帧全部拼合到一张PNG图中，以一个一帧大小元素来容纳，变换background-position值实现帧过度，通过animation的steps()函数实现不平滑过度，从而显示每帧动画</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/CSS/">CSS</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/02/15/nginx与pm2常用配置/">
+                <span class="level-item">Nginx+PM2+node简单配置</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+	var gitment = new Gitment({
+		id: '2019/07/08/CSS揭秘Demo笔记/',
+		owner: 'SophieU',
+		repo: 'SophieU',
+		oauth: {
+			client_id: 'd128c819d932a031c164',
+			client_secret: '245678eb7968836a8e0e775d504f28f9bf879dbc',
+		},
+	})
+	gitment.render('comment-container')
+</script>
+
+    </div>
+</div>
+</div>
+                
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    <img class="image is-128x128 has-mb-6" src="/user/avatar.jpg" alt="SophieU">
+                    
+                    <p class="is-size-4 is-block">
+                        SophieU
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Web Developer
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>中国,成都</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        21
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        6
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        12
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/SophieU">
+                关注我</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="https://github.com/SophieU">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="http://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="http://twitter.com">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="http://dribbble.com">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://me.csdn.net/Sophie_U" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">CSDN</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">https://me.csdn.net/Sophie_U</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/SophieU" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">SophieU</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">https://github.com/SophieU</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/H5/">
+            <span class="level-start">
+                <span class="level-item">H5</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/前端学习/">
+            <span class="level-start">
+                <span class="level-item">前端学习</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">7</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/前端开发/">
+            <span class="level-start">
+                <span class="level-item">前端开发</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/后端学习/">
+            <span class="level-start">
+                <span class="level-item">后端学习</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">9</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/读书笔记/">
+            <span class="level-start">
+                <span class="level-item">读书笔记</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/随笔/">
+            <span class="level-start">
+                <span class="level-item">随笔</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 13.33px;">Nginx</a> <a href="/tags/Node/" style="font-size: 16.67px;">Node</a> <a href="/tags/React/" style="font-size: 20px;">React</a> <a href="/tags/Vue/" style="font-size: 13.33px;">Vue</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/个人/" style="font-size: 10px;">个人</a> <a href="/tags/教程资源/" style="font-size: 10px;">教程资源</a>
+    </div>
+</div>
+
+    
+    
+        <div class="card card-transparent is-hidden-widescreen">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/07/08/CSS揭秘Demo笔记/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="《CSS揭秘》Demo笔记">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-07T16:00:00.000Z">2019-07-08</time></div>
+                    <a href="/2019/07/08/CSS揭秘Demo笔记/" class="has-link-black-ter is-size-6">《CSS揭秘》Demo笔记</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/H5/">H5</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/02/15/nginx与pm2常用配置/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Nginx+PM2+node简单配置">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-02-14T16:00:00.000Z">2019-02-15</time></div>
+                    <a href="/2019/02/15/nginx与pm2常用配置/" class="has-link-black-ter is-size-6">Nginx+PM2+node简单配置</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/后端学习/">后端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/02/02/docker入门/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="docker入门">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-02-01T16:00:00.000Z">2019-02-02</time></div>
+                    <a href="/2019/02/02/docker入门/" class="has-link-black-ter is-size-6">docker入门</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/后端学习/">后端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/01/28/centOS7安装Node环境/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="CentOS7安装Node环境">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-27T16:00:00.000Z">2019-01-28</time></div>
+                    <a href="/2019/01/28/centOS7安装Node环境/" class="has-link-black-ter is-size-6">CentOS7安装Node环境</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/后端学习/">后端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/01/07/Nginx免费视频教程/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Nginx免费视频教程">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-06T16:00:00.000Z">2019-01-07</time></div>
+                    <a href="/2019/01/07/Nginx免费视频教程/" class="has-link-black-ter is-size-6">Nginx免费视频教程</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/后端学习/">后端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/06/">
+                <span class="level-start">
+                    <span class="level-item">六月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/CSS/">
+                        <span class="level-start">
+                            <span class="level-item">CSS</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/CentOS/">
+                        <span class="level-start">
+                            <span class="level-item">CentOS</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/JavaScript/">
+                        <span class="level-start">
+                            <span class="level-item">JavaScript</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/MySQL/">
+                        <span class="level-start">
+                            <span class="level-item">MySQL</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Nginx/">
+                        <span class="level-start">
+                            <span class="level-item">Nginx</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Node/">
+                        <span class="level-start">
+                            <span class="level-item">Node</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">4</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/React/">
+                        <span class="level-start">
+                            <span class="level-item">React</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">5</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Vue/">
+                        <span class="level-start">
+                            <span class="level-item">Vue</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/docker/">
+                        <span class="level-start">
+                            <span class="level-item">docker</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/markdown/">
+                        <span class="level-start">
+                            <span class="level-item">markdown</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/个人/">
+                        <span class="level-start">
+                            <span class="level-item">个人</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/教程资源/">
+                        <span class="level-start">
+                            <span class="level-item">教程资源</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/07/08/CSS揭秘Demo笔记/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="《CSS揭秘》Demo笔记">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-07T16:00:00.000Z">2019-07-08</time></div>
+                    <a href="/2019/07/08/CSS揭秘Demo笔记/" class="has-link-black-ter is-size-6">《CSS揭秘》Demo笔记</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/H5/">H5</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/02/15/nginx与pm2常用配置/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Nginx+PM2+node简单配置">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-02-14T16:00:00.000Z">2019-02-15</time></div>
+                    <a href="/2019/02/15/nginx与pm2常用配置/" class="has-link-black-ter is-size-6">Nginx+PM2+node简单配置</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/后端学习/">后端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/02/02/docker入门/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="docker入门">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-02-01T16:00:00.000Z">2019-02-02</time></div>
+                    <a href="/2019/02/02/docker入门/" class="has-link-black-ter is-size-6">docker入门</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/后端学习/">后端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/01/28/centOS7安装Node环境/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="CentOS7安装Node环境">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-27T16:00:00.000Z">2019-01-28</time></div>
+                    <a href="/2019/01/28/centOS7安装Node环境/" class="has-link-black-ter is-size-6">CentOS7安装Node环境</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/后端学习/">后端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/01/07/Nginx免费视频教程/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Nginx免费视频教程">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-06T16:00:00.000Z">2019-01-07</time></div>
+                    <a href="/2019/01/07/Nginx免费视频教程/" class="has-link-black-ter is-size-6">Nginx免费视频教程</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/后端学习/">后端学习</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2017/06/">
+                <span class="level-start">
+                    <span class="level-item">六月 2017</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/CSS/">
+                        <span class="level-start">
+                            <span class="level-item">CSS</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/CentOS/">
+                        <span class="level-start">
+                            <span class="level-item">CentOS</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/JavaScript/">
+                        <span class="level-start">
+                            <span class="level-item">JavaScript</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/MySQL/">
+                        <span class="level-start">
+                            <span class="level-item">MySQL</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Nginx/">
+                        <span class="level-start">
+                            <span class="level-item">Nginx</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Node/">
+                        <span class="level-start">
+                            <span class="level-item">Node</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">4</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/React/">
+                        <span class="level-start">
+                            <span class="level-item">React</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">5</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Vue/">
+                        <span class="level-start">
+                            <span class="level-item">Vue</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/docker/">
+                        <span class="level-start">
+                            <span class="level-item">docker</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/markdown/">
+                        <span class="level-start">
+                            <span class="level-item">markdown</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/个人/">
+                        <span class="level-start">
+                            <span class="level-item">个人</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/教程资源/">
+                        <span class="level-start">
+                            <span class="level-item">教程资源</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/user/logo.svg" alt="《CSS揭秘》Demo笔记" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2019 Sophie Wu&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-icarus">Icarus</a>
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?83519e103faf33e698f8b433e97efc38";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/animejs@2.2.0/anime.js" defer></script>
+    <script src="/js/animation.js" defer></script>
+    
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>
